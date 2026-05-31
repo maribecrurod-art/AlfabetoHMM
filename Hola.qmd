@@ -1,6 +1,0 @@
----
-title: "Reconocimiento de Caracteres"
-format: html
----
-
-El reconocimiento automático de caracteres constituye uno de los problemas clásicos dentro del área de reconocimiento de patrones y visión computacional. En particular, el reconocimiento de alfabetos latinos manuscritos presenta múltiples desafíos debido a la variabilidad en la escritura entre distintos individuos, las deformaciones en los trazos, la presencia de ruido en las imágenes y las diferencias en tamaño, inclinación o grosor de las letras. Estas dificultades hacen necesario el uso de modelos probabilísticos capaces de representar la incertidumbre y la naturaleza secuencial de los datos observados.

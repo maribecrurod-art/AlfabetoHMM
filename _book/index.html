@@ -78,6 +78,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
@@ -90,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-sidebar floating fullcontent quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-sidebar floating quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -342,7 +371,29 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#espacio-probabilístico-y-procesos-estocásticos-subyacentes" id="toc-espacio-probabilístico-y-procesos-estocásticos-subyacentes" class="nav-link active" data-scroll-target="#espacio-probabilístico-y-procesos-estocásticos-subyacentes"><span class="header-section-number">1</span> Espacio Probabilístico y Procesos Estocásticos Subyacentes</a></li>
+  <li><a href="#cadenas-de-markov-a-tiempo-continuo-ctmc" id="toc-cadenas-de-markov-a-tiempo-continuo-ctmc" class="nav-link" data-scroll-target="#cadenas-de-markov-a-tiempo-continuo-ctmc"><span class="header-section-number">2</span> Cadenas de Markov a Tiempo Continuo (CTMC)</a></li>
+  <li><a href="#dinámica-infinitesimal-y-generador-de-la-cadena" id="toc-dinámica-infinitesimal-y-generador-de-la-cadena" class="nav-link" data-scroll-target="#dinámica-infinitesimal-y-generador-de-la-cadena"><span class="header-section-number">3</span> Dinámica Infinitesimal y Generador de la Cadena</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-ilustrativo-del-algoritmo-forwardbackward" id="toc-ejemplo-ilustrativo-del-algoritmo-forwardbackward" class="nav-link" data-scroll-target="#ejemplo-ilustrativo-del-algoritmo-forwardbackward"><span class="header-section-number">3.1</span> Ejemplo ilustrativo del algoritmo Forward–Backward</a>
+  <ul class="collapse">
+  <li><a href="#cálculo-forward" id="toc-cálculo-forward" class="nav-link" data-scroll-target="#cálculo-forward"><span class="header-section-number">3.1.1</span> Cálculo Forward</a></li>
+  <li><a href="#cálculo-backward" id="toc-cálculo-backward" class="nav-link" data-scroll-target="#cálculo-backward"><span class="header-section-number">3.1.2</span> Cálculo Backward</a></li>
+  <li><a href="#inferencia-del-estado-oculto" id="toc-inferencia-del-estado-oculto" class="nav-link" data-scroll-target="#inferencia-del-estado-oculto"><span class="header-section-number">3.1.3</span> Inferencia del estado oculto</a></li>
+  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación"><span class="header-section-number">3.1.4</span> Interpretación</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#utilidad-hacia-cadenas-de-márkov-ocultas-hmm" id="toc-utilidad-hacia-cadenas-de-márkov-ocultas-hmm" class="nav-link" data-scroll-target="#utilidad-hacia-cadenas-de-márkov-ocultas-hmm"><span class="header-section-number">4</span> Utilidad hacia Cadenas de Márkov Ocultas (HMM)</a></li>
+  <li><a href="#inferencia-y-filtrado-en-el-modelo-oculto" id="toc-inferencia-y-filtrado-en-el-modelo-oculto" class="nav-link" data-scroll-target="#inferencia-y-filtrado-en-el-modelo-oculto"><span class="header-section-number">5</span> Inferencia y Filtrado en el Modelo Oculto</a></li>
+  <li><a href="#estimación-de-parámetros-y-calibración-del-modelo" id="toc-estimación-de-parámetros-y-calibración-del-modelo" class="nav-link" data-scroll-target="#estimación-de-parámetros-y-calibración-del-modelo"><span class="header-section-number">6</span> Estimación de Parámetros y Calibración del Modelo</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -366,10 +417,662 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="LOGOunach.png" title="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino" class="quarto-cover-image nolightbox img-fluid"></p>
-<p>El reconocimiento automático de caracteres constituye uno de los problemas clásicos dentro del área de reconocimiento de patrones y visión computacional. En particular, el reconocimiento de alfabetos latinos manuscritos presenta múltiples desafíos debido a la variabilidad en la escritura entre distintos individuos, las deformaciones en los trazos, la presencia de ruido en las imágenes y las diferencias en tamaño, inclinación o grosor de las letras. Estas dificultades hacen necesario el uso de modelos probabilísticos capaces de representar la incertidumbre y la naturaleza secuencial de los datos observados.</p>
+
+<section id="espacio-probabilístico-y-procesos-estocásticos-subyacentes" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Espacio Probabilístico y Procesos Estocásticos Subyacentes</h1><p><img src="LOGOunach.png" title="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino" class="quarto-cover-image nolightbox img-fluid"></p>
+<p>Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es necesario partir de los axiomas fundamentales de la teoría de la medida.</p>
+<p>Para esto, se asumirá que el lector tiene conocimientos previos sobre teoría de la medida como lo son las <span class="math inline">\(\sigma\)</span>-álgebra, espacio muestral y medida de probabilidad, entre otros.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Probabilidad Filtrado)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Espacio de Probabilidad Filtrado)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\((\Omega, \mathcal{F}, \mathbb{P})\)</span> un espacio de probabilidad, donde <span class="math inline">\(\Omega\)</span> es el espacio muestral, <span class="math inline">\(\mathcal{F}\)</span> es una <span class="math inline">\(\sigma\)</span>-álgebra sobre <span class="math inline">\(\Omega\)</span>, y <span class="math inline">\(\mathbb{P}\)</span> es una medida de probabilidad. Sea <span class="math inline">\(\mathbb{F} = \{\mathcal{F}_t\}_{t \ge 0}\)</span> una filtración, es decir, una familia no decreciente de sub-<span class="math inline">\(\sigma\)</span>-álgebras de <span class="math inline">\(\mathcal{F}\)</span> tal que <span class="math inline">\(\mathcal{F}_s \subseteq \mathcal{F}_t \subseteq \mathcal{F}\)</span> para todo <span class="math inline">\(0 \le s &lt; t\)</span>. El conjunto <span class="math inline">\((\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})\)</span> se denomina espacio de probabilidad filtrado.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Estados Discreto)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Espacio de Estados Discreto)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Definimos el espacio de estados <span class="math inline">\(S\)</span> como un conjunto discreto y finito (o numerable).</p>
+<p>La topología en <span class="math inline">\(S\)</span> es discreta y su <span class="math inline">\(\sigma\)</span>-álgebra asociada es el conjunto potencia <span class="math inline">\(\mathcal{P}(S)\)</span>.</p>
+</div>
+</div>
+<p>En el contexto de nuestro proyecto, <span class="math inline">\(S\)</span> representa el conjunto de posibles colores o intensidades de un pixel (por ejemplo, el espacio RGB donde <span class="math inline">\(|S| = 256^3\)</span>, o una escala de grises finita).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso Estocástico a Tiempo Continuo)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Proceso Estocástico a Tiempo Continuo)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un proceso estocástico en tiempo continuo con espacio de estados discreto <span class="math inline">\(S\)</span> es una familia de variables aleatorias</p>
+<p><span class="math display">\[
+X = \{X(t) : t \in \mathbb{R}_{\ge 0}\},
+\]</span></p>
+<p>donde cada <span class="math inline">\(X(t): \Omega \to S\)</span> es una función medible respecto a <span class="math inline">\(\mathcal{F}_t\)</span>.</p>
+</div>
+</div>
+<p>Interpretamos <span class="math inline">\(X(t)\)</span> como el ``color verdadero’’ del pixel en el instante (o parámetro continuo) <span class="math inline">\(t\)</span>.</p>
+</section>
+<section id="cadenas-de-markov-a-tiempo-continuo-ctmc" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Cadenas de Markov a Tiempo Continuo (CTMC)</h1>
+<p>La transición del concepto general de proceso estocástico al de proceso de Markov requiere la propiedad de amnesia (pérdida de memoria).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Propiedad de Markov)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Propiedad de Markov)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El proceso adaptado <span class="math inline">\(X = \{X(t)\}_{t \ge 0}\)</span> es una Cadena de Markov a Tiempo Continuo si satisface la condición de Markov relativa a la filtración <span class="math inline">\(\mathbb{F}\)</span>: para cualquier conjunto discreto de tiempos</p>
+<p><span class="math display">\[
+0 \le t_1 &lt; t_2 &lt; \dots &lt; t_n &lt; t
+\]</span></p>
+<p>y cualquier secuencia de estados</p>
+<p><span class="math display">\[
+i_1, i_2, \dots, i_n, i, j \in S,
+\]</span></p>
+<p>se cumple que</p>
+<p><span class="math display">\[
+\mathbb{P}(X(t) = j \mid X(t_1) = i_1, \dots, X(t_n) = i, X(s) = i)
+=
+\mathbb{P}(X(t) = j \mid X(s) = i).
+\]</span></p>
+<p>De manera equivalente y más elegante mediante la esperanza condicional:</p>
+<p><span class="math display">\[
+\mathbb{P}(X(t) = j \mid \mathcal{F}_s)
+=
+\mathbb{P}(X(t) = j \mid X(s))
+\quad
+\text{c.s. (casi seguramente)}
+\]</span></p>
+<p>para todo <span class="math inline">\(0 \le s \le t\)</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Probabilidades de Transición y Homogeneidad)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Probabilidades de Transición y Homogeneidad)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Definimos la probabilidad de transición del estado <span class="math inline">\(i\)</span> al estado <span class="math inline">\(j\)</span> en el intervalo <span class="math inline">\([s,t]\)</span> como</p>
+<p><span class="math display">\[
+p_{ij}(s,t)
+=
+\mathbb{P}(X(t)=j \mid X(s)=i).
+\]</span></p>
+<p>Se dice que la CTMC es <strong>homogénea en el tiempo</strong> si <span class="math inline">\(p_{ij}(s,t)\)</span> depende únicamente de la longitud del intervalo temporal</p>
+<p><span class="math display">\[
+\tau=t-s.
+\]</span></p>
+<p>En tal caso, denotamos la probabilidad de transición como</p>
+<p><span class="math display">\[
+p_{ij}(\tau)
+=
+\mathbb{P}(X(s+\tau)=j \mid X(s)=i).
+\]</span></p>
+<p>Sean estas probabilidades las entradas de una matriz estocástica</p>
+<p><span class="math display">\[
+P(\tau)
+=
+[p_{ij}(\tau)]_{i,j\in S}.
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Propiedad (Ecuaciones de Chapman-Kolmogorov)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Propiedad (Ecuaciones de Chapman-Kolmogorov)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para cualquier <span class="math inline">\(s,t \ge 0\)</span>, la familia de matrices de transición <span class="math inline">\(\{P(t)\}_{t\ge0}\)</span> forma un semigrupo de operadores estocásticos, satisfaciendo</p>
+<p><span class="math display">\[
+P(t+s)=P(t)P(s)
+\]</span></p>
+<p>lo que equivale a</p>
+<p><span class="math display">\[
+p_{ij}(t+s)
+=
+\sum_{k\in S}
+p_{ik}(t)p_{kj}(s).
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="dinámica-infinitesimal-y-generador-de-la-cadena" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Dinámica Infinitesimal y Generador de la Cadena</h1>
+<p>La evolución continua del color del pixel requiere una descripción mediante tasas de transición, lo cual nos lleva a la representación matricial de la derivada de <span class="math inline">\(P(t)\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Matriz Generadora Infinitesimal)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Matriz Generadora Infinitesimal)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Asumiendo que <span class="math inline">\(p_{ij}(t)\)</span> es diferenciable por la derecha en <span class="math inline">\(t=0\)</span>, definimos la tasa de transición <span class="math inline">\(q_{ij}\)</span> del estado <span class="math inline">\(i\)</span> al estado <span class="math inline">\(j\)</span> (donde <span class="math inline">\(i \neq j\)</span>) como:</p>
+<p><span class="math display">\[
+q_{ij}
+=
+\lim_{h \to 0^+}
+\frac{p_{ij}(h)}{h}
+\ge 0.
+\]</span></p>
+<p>Y para la diagonal, definimos la tasa de salida del estado <span class="math inline">\(i\)</span> como <span class="math inline">\(v_i=-q_{ii}\)</span>, dada por</p>
+<p><span class="math display">\[
+q_{ii}
+=
+\lim_{h\to0^+}
+\frac{p_{ii}(h)-1}{h}
+=
+-\sum_{j\neq i} q_{ij}
+\le 0.
+\]</span></p>
+<p>La matriz</p>
+<p><span class="math display">\[
+Q=[q_{ij}]_{i,j\in S}
+\]</span></p>
+<p>se denomina matriz generadora (o matriz <span class="math inline">\(Q\)</span>) de la cadena. Sus filas suman cero:</p>
+<p><span class="math display">\[
+\sum_{j\in S} q_{ij}=0.
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Propiedad (Ecuaciones Diferenciales de Kolmogorov)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Propiedad (Ecuaciones Diferenciales de Kolmogorov)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bajo condiciones de regularidad (que se cumplen trivialmente si el espacio de estados del color <span class="math inline">\(S\)</span> es finito), la matriz de transición <span class="math inline">\(P(t)\)</span> es la solución única a las ecuaciones diferenciales matriciales de Kolmogorov Hacia Adelante (Forward) y Hacia Atrás (Backward):</p>
+<ul>
+<li><strong>Forward:</strong></li>
+</ul>
+<p><span class="math display">\[
+\frac{d}{dt}P(t)=P(t)Q
+\]</span></p>
+<ul>
+<li><strong>Backward:</strong></li>
+</ul>
+<p><span class="math display">\[
+\frac{d}{dt}P(t)=QP(t)
+\]</span></p>
+<p>Cuya solución formal, dada la condición inicial <span class="math inline">\(P(0)=I\)</span> (matriz identidad), es la matriz exponencial</p>
+<p><span class="math display">\[
+P(t)
+=
+e^{Qt}
+=
+\sum_{n=0}^{\infty}
+\frac{(Qt)^n}{n!}.
+\]</span></p>
+</div>
+</div>
+<section id="ejemplo-ilustrativo-del-algoritmo-forwardbackward" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="ejemplo-ilustrativo-del-algoritmo-forwardbackward"><span class="header-section-number">3.1</span> Ejemplo ilustrativo del algoritmo Forward–Backward</h2>
+<p>Para ilustrar el funcionamiento de los algoritmos Forward y Backward en el contexto del reconocimiento de imágenes, consideremos un píxel cuyo color verdadero puede encontrarse en uno de dos estados ocultos:</p>
+<p><span class="math display">\[
+S=\{B,N\},
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(B\)</span>: píxel verdaderamente blanco.</li>
+<li><span class="math inline">\(N\)</span>: píxel verdaderamente negro.</li>
+</ul>
+<p>Debido a ruido en el proceso de adquisición de la imagen, el color observado puede diferir del color real.</p>
+<p>Supongamos que la dinámica del píxel está descrita por la matriz de transición</p>
+<p><span class="math display">\[
+P=
+\begin{pmatrix}
+0.8 &amp; 0.2\\
+0.3 &amp; 0.7
+\end{pmatrix},
+\]</span></p>
+<p>donde, por ejemplo,</p>
+<p><span class="math display">\[
+p_{BN}=0.2
+\]</span></p>
+<p>representa la probabilidad de que un píxel blanco pase al estado negro en el siguiente instante.</p>
+<p>Asimismo, consideremos la siguiente matriz de emisión:</p>
+<p><span class="math display">\[
+E=
+\begin{pmatrix}
+0.9 &amp; 0.1\\
+0.2 &amp; 0.8
+\end{pmatrix},
+\]</span></p>
+<p>cuyas columnas corresponden a las observaciones</p>
+<p><span class="math display">\[
+(O_B,O_N),
+\]</span></p>
+<p>es decir, observar blanco u observar negro. Por ejemplo,</p>
+<p><span class="math display">\[
+P(O_B \mid B)=0.9,
+\qquad
+P(O_B \mid N)=0.2.
+\]</span></p>
+<p>Finalmente, asumimos una distribución inicial</p>
+<p><span class="math display">\[
+\pi=(0.6,0.4),
+\]</span></p>
+<p>y que la secuencia observada es</p>
+<p><span class="math display">\[
+Y=(O_B,O_N).
+\]</span></p>
+<p>Esto significa que el sensor registra blanco en el primer instante y negro en el segundo.</p>
+<section id="cálculo-forward" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="cálculo-forward"><span class="header-section-number">3.1.1</span> Cálculo Forward</h3>
+<p>La variable Forward se define como</p>
+<p><span class="math display">\[
+\alpha_k(i)
+=
+P(y_1,\ldots,y_k,X_k=i).
+\]</span></p>
+<section id="paso-1" class="level4" data-number="3.1.1.1">
+<h4 data-number="3.1.1.1" class="anchored" data-anchor-id="paso-1"><span class="header-section-number">3.1.1.1</span> Paso 1</h4>
+<p>Para la primera observación <span class="math inline">\(O_B\)</span>:</p>
+<p><span class="math display">\[
+\alpha_1(B)
+=
+P(X_1=B)\,P(O_B\mid B)
+=
+0.6(0.9)
+=
+0.54,
+\]</span></p>
+<p><span class="math display">\[
+\alpha_1(N)
+=
+P(X_1=N)\,P(O_B\mid N)
+=
+0.4(0.2)
+=
+0.08.
+\]</span></p>
+</section>
+<section id="paso-2" class="level4" data-number="3.1.1.2">
+<h4 data-number="3.1.1.2" class="anchored" data-anchor-id="paso-2"><span class="header-section-number">3.1.1.2</span> Paso 2</h4>
+<p>Calculamos primero la probabilidad de alcanzar el estado blanco:</p>
+<p><span class="math display">\[
+\sum_{i\in S}
+\alpha_1(i)p_{iB}
+=
+0.54(0.8)+0.08(0.3)
+=
+0.456.
+\]</span></p>
+<p>Multiplicando por la probabilidad de emisión correspondiente,</p>
+<p><span class="math display">\[
+\alpha_2(B)
+=
+0.456(0.1)
+=
+0.0456.
+\]</span></p>
+<p>Análogamente, para el estado negro:</p>
+<p><span class="math display">\[
+\sum_{i\in S}
+\alpha_1(i)p_{iN}
+=
+0.54(0.2)+0.08(0.7)
+=
+0.164,
+\]</span></p>
+<p>y por tanto,</p>
+<p><span class="math display">\[
+\alpha_2(N)
+=
+0.164(0.8)
+=
+0.1312.
+\]</span></p>
+</section>
+<section id="verosimilitud-de-la-secuencia-observada" class="level4" data-number="3.1.1.3">
+<h4 data-number="3.1.1.3" class="anchored" data-anchor-id="verosimilitud-de-la-secuencia-observada"><span class="header-section-number">3.1.1.3</span> Verosimilitud de la secuencia observada</h4>
+<p>La probabilidad total de observar la secuencia <span class="math inline">\(Y\)</span> es</p>
+<p><span class="math display">\[
+P(Y)
+=
+\alpha_2(B)+\alpha_2(N),
+\]</span></p>
+<p>es decir,</p>
+<p><span class="math display">\[
+P(Y)
+=
+0.0456+0.1312
+=
+0.1768.
+\]</span></p>
+</section>
+</section>
+<section id="cálculo-backward" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="cálculo-backward"><span class="header-section-number">3.1.2</span> Cálculo Backward</h3>
+<p>La variable Backward se define mediante</p>
+<p><span class="math display">\[
+\beta_k(i)
+=
+P(y_{k+1},\ldots,y_T\mid X_k=i).
+\]</span></p>
+<p>Como la secuencia contiene únicamente dos observaciones,</p>
+<p><span class="math display">\[
+\beta_2(B)=\beta_2(N)=1.
+\]</span></p>
+<p>Retrocediendo un paso:</p>
+<p><span class="math display">\[
+\beta_1(B)
+=
+0.8(0.1)(1)
++
+0.2(0.8)(1)
+=
+0.24,
+\]</span></p>
+<p>y</p>
+<p><span class="math display">\[
+\beta_1(N)
+=
+0.3(0.1)(1)
++
+0.7(0.8)(1)
+=
+0.59.
+\]</span></p>
+</section>
+<section id="inferencia-del-estado-oculto" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="inferencia-del-estado-oculto"><span class="header-section-number">3.1.3</span> Inferencia del estado oculto</h3>
+<p>Una de las principales ventajas del algoritmo Forward–Backward es que permite calcular la probabilidad posterior de cada estado oculto.</p>
+<p>Para el estado blanco en el primer instante,</p>
+<p><span class="math display">\[
+\gamma_1(B)
+=
+P(X_1=B\mid Y)
+=
+\frac{\alpha_1(B)\beta_1(B)}
+{P(Y)},
+\]</span></p>
+<p>por lo que</p>
+<p><span class="math display">\[
+\gamma_1(B)
+=
+\frac{0.54(0.24)}
+{0.1768}
+=
+0.733.
+\]</span></p>
+<p>De forma análoga,</p>
+<p><span class="math display">\[
+\gamma_1(N)
+=
+\frac{\alpha_1(N)\beta_1(N)}
+{P(Y)}
+=
+\frac{0.08(0.59)}
+{0.1768}
+=
+0.267.
+\]</span></p>
+<p>En consecuencia,</p>
+<p><span class="math display">\[
+P(X_1=B\mid Y)\approx 73.3\%,
+\]</span></p>
+<p>mientras que</p>
+<p><span class="math display">\[
+P(X_1=N\mid Y)\approx 26.7\%.
+\]</span></p>
+</section>
+<section id="interpretación" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="interpretación"><span class="header-section-number">3.1.4</span> Interpretación</h3>
+<p>A pesar de que el sensor observa un píxel blanco en el primer instante y negro en el segundo, el algoritmo Forward–Backward determina que existe aproximadamente un <span class="math inline">\(73\%\)</span> de probabilidad de que el color verdadero inicial haya sido blanco. Este resultado muestra cómo un Modelo Oculto de Markov combina la información proporcionada por las observaciones ruidosas con la dinámica de transición del sistema para inferir el estado real subyacente del píxel.</p>
+</section>
+</section>
+</section>
+<section id="utilidad-hacia-cadenas-de-márkov-ocultas-hmm" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Utilidad hacia Cadenas de Márkov Ocultas (HMM)</h1>
+<p>La fundamentación teórica precedente modela la dinámica subyacente determinista de la matriz de transición y la evolución estocástica de las trayectorias del sistema. Para extender esta arquitectura a un Modelo Oculto de Márkov (HMM) en el contexto de la inferencia y análisis de píxeles en imágenes que contienen letras del alfabeto latino, se formaliza la siguiente estructura bivariada:</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso Latente e Inobservable)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Proceso Latente e Inobservable)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El proceso de Márkov a tiempo continuo</p>
+<p><span class="math display">\[
+X = \{X(t)\}_{t \ge 0}
+\]</span></p>
+<p>sobre el espacio de estados <span class="math inline">\(S\)</span>, caracterizado por su matriz generadora infinitesimal <span class="math inline">\(Q\)</span>, constituye el <em>proceso latente</em>. Las alteraciones estocásticas inducidas por <span class="math inline">\(Q\)</span> a lo largo del parámetro <span class="math inline">\(t\)</span> (representando una métrica de degradación física o divergencia espacial) rigen las transiciones hacia estados degradados, manteniéndose inaccesibles a la medición directa.</p>
+</div>
+</div>
+<p>La variable <span class="math inline">\(X(t)\)</span> describe el estado ideal o ``verdadero’’ del pixel.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso de Observación Empírica)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Proceso de Observación Empírica)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea</p>
+<p><span class="math display">\[
+(O,\mathcal{P}(O))
+\]</span></p>
+<p>el espacio medible de las posibles mediciones obtenidas por instrumentos.</p>
+<p>Se postula un <em>proceso de observación</em> acoplado</p>
+<p><span class="math display">\[
+Y=\{Y(t)\}_{t\ge0},
+\]</span></p>
+<p>compuesto por variables aleatorias</p>
+<p><span class="math display">\[
+Y(t):\Omega\to O
+\]</span></p>
+<p>que representan la lectura empírica o ruidosa en el parámetro <span class="math inline">\(t\)</span>.</p>
+</div>
+</div>
+<p>En este caso <span class="math inline">\(O\)</span> denota el conjunto finito de colores o intensidades registrables por un sensor óptico y <span class="math inline">\(Y\)</span> es la lectura ruidosa del pixel en el tiempo <span class="math inline">\(t\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Matriz de Emisión e Independencia Condicional)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Matriz de Emisión e Independencia Condicional)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La dependencia estocástica entre ambos procesos queda unívocamente determinada por la condición de independencia local.</p>
+<p>Para cualquier instante <span class="math inline">\(t\ge0\)</span>, la observación <span class="math inline">\(Y(t)\)</span> es condicionalmente independiente de toda la historia previa del sistema dado el estado concurrente <span class="math inline">\(X(t)\)</span>.</p>
+<p>Formalmente, para cualquier <span class="math inline">\(y\in O\)</span> y <span class="math inline">\(x\in S\)</span>:</p>
+<p><span class="math display">\[
+\mathbb{P}(Y(t)=y \mid \mathcal{F}_t^X,\mathcal{F}_{t^-}^Y)
+=
+\mathbb{P}(Y(t)=y \mid X(t)=x)
+\quad
+\text{c.s.}
+\]</span></p>
+<p>donde <span class="math inline">\(\mathcal{F}_t^X\)</span> y <span class="math inline">\(\mathcal{F}_{t^-}^Y\)</span> denotan las filtraciones del historial latente y observable, respectivamente.</p>
+<p>Estas probabilidades definen las entradas de la matriz de emisión estocástica</p>
+<p><span class="math display">\[
+E=[e_{xy}],
+\]</span></p>
+<p>donde</p>
+<p><span class="math display">\[
+e_{xy}
+=
+\mathbb{P}(Y(t)=y \mid X(t)=x).
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="inferencia-y-filtrado-en-el-modelo-oculto" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Inferencia y Filtrado en el Modelo Oculto</h1>
+<p>Una vez establecida la dinámica del sistema, es necesario desarrollar la maquinaria analítica para inferir el estado latente del pixel a partir de las observaciones empíricas.</p>
+<p>Supongamos que disponemos de una secuencia de observaciones</p>
+<p><span class="math display">\[
+Y=(y_1,y_2,\dots,y_K)
+\]</span></p>
+<p>en instantes discretos de tiempo (o espacio)</p>
+<p><span class="math display">\[
+0 \le t_1 &lt; t_2 &lt; \dots &lt; t_K \le T.
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Definimos la variable de avance <span class="math inline">\(\alpha_k(i)\)</span> como la probabilidad conjunta de observar la secuencia parcial hasta el k-ésimo instante y que el estado oculto en dicho instante sea <span class="math inline">\(i\in S\)</span>:</p>
+<p><span class="math display">\[
+\alpha_k(i)
+=
+\mathbb{P}
+\bigl(
+Y(t_1)=y_1,\dots,Y(t_k)=y_k,
+X(t_k)=i
+\bigr).
+\]</span></p>
+<p>Esta cantidad se calcula recursivamente mediante la ecuación de Chapman-Kolmogorov y la matriz de emisión:</p>
+<p><span class="math display">\[
+\alpha_k(j)
+=
+\left(
+\sum_{i\in S}
+\alpha_{k-1}(i)\,
+p_{ij}(\Delta t_k)
+\right)
+\mathbb{P}
+\bigl(
+Y(t_k)=y_k
+\mid
+X(t_k)=j
+\bigr)
+\]</span></p>
+<p>donde</p>
+<p><span class="math display">\[
+\Delta t_k=t_k-t_{k-1}
+\]</span></p>
+<p>y</p>
+<p><span class="math display">\[
+p_{ij}(\Delta t_k)
+\]</span></p>
+<p>es la entrada correspondiente de la matriz de transición</p>
+<p><span class="math display">\[
+P(\Delta t_k)
+=
+e^{Q\Delta t_k}.
+\]</span></p>
+<p>La verosimilitud total de la secuencia de observaciones es simplemente</p>
+<p><span class="math display">\[
+\mathbb{P}(Y)
+=
+\sum_{i\in S}
+\alpha_K(i).
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición (Decodificación Óptima Global)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Definición (Decodificación Óptima Global)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para reconstruir la trayectoria más probable, buscamos la secuencia de estados latentes</p>
+<p><span class="math display">\[
+\hat{X}
+=
+(\hat{x}_1,\dots,\hat{x}_K)
+\]</span></p>
+<p>que maximice la probabilidad condicional conjunta</p>
+<p><span class="math display">\[
+\hat{X}
+=
+\arg\max_{x_1,\dots,x_K}
+\mathbb{P}
+\Bigl(
+X(t_1)=x_1,\dots,X(t_K)=x_K
+\mid
+Y(t_1)=y_1,\dots,Y(t_K)=y_K
+\Bigr).
+\]</span></p>
+<p>La solución sistemática a este problema de programación dinámica espacial/temporal se obtiene mediante la adaptación del Algoritmo de Viterbi para cadenas a tiempo continuo, evaluando las transiciones máximas sobre</p>
+<p><span class="math display">\[
+P(\Delta t_k).
+\]</span></p>
+</div>
+</div>
+<p>Para los pixeles es la trayectoria más probable de los colores verdaderos del pixel (el problema de decodificación).</p>
+</section>
+<section id="estimación-de-parámetros-y-calibración-del-modelo" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Estimación de Parámetros y Calibración del Modelo</h1>
+<p>En la práctica, la matriz generadora infinitesimal <span class="math inline">\(Q\)</span> (que dicta la tasa de degradación del color para el caso de estudio) y las probabilidades de emisión empírica rara vez son conocidas a priori y deben ser estimadas a partir de un dataset de imágenes (el alfabeto latino modificado).</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La estimación por máxima verosimilitud del conjunto de parámetros del modelo</p>
+<p><span class="math display">\[
+\Theta=\{Q,E\}
+\]</span></p>
+<p>dado un conjunto de secuencias observadas se realiza mediante un proceso iterativo.</p>
+<ul>
+<li><p><strong>Paso E (Expectation):</strong> Se calculan las estadísticas suficientes esperadas del sistema latente (tiempo esperado de permanencia en cada estado de color y número esperado de transiciones) condicionado a las observaciones y a la estimación actual de los parámetros <span class="math inline">\(\Theta^{(m)}\)</span>, utilizando las variables recursivas Forward y Backward.</p></li>
+<li><p><strong>Paso M (Maximization):</strong> Se actualizan los parámetros <span class="math inline">\(\Theta^{(m+1)}\)</span> para maximizar la función Q de verosimilitud esperada. En particular, la estimación de las tasas de transición empíricas se formula restringiendo las soluciones para garantizar que las filas de <span class="math inline">\(Q^{(m+1)}\)</span> sigan sumando cero y <span class="math inline">\(q_{ij}\ge0\)</span> para <span class="math inline">\(i\neq j\)</span>.</p></li>
+</ul>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -790,4 +1493,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></div></div></footer></body></html>

@@ -385,7 +385,6 @@ window.Quarto = {
   <li><a href="#cálculo-forward" id="toc-cálculo-forward" class="nav-link" data-scroll-target="#cálculo-forward"><span class="header-section-number">3.1.1</span> Cálculo Forward</a></li>
   <li><a href="#cálculo-backward" id="toc-cálculo-backward" class="nav-link" data-scroll-target="#cálculo-backward"><span class="header-section-number">3.1.2</span> Cálculo Backward</a></li>
   <li><a href="#inferencia-del-estado-oculto" id="toc-inferencia-del-estado-oculto" class="nav-link" data-scroll-target="#inferencia-del-estado-oculto"><span class="header-section-number">3.1.3</span> Inferencia del estado oculto</a></li>
-  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación"><span class="header-section-number">3.1.4</span> Interpretación</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#utilidad-hacia-cadenas-de-márkov-ocultas-hmm" id="toc-utilidad-hacia-cadenas-de-márkov-ocultas-hmm" class="nav-link" data-scroll-target="#utilidad-hacia-cadenas-de-márkov-ocultas-hmm"><span class="header-section-number">4</span> Utilidad hacia Cadenas de Márkov Ocultas (HMM)</a></li>
@@ -420,8 +419,8 @@ window.Quarto = {
 
 <section id="espacio-probabilístico-y-procesos-estocásticos-subyacentes" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Espacio Probabilístico y Procesos Estocásticos Subyacentes</h1><p><img src="LOGOunach.png" title="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino" class="quarto-cover-image nolightbox img-fluid"></p>
-<p>Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es necesario partir de los axiomas fundamentales de la teoría de la medida.</p>
-<p>Para esto, se asumirá que el lector tiene conocimientos previos sobre teoría de la medida como lo son las <span class="math inline">\(\sigma\)</span>-álgebra, espacio muestral y medida de probabilidad, entre otros.</p>
+<p>Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es necesario partir de los axiomas fundamentales de la teoría de la medida, para más detalle consultar el libro de Rudin.</p>
+<p>Para esto, se asumirá que el lector tiene conocimientos previos sobre teoría de la medida como lo son las <span class="math inline">\(\sigma\)</span>-álgebras, espacio muestral y medida de probabilidad, entre otros.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Probabilidad Filtrado)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -467,7 +466,7 @@ X = \{X(t) : t \in \mathbb{R}_{\ge 0}\},
 <p>donde cada <span class="math inline">\(X(t): \Omega \to S\)</span> es una función medible respecto a <span class="math inline">\(\mathcal{F}_t\)</span>.</p>
 </div>
 </div>
-<p>Interpretamos <span class="math inline">\(X(t)\)</span> como el ``color verdadero’’ del pixel en el instante (o parámetro continuo) <span class="math inline">\(t\)</span>.</p>
+<p>Interpretamos <span class="math inline">\(X(t)\)</span> como el “color verdadero” del pixel en el instante (o parámetro continuo) <span class="math inline">\(t\)</span>.</p>
 </section>
 <section id="cadenas-de-markov-a-tiempo-continuo-ctmc" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Cadenas de Markov a Tiempo Continuo (CTMC)</h1>
@@ -564,10 +563,16 @@ p_{ik}(t)p_{kj}(s).
 \]</span></p>
 </div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="chapman-k.png" class="img-fluid figure-img"></p>
+<figcaption>La probabilidad de transición <span class="math inline">\(p\_{ij}(t+s)\)</span> se obtiene sumando las contribuciones de todos los posibles estados intermedios <span class="math inline">\(k\)</span>.</figcaption>
+</figure>
+</div>
 </section>
 <section id="dinámica-infinitesimal-y-generador-de-la-cadena" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Dinámica Infinitesimal y Generador de la Cadena</h1>
-<p>La evolución continua del color del pixel requiere una descripción mediante tasas de transición, lo cual nos lleva a la representación matricial de la derivada de <span class="math inline">\(P(t)\)</span>.</p>
+<p>La evolución continua del color del pixel requiere una descripción mediante probabilidades de transición, lo cual nos lleva a la representación matricial de la derivada de <span class="math inline">\(P(t)\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Definición (Matriz Generadora Infinitesimal)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -586,7 +591,7 @@ q_{ij}
 \frac{p_{ij}(h)}{h}
 \ge 0.
 \]</span></p>
-<p>Y para la diagonal, definimos la tasa de salida del estado <span class="math inline">\(i\)</span> como <span class="math inline">\(v_i=-q_{ii}\)</span>, dada por</p>
+<p>Y para el caso <span class="math inline">\(i=j\)</span>, definimos la probabilidad de salida del estado <span class="math inline">\(i\)</span> como <span class="math inline">\(v_i=-q_{ii}\)</span>, dada por</p>
 <p><span class="math display">\[
 q_{ii}
 =
@@ -629,7 +634,7 @@ Q=[q_{ij}]_{i,j\in S}
 <p><span class="math display">\[
 \frac{d}{dt}P(t)=QP(t)
 \]</span></p>
-<p>Cuya solución formal, dada la condición inicial <span class="math inline">\(P(0)=I\)</span> (matriz identidad), es la matriz exponencial</p>
+<p>Cuya solución formal, bajo la condición inicial <span class="math inline">\(P(0)=I\)</span> (matriz identidad), es la matriz exponencial</p>
 <p><span class="math display">\[
 P(t)
 =
@@ -651,7 +656,7 @@ S=\{B,N\},
 <li><span class="math inline">\(B\)</span>: píxel verdaderamente blanco.</li>
 <li><span class="math inline">\(N\)</span>: píxel verdaderamente negro.</li>
 </ul>
-<p>Debido a ruido en el proceso de adquisición de la imagen, el color observado puede diferir del color real.</p>
+<p>Debido al ruido en el proceso de adquisición de la imagen, el color observado puede diferir del color real.</p>
 <p>Supongamos que la dinámica del píxel está descrita por la matriz de transición</p>
 <p><span class="math display">\[
 P=
@@ -851,10 +856,14 @@ P(X_1=B\mid Y)\approx 73.3\%,
 <p><span class="math display">\[
 P(X_1=N\mid Y)\approx 26.7\%.
 \]</span></p>
-</section>
-<section id="interpretación" class="level3" data-number="3.1.4">
-<h3 data-number="3.1.4" class="anchored" data-anchor-id="interpretación"><span class="header-section-number">3.1.4</span> Interpretación</h3>
+<p>Interpretación</p>
 <p>A pesar de que el sensor observa un píxel blanco en el primer instante y negro en el segundo, el algoritmo Forward–Backward determina que existe aproximadamente un <span class="math inline">\(73\%\)</span> de probabilidad de que el color verdadero inicial haya sido blanco. Este resultado muestra cómo un Modelo Oculto de Markov combina la información proporcionada por las observaciones ruidosas con la dinámica de transición del sistema para inferir el estado real subyacente del píxel.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagenesHMM/ejemplopixel1.png" class="img-fluid figure-img"></p>
+<figcaption>Modelo Oculto de Markov para un píxel con dos estados ocultos y dos observaciones.</figcaption>
+</figure>
+</div>
 </section>
 </section>
 </section>
@@ -871,14 +880,14 @@ P(X_1=N\mid Y)\approx 26.7\%.
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>El proceso de Márkov a tiempo continuo</p>
+<p>El proceso de Markov a tiempo continuo</p>
 <p><span class="math display">\[
 X = \{X(t)\}_{t \ge 0}
 \]</span></p>
 <p>sobre el espacio de estados <span class="math inline">\(S\)</span>, caracterizado por su matriz generadora infinitesimal <span class="math inline">\(Q\)</span>, constituye el <em>proceso latente</em>. Las alteraciones estocásticas inducidas por <span class="math inline">\(Q\)</span> a lo largo del parámetro <span class="math inline">\(t\)</span> (representando una métrica de degradación física o divergencia espacial) rigen las transiciones hacia estados degradados, manteniéndose inaccesibles a la medición directa.</p>
 </div>
 </div>
-<p>La variable <span class="math inline">\(X(t)\)</span> describe el estado ideal o ``verdadero’’ del pixel.</p>
+<p>La variable <span class="math inline">\(X(t)\)</span> describe el estado ideal o “verdadero” del pixel.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso de Observación Empírica)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -961,7 +970,7 @@ Y=(y_1,y_2,\dots,y_K)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Definimos la variable de avance <span class="math inline">\(\alpha_k(i)\)</span> como la probabilidad conjunta de observar la secuencia parcial hasta el k-ésimo instante y que el estado oculto en dicho instante sea <span class="math inline">\(i\in S\)</span>:</p>
+<p>Definimos la variable de avance <span class="math inline">\(\alpha_k(i)\)</span> como la probabilidad conjunta de observar la secuencia parcial hasta el <span class="math inline">\(k\)</span>-ésimo instante y que el estado oculto en dicho instante sea <span class="math inline">\(i\in S\)</span>:</p>
 <p><span class="math display">\[
 \alpha_k(i)
 =

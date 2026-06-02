@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -378,17 +398,17 @@ window.Quarto = {
   <ul>
   <li><a href="#espacio-probabilístico-y-procesos-estocásticos-subyacentes" id="toc-espacio-probabilístico-y-procesos-estocásticos-subyacentes" class="nav-link active" data-scroll-target="#espacio-probabilístico-y-procesos-estocásticos-subyacentes"><span class="header-section-number">1</span> Espacio Probabilístico y Procesos Estocásticos Subyacentes</a></li>
   <li><a href="#cadenas-de-markov-a-tiempo-continuo-ctmc" id="toc-cadenas-de-markov-a-tiempo-continuo-ctmc" class="nav-link" data-scroll-target="#cadenas-de-markov-a-tiempo-continuo-ctmc"><span class="header-section-number">2</span> Cadenas de Markov a Tiempo Continuo (CTMC)</a></li>
-  <li><a href="#dinámica-infinitesimal-y-generador-de-la-cadena" id="toc-dinámica-infinitesimal-y-generador-de-la-cadena" class="nav-link" data-scroll-target="#dinámica-infinitesimal-y-generador-de-la-cadena"><span class="header-section-number">3</span> Dinámica Infinitesimal y Generador de la Cadena</a>
-  <ul class="collapse">
-  <li><a href="#ejemplo-ilustrativo-del-algoritmo-forwardbackward" id="toc-ejemplo-ilustrativo-del-algoritmo-forwardbackward" class="nav-link" data-scroll-target="#ejemplo-ilustrativo-del-algoritmo-forwardbackward"><span class="header-section-number">3.1</span> Ejemplo ilustrativo del algoritmo Forward–Backward</a>
-  <ul class="collapse">
-  <li><a href="#cálculo-forward" id="toc-cálculo-forward" class="nav-link" data-scroll-target="#cálculo-forward"><span class="header-section-number">3.1.1</span> Cálculo Forward</a></li>
-  <li><a href="#cálculo-backward" id="toc-cálculo-backward" class="nav-link" data-scroll-target="#cálculo-backward"><span class="header-section-number">3.1.2</span> Cálculo Backward</a></li>
-  <li><a href="#inferencia-del-estado-oculto" id="toc-inferencia-del-estado-oculto" class="nav-link" data-scroll-target="#inferencia-del-estado-oculto"><span class="header-section-number">3.1.3</span> Inferencia del estado oculto</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#dinámica-infinitesimal-y-generador-de-la-cadena" id="toc-dinámica-infinitesimal-y-generador-de-la-cadena" class="nav-link" data-scroll-target="#dinámica-infinitesimal-y-generador-de-la-cadena"><span class="header-section-number">3</span> Dinámica Infinitesimal y Generador de la Cadena</a></li>
   <li><a href="#utilidad-hacia-cadenas-de-márkov-ocultas-hmm" id="toc-utilidad-hacia-cadenas-de-márkov-ocultas-hmm" class="nav-link" data-scroll-target="#utilidad-hacia-cadenas-de-márkov-ocultas-hmm"><span class="header-section-number">4</span> Utilidad hacia Cadenas de Márkov Ocultas (HMM)</a></li>
-  <li><a href="#inferencia-y-filtrado-en-el-modelo-oculto" id="toc-inferencia-y-filtrado-en-el-modelo-oculto" class="nav-link" data-scroll-target="#inferencia-y-filtrado-en-el-modelo-oculto"><span class="header-section-number">5</span> Inferencia y Filtrado en el Modelo Oculto</a></li>
+  <li><a href="#inferencia-y-filtrado-en-el-modelo-oculto" id="toc-inferencia-y-filtrado-en-el-modelo-oculto" class="nav-link" data-scroll-target="#inferencia-y-filtrado-en-el-modelo-oculto"><span class="header-section-number">5</span> Inferencia y Filtrado en el Modelo Oculto</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-ilustrativo-del-algoritmo-forwardbackward" id="toc-ejemplo-ilustrativo-del-algoritmo-forwardbackward" class="nav-link" data-scroll-target="#ejemplo-ilustrativo-del-algoritmo-forwardbackward"><span class="header-section-number">5.1</span> Ejemplo ilustrativo del algoritmo Forward–Backward</a>
+  <ul class="collapse">
+  <li><a href="#cálculo-forward" id="toc-cálculo-forward" class="nav-link" data-scroll-target="#cálculo-forward"><span class="header-section-number">5.1.1</span> Cálculo Forward</a></li>
+  <li><a href="#cálculo-backward" id="toc-cálculo-backward" class="nav-link" data-scroll-target="#cálculo-backward"><span class="header-section-number">5.1.2</span> Cálculo Backward</a></li>
+  <li><a href="#inferencia-del-estado-oculto" id="toc-inferencia-del-estado-oculto" class="nav-link" data-scroll-target="#inferencia-del-estado-oculto"><span class="header-section-number">5.1.3</span> Inferencia del estado oculto</a></li>
+  </ul></li>
+  </ul></li>
   <li><a href="#estimación-de-parámetros-y-calibración-del-modelo" id="toc-estimación-de-parámetros-y-calibración-del-modelo" class="nav-link" data-scroll-target="#estimación-de-parámetros-y-calibración-del-modelo"><span class="header-section-number">6</span> Estimación de Parámetros y Calibración del Modelo</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></nav>
@@ -419,7 +439,7 @@ window.Quarto = {
 
 <section id="espacio-probabilístico-y-procesos-estocásticos-subyacentes" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Espacio Probabilístico y Procesos Estocásticos Subyacentes</h1><p><img src="LOGOunach.png" title="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino" class="quarto-cover-image nolightbox img-fluid"></p>
-<p>Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es necesario partir de los axiomas fundamentales de la teoría de la medida, para más detalle consultar el libro de Rudin.</p>
+<p>Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es necesario partir de los axiomas fundamentales de la teoría de la medida, para más detalle consultar el libro de <span class="citation" data-cites="Rudin1987">Rudin (<a href="#ref-Rudin1987" role="doc-biblioref">1987</a>)</span>.</p>
 <p>Para esto, se asumirá que el lector tiene conocimientos previos sobre teoría de la medida como lo son las <span class="math inline">\(\sigma\)</span>-álgebras, espacio muestral y medida de probabilidad, entre otros.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Probabilidad Filtrado)">
 <div class="callout-header d-flex align-content-center">
@@ -563,10 +583,14 @@ p_{ik}(t)p_{kj}(s).
 \]</span></p>
 </div>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="chapman-k.png" class="img-fluid figure-img"></p>
-<figcaption>La probabilidad de transición <span class="math inline">\(p\_{ij}(t+s)\)</span> se obtiene sumando las contribuciones de todos los posibles estados intermedios <span class="math inline">\(k\)</span>.</figcaption>
+<div id="fig-chapman" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chapman-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="chapman-k.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="700">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chapman-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.1: La probabilidad de transición <span class="math inline">\(p\_{ij}(t+s)\)</span> se obtiene sumando las contribuciones de todos los posibles estados intermedios <span class="math inline">\(k\)</span>.
+</figcaption>
 </figure>
 </div>
 </section>
@@ -621,7 +645,7 @@ Q=[q_{ij}]_{i,j\in S}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Bajo condiciones de regularidad (que se cumplen trivialmente si el espacio de estados del color <span class="math inline">\(S\)</span> es finito), la matriz de transición <span class="math inline">\(P(t)\)</span> es la solución única a las ecuaciones diferenciales matriciales de Kolmogorov Hacia Adelante (Forward) y Hacia Atrás (Backward):</p>
+<p>Bajo condiciones de regularidad (que se cumplen trivialmente si el espacio de estados del color <span class="math inline">\(S\)</span> es finito), la matriz de transición <span class="math inline">\(P(t)\)</span> es la solución única a las ecuaciones diferenciales matriciales de Kolmogorov Hacia Adelante (Forward) y Hacia Atrás (Backward) <span class="citation" data-cites="Norris1998">Norris (<a href="#ref-Norris1998" role="doc-biblioref">1998</a>)</span> :</p>
 <ul>
 <li><strong>Forward:</strong></li>
 </ul>
@@ -645,227 +669,6 @@ e^{Qt}
 \]</span></p>
 </div>
 </div>
-<section id="ejemplo-ilustrativo-del-algoritmo-forwardbackward" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="ejemplo-ilustrativo-del-algoritmo-forwardbackward"><span class="header-section-number">3.1</span> Ejemplo ilustrativo del algoritmo Forward–Backward</h2>
-<p>Para ilustrar el funcionamiento de los algoritmos Forward y Backward en el contexto del reconocimiento de imágenes, consideremos un píxel cuyo color verdadero puede encontrarse en uno de dos estados ocultos:</p>
-<p><span class="math display">\[
-S=\{B,N\},
-\]</span></p>
-<p>donde:</p>
-<ul>
-<li><span class="math inline">\(B\)</span>: píxel verdaderamente blanco.</li>
-<li><span class="math inline">\(N\)</span>: píxel verdaderamente negro.</li>
-</ul>
-<p>Debido al ruido en el proceso de adquisición de la imagen, el color observado puede diferir del color real.</p>
-<p>Supongamos que la dinámica del píxel está descrita por la matriz de transición</p>
-<p><span class="math display">\[
-P=
-\begin{pmatrix}
-0.8 &amp; 0.2\\
-0.3 &amp; 0.7
-\end{pmatrix},
-\]</span></p>
-<p>donde, por ejemplo,</p>
-<p><span class="math display">\[
-p_{BN}=0.2
-\]</span></p>
-<p>representa la probabilidad de que un píxel blanco pase al estado negro en el siguiente instante.</p>
-<p>Asimismo, consideremos la siguiente matriz de emisión:</p>
-<p><span class="math display">\[
-E=
-\begin{pmatrix}
-0.9 &amp; 0.1\\
-0.2 &amp; 0.8
-\end{pmatrix},
-\]</span></p>
-<p>cuyas columnas corresponden a las observaciones</p>
-<p><span class="math display">\[
-(O_B,O_N),
-\]</span></p>
-<p>es decir, observar blanco u observar negro. Por ejemplo,</p>
-<p><span class="math display">\[
-P(O_B \mid B)=0.9,
-\qquad
-P(O_B \mid N)=0.2.
-\]</span></p>
-<p>Finalmente, asumimos una distribución inicial</p>
-<p><span class="math display">\[
-\pi=(0.6,0.4),
-\]</span></p>
-<p>y que la secuencia observada es</p>
-<p><span class="math display">\[
-Y=(O_B,O_N).
-\]</span></p>
-<p>Esto significa que el sensor registra blanco en el primer instante y negro en el segundo.</p>
-<section id="cálculo-forward" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="cálculo-forward"><span class="header-section-number">3.1.1</span> Cálculo Forward</h3>
-<p>La variable Forward se define como</p>
-<p><span class="math display">\[
-\alpha_k(i)
-=
-P(y_1,\ldots,y_k,X_k=i).
-\]</span></p>
-<section id="paso-1" class="level4" data-number="3.1.1.1">
-<h4 data-number="3.1.1.1" class="anchored" data-anchor-id="paso-1"><span class="header-section-number">3.1.1.1</span> Paso 1</h4>
-<p>Para la primera observación <span class="math inline">\(O_B\)</span>:</p>
-<p><span class="math display">\[
-\alpha_1(B)
-=
-P(X_1=B)\,P(O_B\mid B)
-=
-0.6(0.9)
-=
-0.54,
-\]</span></p>
-<p><span class="math display">\[
-\alpha_1(N)
-=
-P(X_1=N)\,P(O_B\mid N)
-=
-0.4(0.2)
-=
-0.08.
-\]</span></p>
-</section>
-<section id="paso-2" class="level4" data-number="3.1.1.2">
-<h4 data-number="3.1.1.2" class="anchored" data-anchor-id="paso-2"><span class="header-section-number">3.1.1.2</span> Paso 2</h4>
-<p>Calculamos primero la probabilidad de alcanzar el estado blanco:</p>
-<p><span class="math display">\[
-\sum_{i\in S}
-\alpha_1(i)p_{iB}
-=
-0.54(0.8)+0.08(0.3)
-=
-0.456.
-\]</span></p>
-<p>Multiplicando por la probabilidad de emisión correspondiente,</p>
-<p><span class="math display">\[
-\alpha_2(B)
-=
-0.456(0.1)
-=
-0.0456.
-\]</span></p>
-<p>Análogamente, para el estado negro:</p>
-<p><span class="math display">\[
-\sum_{i\in S}
-\alpha_1(i)p_{iN}
-=
-0.54(0.2)+0.08(0.7)
-=
-0.164,
-\]</span></p>
-<p>y por tanto,</p>
-<p><span class="math display">\[
-\alpha_2(N)
-=
-0.164(0.8)
-=
-0.1312.
-\]</span></p>
-</section>
-<section id="verosimilitud-de-la-secuencia-observada" class="level4" data-number="3.1.1.3">
-<h4 data-number="3.1.1.3" class="anchored" data-anchor-id="verosimilitud-de-la-secuencia-observada"><span class="header-section-number">3.1.1.3</span> Verosimilitud de la secuencia observada</h4>
-<p>La probabilidad total de observar la secuencia <span class="math inline">\(Y\)</span> es</p>
-<p><span class="math display">\[
-P(Y)
-=
-\alpha_2(B)+\alpha_2(N),
-\]</span></p>
-<p>es decir,</p>
-<p><span class="math display">\[
-P(Y)
-=
-0.0456+0.1312
-=
-0.1768.
-\]</span></p>
-</section>
-</section>
-<section id="cálculo-backward" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="cálculo-backward"><span class="header-section-number">3.1.2</span> Cálculo Backward</h3>
-<p>La variable Backward se define mediante</p>
-<p><span class="math display">\[
-\beta_k(i)
-=
-P(y_{k+1},\ldots,y_T\mid X_k=i).
-\]</span></p>
-<p>Como la secuencia contiene únicamente dos observaciones,</p>
-<p><span class="math display">\[
-\beta_2(B)=\beta_2(N)=1.
-\]</span></p>
-<p>Retrocediendo un paso:</p>
-<p><span class="math display">\[
-\beta_1(B)
-=
-0.8(0.1)(1)
-+
-0.2(0.8)(1)
-=
-0.24,
-\]</span></p>
-<p>y</p>
-<p><span class="math display">\[
-\beta_1(N)
-=
-0.3(0.1)(1)
-+
-0.7(0.8)(1)
-=
-0.59.
-\]</span></p>
-</section>
-<section id="inferencia-del-estado-oculto" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="inferencia-del-estado-oculto"><span class="header-section-number">3.1.3</span> Inferencia del estado oculto</h3>
-<p>Una de las principales ventajas del algoritmo Forward–Backward es que permite calcular la probabilidad posterior de cada estado oculto.</p>
-<p>Para el estado blanco en el primer instante,</p>
-<p><span class="math display">\[
-\gamma_1(B)
-=
-P(X_1=B\mid Y)
-=
-\frac{\alpha_1(B)\beta_1(B)}
-{P(Y)},
-\]</span></p>
-<p>por lo que</p>
-<p><span class="math display">\[
-\gamma_1(B)
-=
-\frac{0.54(0.24)}
-{0.1768}
-=
-0.733.
-\]</span></p>
-<p>De forma análoga,</p>
-<p><span class="math display">\[
-\gamma_1(N)
-=
-\frac{\alpha_1(N)\beta_1(N)}
-{P(Y)}
-=
-\frac{0.08(0.59)}
-{0.1768}
-=
-0.267.
-\]</span></p>
-<p>En consecuencia,</p>
-<p><span class="math display">\[
-P(X_1=B\mid Y)\approx 73.3\%,
-\]</span></p>
-<p>mientras que</p>
-<p><span class="math display">\[
-P(X_1=N\mid Y)\approx 26.7\%.
-\]</span></p>
-<p>Interpretación</p>
-<p>A pesar de que el sensor observa un píxel blanco en el primer instante y negro en el segundo, el algoritmo Forward–Backward determina que existe aproximadamente un <span class="math inline">\(73\%\)</span> de probabilidad de que el color verdadero inicial haya sido blanco. Este resultado muestra cómo un Modelo Oculto de Markov combina la información proporcionada por las observaciones ruidosas con la dinámica de transición del sistema para inferir el estado real subyacente del píxel.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="imagenesHMM/ejemplopixel1.png" class="img-fluid figure-img"></p>
-<figcaption>Modelo Oculto de Markov para un píxel con dos estados ocultos y dos observaciones.</figcaption>
-</figure>
-</div>
-</section>
-</section>
 </section>
 <section id="utilidad-hacia-cadenas-de-márkov-ocultas-hmm" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Utilidad hacia Cadenas de Márkov Ocultas (HMM)</h1>
@@ -1054,6 +857,231 @@ P(\Delta t_k).
 </div>
 </div>
 <p>Para los pixeles es la trayectoria más probable de los colores verdaderos del pixel (el problema de decodificación).</p>
+<section id="ejemplo-ilustrativo-del-algoritmo-forwardbackward" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="ejemplo-ilustrativo-del-algoritmo-forwardbackward"><span class="header-section-number">5.1</span> Ejemplo ilustrativo del algoritmo Forward–Backward</h2>
+<p>Para ilustrar el funcionamiento de los algoritmos Forward y Backward en el contexto del reconocimiento de imágenes, consideremos un píxel cuyo color verdadero puede encontrarse en uno de dos estados ocultos:</p>
+<p><span class="math display">\[
+S=\{B,N\},
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(B\)</span>: píxel verdaderamente blanco.</li>
+<li><span class="math inline">\(N\)</span>: píxel verdaderamente negro.</li>
+</ul>
+<p>Debido al ruido en el proceso de adquisición de la imagen, el color observado puede diferir del color real.</p>
+<p>Supongamos que la dinámica del píxel está descrita por la matriz de transición</p>
+<p><span class="math display">\[
+P=
+\begin{pmatrix}
+0.8 &amp; 0.2\\
+0.3 &amp; 0.7
+\end{pmatrix},
+\]</span></p>
+<p>donde, por ejemplo,</p>
+<p><span class="math display">\[
+p_{BN}=0.2
+\]</span></p>
+<p>representa la probabilidad de que un píxel blanco pase al estado negro en el siguiente instante.</p>
+<p>Asimismo, consideremos la siguiente matriz de emisión:</p>
+<p><span class="math display">\[
+E=
+\begin{pmatrix}
+0.9 &amp; 0.1\\
+0.2 &amp; 0.8
+\end{pmatrix},
+\]</span></p>
+<p>cuyas columnas corresponden a las observaciones</p>
+<p><span class="math display">\[
+(O_B,O_N),
+\]</span></p>
+<p>es decir, observar blanco u observar negro. Por ejemplo,</p>
+<p><span class="math display">\[
+P(O_B \mid B)=0.9,
+\qquad
+P(O_B \mid N)=0.2.
+\]</span></p>
+<p>Finalmente, asumimos una distribución inicial</p>
+<p><span class="math display">\[
+\pi=(0.6,0.4),
+\]</span></p>
+<p>y que la secuencia observada es</p>
+<p><span class="math display">\[
+Y=(O_B,O_N).
+\]</span></p>
+<p>Esto significa que el sensor registra blanco en el primer instante y negro en el segundo.</p>
+<section id="cálculo-forward" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="cálculo-forward"><span class="header-section-number">5.1.1</span> Cálculo Forward</h3>
+<p>La variable Forward se define como</p>
+<p><span class="math display">\[
+\alpha_k(i)
+=
+P(y_1,\ldots,y_k,X_k=i).
+\]</span></p>
+<section id="paso-1" class="level4" data-number="5.1.1.1">
+<h4 data-number="5.1.1.1" class="anchored" data-anchor-id="paso-1"><span class="header-section-number">5.1.1.1</span> Paso 1</h4>
+<p>Para la primera observación <span class="math inline">\(O_B\)</span>:</p>
+<p><span class="math display">\[
+\alpha_1(B)
+=
+P(X_1=B)\,P(O_B\mid B)
+=
+0.6(0.9)
+=
+0.54,
+\]</span></p>
+<p><span class="math display">\[
+\alpha_1(N)
+=
+P(X_1=N)\,P(O_B\mid N)
+=
+0.4(0.2)
+=
+0.08.
+\]</span></p>
+</section>
+<section id="paso-2" class="level4" data-number="5.1.1.2">
+<h4 data-number="5.1.1.2" class="anchored" data-anchor-id="paso-2"><span class="header-section-number">5.1.1.2</span> Paso 2</h4>
+<p>Calculamos primero la probabilidad de alcanzar el estado blanco:</p>
+<p><span class="math display">\[
+\sum_{i\in S}
+\alpha_1(i)p_{iB}
+=
+0.54(0.8)+0.08(0.3)
+=
+0.456.
+\]</span></p>
+<p>Multiplicando por la probabilidad de emisión correspondiente,</p>
+<p><span class="math display">\[
+\alpha_2(B)
+=
+0.456(0.1)
+=
+0.0456.
+\]</span></p>
+<p>Análogamente, para el estado negro:</p>
+<p><span class="math display">\[
+\sum_{i\in S}
+\alpha_1(i)p_{iN}
+=
+0.54(0.2)+0.08(0.7)
+=
+0.164,
+\]</span></p>
+<p>y por tanto,</p>
+<p><span class="math display">\[
+\alpha_2(N)
+=
+0.164(0.8)
+=
+0.1312.
+\]</span></p>
+</section>
+<section id="verosimilitud-de-la-secuencia-observada" class="level4" data-number="5.1.1.3">
+<h4 data-number="5.1.1.3" class="anchored" data-anchor-id="verosimilitud-de-la-secuencia-observada"><span class="header-section-number">5.1.1.3</span> Verosimilitud de la secuencia observada</h4>
+<p>La probabilidad total de observar la secuencia <span class="math inline">\(Y\)</span> es</p>
+<p><span class="math display">\[
+P(Y)
+=
+\alpha_2(B)+\alpha_2(N),
+\]</span></p>
+<p>es decir,</p>
+<p><span class="math display">\[
+P(Y)
+=
+0.0456+0.1312
+=
+0.1768.
+\]</span></p>
+</section>
+</section>
+<section id="cálculo-backward" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="cálculo-backward"><span class="header-section-number">5.1.2</span> Cálculo Backward</h3>
+<p>La variable Backward se define mediante</p>
+<p><span class="math display">\[
+\beta_k(i)
+=
+P(y_{k+1},\ldots,y_T\mid X_k=i).
+\]</span></p>
+<p>Como la secuencia contiene únicamente dos observaciones,</p>
+<p><span class="math display">\[
+\beta_2(B)=\beta_2(N)=1.
+\]</span></p>
+<p>Retrocediendo un paso:</p>
+<p><span class="math display">\[
+\beta_1(B)
+=
+0.8(0.1)(1)
++
+0.2(0.8)(1)
+=
+0.24,
+\]</span></p>
+<p>y</p>
+<p><span class="math display">\[
+\beta_1(N)
+=
+0.3(0.1)(1)
++
+0.7(0.8)(1)
+=
+0.59.
+\]</span></p>
+</section>
+<section id="inferencia-del-estado-oculto" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="inferencia-del-estado-oculto"><span class="header-section-number">5.1.3</span> Inferencia del estado oculto</h3>
+<p>Una de las principales ventajas del algoritmo Forward–Backward es que permite calcular la probabilidad posterior de cada estado oculto.</p>
+<p>Para el estado blanco en el primer instante,</p>
+<p><span class="math display">\[
+\gamma_1(B)
+=
+P(X_1=B\mid Y)
+=
+\frac{\alpha_1(B)\beta_1(B)}
+{P(Y)},
+\]</span></p>
+<p>por lo que</p>
+<p><span class="math display">\[
+\gamma_1(B)
+=
+\frac{0.54(0.24)}
+{0.1768}
+=
+0.733.
+\]</span></p>
+<p>De forma análoga,</p>
+<p><span class="math display">\[
+\gamma_1(N)
+=
+\frac{\alpha_1(N)\beta_1(N)}
+{P(Y)}
+=
+\frac{0.08(0.59)}
+{0.1768}
+=
+0.267.
+\]</span></p>
+<p>En consecuencia,</p>
+<p><span class="math display">\[
+P(X_1=B\mid Y)\approx 73.3\%,
+\]</span></p>
+<p>mientras que</p>
+<p><span class="math display">\[
+P(X_1=N\mid Y)\approx 26.7\%.
+\]</span></p>
+<p><strong>Interpretación</strong></p>
+<p>A pesar de que el sensor observa un píxel blanco en el primer instante y negro en el segundo, el algoritmo Forward–Backward determina que existe aproximadamente un <span class="math inline">\(73\%\)</span> de probabilidad de que el color verdadero inicial haya sido blanco. Este resultado muestra cómo un Modelo Oculto de Markov combina la información proporcionada por las observaciones ruidosas con la dinámica de transición del sistema para inferir el estado real subyacente del píxel.</p>
+<div id="fig-pixelbn" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pixelbn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imagenesHMM/pixelblanconegrodibujo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="450">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pixelbn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.1: Modelo Oculto de Markov para un píxel con dos estados ocultos y dos observaciones.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
 </section>
 <section id="estimación-de-parámetros-y-calibración-del-modelo" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Estimación de Parámetros y Calibración del Modelo</h1>
@@ -1075,12 +1103,30 @@ P(\Delta t_k).
 <p>dado un conjunto de secuencias observadas se realiza mediante un proceso iterativo.</p>
 <ul>
 <li><p><strong>Paso E (Expectation):</strong> Se calculan las estadísticas suficientes esperadas del sistema latente (tiempo esperado de permanencia en cada estado de color y número esperado de transiciones) condicionado a las observaciones y a la estimación actual de los parámetros <span class="math inline">\(\Theta^{(m)}\)</span>, utilizando las variables recursivas Forward y Backward.</p></li>
-<li><p><strong>Paso M (Maximization):</strong> Se actualizan los parámetros <span class="math inline">\(\Theta^{(m+1)}\)</span> para maximizar la función Q de verosimilitud esperada. En particular, la estimación de las tasas de transición empíricas se formula restringiendo las soluciones para garantizar que las filas de <span class="math inline">\(Q^{(m+1)}\)</span> sigan sumando cero y <span class="math inline">\(q_{ij}\ge0\)</span> para <span class="math inline">\(i\neq j\)</span>.</p></li>
+<li><p><strong>Paso M (Maximization):</strong> Se actualizan los parámetros <span class="math inline">\(\Theta^{(m+1)}\)</span> para maximizar la función Q de verosimilitud esperada. En particular, la estimación de las probabilidades de transición empíricas se formula restringiendo las soluciones para garantizar que las filas de <span class="math inline">\(Q^{(m+1)}\)</span> sigan sumando cero y <span class="math inline">\(q_{ij}\ge0\)</span> para <span class="math inline">\(i\neq j\)</span>.</p></li>
 </ul>
 </div>
 </div>
+<div id="fig-ME" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="imagenesHMM/ME_HMM.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="800">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.1: Esquema general del algoritmo Expectation–Maximization (Baum–Welch) para un Modelo Oculto de Markov. En el Paso E se estiman las probabilidades posteriores de los estados ocultos y las transiciones esperadas mediante los algoritmos Forward–Backward. En el Paso M se actualizan iterativamente la matriz generadora y la matriz de emisión para maximizar la verosimilitud de las observaciones.
+</figcaption>
+</figure>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Norris1998" class="csl-entry" role="listitem">
+Norris, J. R. 1998. <em>Markov Chains</em>. Cambridge: Cambridge University Press.
+</div>
+<div id="ref-Rudin1987" class="csl-entry" role="listitem">
+Rudin, Walter. 1987. <em>Real and Complex Analysis</em>. 3.ª ed. New York: McGraw-Hill.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

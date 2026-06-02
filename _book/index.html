@@ -410,6 +410,26 @@ window.Quarto = {
   </ul></li>
   </ul></li>
   <li><a href="#estimación-de-parámetros-y-calibración-del-modelo" id="toc-estimación-de-parámetros-y-calibración-del-modelo" class="nav-link" data-scroll-target="#estimación-de-parámetros-y-calibración-del-modelo"><span class="header-section-number">6</span> Estimación de Parámetros y Calibración del Modelo</a></li>
+  <li><a href="#algoritmos-de-inferencia-y-decodificación-en-modelos-ocultos-de-markov" id="toc-algoritmos-de-inferencia-y-decodificación-en-modelos-ocultos-de-markov" class="nav-link" data-scroll-target="#algoritmos-de-inferencia-y-decodificación-en-modelos-ocultos-de-markov"><span class="header-section-number">7</span> Algoritmos de Inferencia y Decodificación en Modelos Ocultos de Markov</a>
+  <ul class="collapse">
+  <li><a href="#el-algoritmo-forward-filtrado-y-verosimilitud" id="toc-el-algoritmo-forward-filtrado-y-verosimilitud" class="nav-link" data-scroll-target="#el-algoritmo-forward-filtrado-y-verosimilitud"><span class="header-section-number">7.1</span> 1. El Algoritmo Forward (Filtrado y Verosimilitud)</a>
+  <ul class="collapse">
+  <li><a href="#definición-formal-variable-de-avance" id="toc-definición-formal-variable-de-avance" class="nav-link" data-scroll-target="#definición-formal-variable-de-avance"><span class="header-section-number">7.1.1</span> Definición Formal (Variable de Avance)</a></li>
+  <li><a href="#inducción-y-cómputo-recursivo" id="toc-inducción-y-cómputo-recursivo" class="nav-link" data-scroll-target="#inducción-y-cómputo-recursivo"><span class="header-section-number">7.1.2</span> Inducción y Cómputo Recursivo</a></li>
+  </ul></li>
+  <li><a href="#el-algoritmo-backward-suavizamiento" id="toc-el-algoritmo-backward-suavizamiento" class="nav-link" data-scroll-target="#el-algoritmo-backward-suavizamiento"><span class="header-section-number">7.2</span> 2. El Algoritmo Backward (Suavizamiento)</a>
+  <ul class="collapse">
+  <li><a href="#definición-formal-variable-de-retroceso" id="toc-definición-formal-variable-de-retroceso" class="nav-link" data-scroll-target="#definición-formal-variable-de-retroceso"><span class="header-section-number">7.2.1</span> Definición Formal (Variable de Retroceso)</a></li>
+  <li><a href="#inducción-y-cómputo-recursivo-1" id="toc-inducción-y-cómputo-recursivo-1" class="nav-link" data-scroll-target="#inducción-y-cómputo-recursivo-1"><span class="header-section-number">7.2.2</span> Inducción y Cómputo Recursivo</a></li>
+  <li><a href="#utilidad-en-el-suavizamiento-inferencia-posterior" id="toc-utilidad-en-el-suavizamiento-inferencia-posterior" class="nav-link" data-scroll-target="#utilidad-en-el-suavizamiento-inferencia-posterior"><span class="header-section-number">7.2.3</span> Utilidad en el Suavizamiento (Inferencia Posterior)</a></li>
+  </ul></li>
+  <li><a href="#el-algoritmo-de-viterbi-decodificación-óptima-global" id="toc-el-algoritmo-de-viterbi-decodificación-óptima-global" class="nav-link" data-scroll-target="#el-algoritmo-de-viterbi-decodificación-óptima-global"><span class="header-section-number">7.3</span> 3. El Algoritmo de Viterbi (Decodificación Óptima Global)</a>
+  <ul class="collapse">
+  <li><a href="#formulación-del-problema-de-optimización" id="toc-formulación-del-problema-de-optimización" class="nav-link" data-scroll-target="#formulación-del-problema-de-optimización"><span class="header-section-number">7.3.1</span> Formulación del Problema de Optimización</a></li>
+  <li><a href="#definición-formal-del-operador-de-viterbi" id="toc-definición-formal-del-operador-de-viterbi" class="nav-link" data-scroll-target="#definición-formal-del-operador-de-viterbi"><span class="header-section-number">7.3.2</span> Definición Formal del Operador de Viterbi</a></li>
+  <li><a href="#solución-por-programación-dinámica" id="toc-solución-por-programación-dinámica" class="nav-link" data-scroll-target="#solución-por-programación-dinámica"><span class="header-section-number">7.3.3</span> Solución por Programación Dinámica</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></nav>
     </div>
@@ -1117,9 +1137,119 @@ Figura&nbsp;6.1: Esquema general del algoritmo Expectation–Maximization (Baum�
 </figcaption>
 </figure>
 </div>
+</section>
+<section id="algoritmos-de-inferencia-y-decodificación-en-modelos-ocultos-de-markov" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Algoritmos de Inferencia y Decodificación en Modelos Ocultos de Markov</h1>
+<p>Habiendo definido un Modelo Oculto de Markov (HMM) como una estructura bivariada con un proceso latente <span class="math inline">\(\{X_t\}_{t \ge 0}\)</span> sobre un espacio de estados finito <span class="math inline">\(S = \{1, 2, \dots, N\}\)</span> y un proceso de observación <span class="math inline">\(\{Y_t\}_{t \ge 0}\)</span> sobre un espacio medible de observaciones <span class="math inline">\(O = \{v_1, v_2, \dots, v_M\}\)</span>, extendemos la maquinaria analítica hacia el caso de parámetros discretizados en el tiempo (o espacio de pixeles) <span class="math inline">\(t_1, t_2, \dots, t_K\)</span>.</p>
+<p>Denotamos la secuencia de estados latentes como <span class="math inline">\(X = (X_1, X_2, \dots, X_K)\)</span> y la secuencia de observaciones empíricas como <span class="math inline">\(Y = (y_1, y_2, \dots, y_K)\)</span>. El modelo queda unívocamente parametrizado por la terna <span class="math inline">\(\Theta = (\pi, P, E)\)</span>, donde <span class="math inline">\(\pi\)</span> es el vector de probabilidades iniciales, <span class="math inline">\(P\)</span> es la matriz de transición estocástica acoplada al intervalo temporal, y <span class="math inline">\(E\)</span> es la matriz de emisión <span class="citation" data-cites="Norris1998">Norris (<a href="#ref-Norris1998" role="doc-biblioref">1998</a>)</span>.</p>
+<hr>
+<section id="el-algoritmo-forward-filtrado-y-verosimilitud" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="el-algoritmo-forward-filtrado-y-verosimilitud"><span class="header-section-number">7.1</span> 1. El Algoritmo Forward (Filtrado y Verosimilitud)</h2>
+<p>El objetivo del algoritmo <em>Forward</em> es resolver el problema de evaluación: calcular la probabilidad marginal (verosimilitud) de observar una secuencia empírica particular <span class="math inline">\(Y\)</span> dado el modelo <span class="math inline">\(\Theta\)</span>, es decir, <span class="math inline">\(\mathbb{P}(Y \mid \Theta)\)</span>, así como obtener las probabilidades de filtrado del estado actual <span class="citation" data-cites="elliott1995hidden">Elliott, Aggoun, y Moore (<a href="#ref-elliott1995hidden" role="doc-biblioref">1995</a>)</span>.</p>
+<section id="definición-formal-variable-de-avance" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="definición-formal-variable-de-avance"><span class="header-section-number">7.1.1</span> Definición Formal (Variable de Avance)</h3>
+<p>Para cada paso <span class="math inline">\(k \in \{1, \dots, K\}\)</span> y cada estado oculto <span class="math inline">\(i \in S\)</span>, se define la variable <em>Forward</em> <span class="math inline">\(\alpha_k(i)\)</span> como la probabilidad conjunta de la secuencia observada truncada hasta el instante <span class="math inline">\(k\)</span> y el estado latente concurrente:</p>
+<p><span class="math display">\[
+\alpha_k(i) = \mathbb{P}(Y_1 = y_1, Y_2 = y_2, \dots, Y_k = y_k, X_k = i \mid \Theta)
+\]</span></p>
+</section>
+<section id="inducción-y-cómputo-recursivo" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="inducción-y-cómputo-recursivo"><span class="header-section-number">7.1.2</span> Inducción y Cómputo Recursivo</h3>
+<p>La propiedad de Markov y el postulado de independencia condicional de las observaciones permiten descomponer la medida de probabilidad conjunta mediante la siguiente estructura recursiva:</p>
+<ol type="1">
+<li><p><strong>Inicialización:</strong> Para <span class="math inline">\(k = 1\)</span>, la densidad conjunta se reduce al producto de la medida inicial y la densidad de emisión: <span class="math display">\[
+\alpha_1(i) = \pi_i \, e_{i, y_1}, \quad \forall i \in S
+\]</span></p></li>
+<li><p><strong>Paso Recursivo:</strong> Para todo <span class="math inline">\(k = 2, 3, \dots, K\)</span>, la probabilidad de transición transfiere la masa de probabilidad del paso anterior, la cual es ponderada localmente por la emisión: <span class="math display">\[
+\alpha_k(j) = \left( \sum_{i \in S} \alpha_{k-1}(i) \, p_{ij} \right) e_{j, y_k}, \quad \forall j \in S
+\]</span></p></li>
+<li><p><strong>Terminación (Verosimilitud Total):</strong> Por el teorema de la probabilidad total sobre la partición del espacio muestral generada por <span class="math inline">\(X_K\)</span>, la verosimilitud de la trayectoria observada es: <span class="math display">\[
+\mathbb{P}(Y \mid \Theta) = \sum_{i \in S} \alpha_K(i)
+\]</span></p></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="el-algoritmo-backward-suavizamiento" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="el-algoritmo-backward-suavizamiento"><span class="header-section-number">7.2</span> 2. El Algoritmo Backward (Suavizamiento)</h2>
+<p>El algoritmo <em>Backward</em> es el operador dual simétrico del algoritmo Forward. No calcula la verosimilitud por sí mismo, sino que cuantifica la probabilidad condicional de las observaciones futuras dado el estado latente actual <span class="citation" data-cites="elliott1995hidden">Elliott, Aggoun, y Moore (<a href="#ref-elliott1995hidden" role="doc-biblioref">1995</a>)</span>.</p>
+<section id="definición-formal-variable-de-retroceso" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="definición-formal-variable-de-retroceso"><span class="header-section-number">7.2.1</span> Definición Formal (Variable de Retroceso)</h3>
+<p>Para cada paso <span class="math inline">\(k \in \{1, \dots, K\}\)</span> y cada estado oculto <span class="math inline">\(i \in S\)</span>, se define la variable <em>Backward</em> <span class="math inline">\(\beta_k(i)\)</span> como la probabilidad condicional de la secuencia observada desde el instante <span class="math inline">\(k+1\)</span> hasta el final <span class="math inline">\(K\)</span>, condicionado a que el estado latente en el instante <span class="math inline">\(k\)</span> sea <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[
+\beta_k(i) = \mathbb{P}(Y_{k+1} = y_{k+1}, \dots, Y_K = y_K \mid X_k = i, \Theta)
+\]</span></p>
+</section>
+<section id="inducción-y-cómputo-recursivo-1" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="inducción-y-cómputo-recursivo-1"><span class="header-section-number">7.2.2</span> Inducción y Cómputo Recursivo</h3>
+<p>El cálculo se realiza de manera regresiva en el tiempo (programación dinámica hacia atrás):</p>
+<ol type="1">
+<li><p><strong>Inicialización:</strong> Para el último instante <span class="math inline">\(k = K\)</span>, al no existir observaciones futuras, la variable se define analíticamente por la unidad (condición de frontera estocástica): <span class="math display">\[
+\beta_K(i) = 1, \quad \forall i \in S
+\]</span></p></li>
+<li><p><strong>Paso Recursivo:</strong> Para todo <span class="math inline">\(k = K-1, K-2, \dots, 1\)</span>, aplicando la propiedad de Markov y condicionando sobre el estado intermedio <span class="math inline">\(j\)</span> en el tiempo <span class="math inline">\(k+1\)</span>: <span class="math display">\[
+\beta_k(i) = \sum_{j \in S} p_{ij} \, e_{j, y_{k+1}} \, \beta_{k+1}(j), \quad \forall i \in S
+\]</span></p></li>
+</ol>
+</section>
+<section id="utilidad-en-el-suavizamiento-inferencia-posterior" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="utilidad-en-el-suavizamiento-inferencia-posterior"><span class="header-section-number">7.2.3</span> Utilidad en el Suavizamiento (Inferencia Posterior)</h3>
+<p>La conjunción de las variables Forward y Backward permite resolver el problema de filtrado y suavizamiento marginal. La probabilidad posterior de que el sistema se encontrara en el estado <span class="math inline">\(i\)</span> en el tiempo <span class="math inline">\(k\)</span>, dada la secuencia de observaciones completa <span class="math inline">\(Y\)</span>, viene dada por:</p>
+<p><span class="math display">\[
+\gamma_k(i) = \mathbb{P}(X_k = i \mid Y, \Theta) = \frac{\alpha_k(i)\beta_k(i)}{\mathbb{P}(Y \mid \Theta)} = \frac{\alpha_k(i)\beta_k(i)}{\sum_{j \in S} \alpha_k(j)\beta_k(j)}
+\]</span></p>
+<hr>
+</section>
+</section>
+<section id="el-algoritmo-de-viterbi-decodificación-óptima-global" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="el-algoritmo-de-viterbi-decodificación-óptima-global"><span class="header-section-number">7.3</span> 3. El Algoritmo de Viterbi (Decodificación Óptima Global)</h2>
+<p>A diferencia del suavizamiento marginal (que maximiza la probabilidad de cada estado de forma aislada corriendo el riesgo de generar trayectorias imposibles si <span class="math inline">\(p_{ij}=0\)</span>), el algoritmo de Viterbi aborda el problema de <strong>decodificación</strong>: encontrar la secuencia global de estados latentes más probable en el sentido de la probabilidad conjunta <span class="citation" data-cites="Norris1998">Norris (<a href="#ref-Norris1998" role="doc-biblioref">1998</a>)</span>.</p>
+<section id="formulación-del-problema-de-optimización" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="formulación-del-problema-de-optimización"><span class="header-section-number">7.3.1</span> Formulación del Problema de Optimización</h3>
+<p>Buscamos la trayectoria óptima <span class="math inline">\(\hat{X} = (\hat{x}_1, \hat{x}_2, \dots, \hat{x}_K)\)</span> que cumpla con el criterio MAP (Maximum A Posteriori):</p>
+<p><span class="math display">\[
+\hat{X} = \arg\max_{X} \mathbb{P}(X \mid Y, \Theta) = \arg\max_{X} \mathbb{P}(X, Y \mid \Theta)
+\]</span></p>
+</section>
+<section id="definición-formal-del-operador-de-viterbi" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="definición-formal-del-operador-de-viterbi"><span class="header-section-number">7.3.2</span> Definición Formal del Operador de Viterbi</h3>
+<p>Se define la variable canónica de Viterbi <span class="math inline">\(\delta_k(i)\)</span> como la probabilidad máxima sobre todas las trayectorias parciales de longitud <span class="math inline">\(k-1\)</span> que finalizan estrictamente en el estado latente <span class="math inline">\(i\)</span>, habiendo generado la secuencia de observaciones correspondiente:</p>
+<p><span class="math display">\[
+\delta_k(i) = \max_{x_1, x_2, \dots, x_{k-1}} \mathbb{P}(X_1=x_1, \dots, X_{k-1}=x_{k-1}, X_k=i, Y_1=y_1, \dots, Y_k=y_k \mid \Theta)
+\]</span></p>
+<p>Para reconstruir los argumentos maximizadores, se introduce un puntero de retroceso <span class="math inline">\(\psi_k(i)\)</span> que almacena el estado predecesor óptimo.</p>
+</section>
+<section id="solución-por-programación-dinámica" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="solución-por-programación-dinámica"><span class="header-section-number">7.3.3</span> Solución por Programación Dinámica</h3>
+<p>El principio de optimalidad de Bellman garantiza que la trayectoria global máxima contiene sub-trayectorias máximas. El algoritmo se ejecuta mediante los siguientes pasos:</p>
+<ol type="1">
+<li><p><strong>Inicialización:</strong> <span class="math display">\[
+\delta_1(i) = \pi_i \, e_{i, y_1}, \quad \psi_1(i) = 0, \quad \forall i \in S
+\]</span></p></li>
+<li><p><strong>Recursión Espacio-Temporal:</strong> Para todo <span class="math inline">\(k = 2, 3, \dots, K\)</span> y cada estado <span class="math inline">\(j \in S\)</span>: <span class="math display">\[
+\delta_k(j) = \left( \max_{i \in S} \left[ \delta_{k-1}(i) \, p_{ij} \right] \right) e_{j, y_k}
+\]</span> <span class="math display">\[
+\psi_k(j) = \arg\max_{i \in S} \left[ \delta_{k-1}(i) \, p_{ij} \right]
+\]</span></p></li>
+<li><p><strong>Terminación (Maximización de la Probabilidad Global):</strong> <span class="math display">\[
+\hat{P}^* = \max_{i \in S} \delta_K(i)
+\]</span> <span class="math display">\[
+\hat{x}_K = \arg\max_{i \in S} \delta_K(i)
+\]</span></p></li>
+<li><p><strong>Rastreo Regresivo (<em>Backtracking</em>):</strong> La secuencia latente óptima se recupera desde el final hacia el inicio: <span class="math display">\[
+\hat{x}_k = \psi_{k+1}(\hat{x}_{k+1}), \quad \text{para } k = K-1, K-2, \dots, 1
+\]</span></p></li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Nota de Implementación Computacional:</strong> En problemas de gran escala espacial (como el análisis de 2,500 variantes de caracteres), el cómputo recursivo de productos de probabilidades continuas produce <em>underflow</em> numérico debido a que <span class="math inline">\(\delta_k(i) \to 0\)</span> exponencialmente. Por tanto, en la práctica, el algoritmo de Viterbi se implementa aplicando el operador logaritmo elemental, transformando los productos en sumas lineales: <span class="math inline">\(\log \delta_k(j) = \log e_{j, y_k} + \max_{i} [\log \delta_{k-1}(i) + \log p_{ij}]\)</span>.</p>
+</blockquote>
+<hr>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-elliott1995hidden" class="csl-entry" role="listitem">
+Elliott, Robert J., Lakhdar Aggoun, y John B. Moore. 1995. <em>Hidden Markov Models: Estimation and Control</em>. Vol. 29. Applications of Mathematics / Stochastic Modelling y Applied Probability. New York: Springer-Verlag.
+</div>
 <div id="ref-Norris1998" class="csl-entry" role="listitem">
 Norris, J. R. 1998. <em>Markov Chains</em>. Cambridge: Cambridge University Press.
 </div>
@@ -1127,6 +1257,8 @@ Norris, J. R. 1998. <em>Markov Chains</em>. Cambridge: Cambridge University Pres
 Rudin, Walter. 1987. <em>Real and Complex Analysis</em>. 3.ª ed. New York: McGraw-Hill.
 </div>
 </div>
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

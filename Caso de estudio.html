@@ -605,6 +605,7 @@ emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, downl
 
     return np.array(secuencia)</code></pre>
 <p>La extracción se realizó mediante ventanas deslizantes verticales. Para cada ventana se calcularon características geométricas relacionadas con la distribución de “tinta”, el centro de gravedad, el número de transiciones entre regiones activas e inactivas y la ubicación relativa de los perfiles superior e inferior del trazo.</p>
+<p><img src="images/paste-5.png" class="img-fluid"></p>
 <p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
 </section>
 <section id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="level2" data-number="3.7">

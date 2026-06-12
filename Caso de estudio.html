@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Reconocimiento de Caracteres – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino</title>
+<title>2&nbsp; Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -110,13 +130,13 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="2&nbsp; Reconocimiento de Caracteres – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta property="og:title" content="2&nbsp; Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
 <meta property="og:description" content="">
-<meta property="og:image" content="images/paste-1.png">
+<meta property="og:image" content="images/paste-4.png">
 <meta property="og:site_name" content="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
-<meta name="twitter:title" content="2&nbsp; Reconocimiento de Caracteres – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta name="twitter:title" content="2&nbsp; Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="images/paste-1.png">
+<meta name="twitter:image" content="images/paste-4.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -289,7 +309,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Caso de estudio.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconocimiento de Caracteres</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Caso de estudio.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -370,7 +390,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Caso de estudio.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconocimiento de Caracteres</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM</span></span></a>
   </div>
 </li>
     </ul>
@@ -383,12 +403,12 @@ window.Quarto = {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#reconocimiento-de-caracteres" id="toc-reconocimiento-de-caracteres" class="nav-link active" data-scroll-target="#reconocimiento-de-caracteres"><span class="header-section-number">3</span> Reconocimiento de Caracteres</a>
+  <li><a href="#reconocimiento-de-caracteres-caso-de-estudio" id="toc-reconocimiento-de-caracteres-caso-de-estudio" class="nav-link active" data-scroll-target="#reconocimiento-de-caracteres-caso-de-estudio"><span class="header-section-number">3</span> Reconocimiento de Caracteres Caso de estudio</a>
   <ul class="collapse">
   <li><a href="#configuración-del-entorno-experimental" id="toc-configuración-del-entorno-experimental" class="nav-link" data-scroll-target="#configuración-del-entorno-experimental"><span class="header-section-number">3.1</span> Configuración del entorno experimental</a></li>
   <li><a href="#definición-de-parámetros-del-experimento" id="toc-definición-de-parámetros-del-experimento" class="nav-link" data-scroll-target="#definición-de-parámetros-del-experimento"><span class="header-section-number">3.2</span> Definición de parámetros del experimento</a></li>
   <li><a href="#obtención-del-conjunto-de-datos" id="toc-obtención-del-conjunto-de-datos" class="nav-link" data-scroll-target="#obtención-del-conjunto-de-datos"><span class="header-section-number">3.3</span> Obtención del conjunto de datos</a></li>
-  <li><a href="#definición-de-la-topología-del-hmm" id="toc-definición-de-la-topología-del-hmm" class="nav-link" data-scroll-target="#definición-de-la-topología-del-hmm"><span class="header-section-number">3.4</span> Definición de la topología del HMM</a></li>
+  <li><a href="#definición-de-la-arquitectura-del-hmm" id="toc-definición-de-la-arquitectura-del-hmm" class="nav-link" data-scroll-target="#definición-de-la-arquitectura-del-hmm"><span class="header-section-number">3.4</span> Definición de la arquitectura del HMM</a></li>
   <li><a href="#preprocesamiento-de-imágenes" id="toc-preprocesamiento-de-imágenes" class="nav-link" data-scroll-target="#preprocesamiento-de-imágenes"><span class="header-section-number">3.5</span> Preprocesamiento de imágenes</a></li>
   <li><a href="#extracción-de-características" id="toc-extracción-de-características" class="nav-link" data-scroll-target="#extracción-de-características"><span class="header-section-number">3.6</span> Extracción de características</a></li>
   <li><a href="#construcción-de-los-conjuntos-de-entrenamiento-y-prueba" id="toc-construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="nav-link" data-scroll-target="#construcción-de-los-conjuntos-de-entrenamiento-y-prueba"><span class="header-section-number">3.7</span> Construcción de los conjuntos de entrenamiento y prueba</a></li>
@@ -405,7 +425,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconocimiento de Caracteres</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM</span></h1>
 </div>
 
 
@@ -422,8 +442,8 @@ window.Quarto = {
 </header>
 
 
-<section id="reconocimiento-de-caracteres" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Reconocimiento de Caracteres</h1>
+<section id="reconocimiento-de-caracteres-caso-de-estudio" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Reconocimiento de Caracteres Caso de estudio</h1>
 <p>En este capítulo se describe la metodología implementada para el reconocimiento automático de letras mayúsculas manuscritas del alfabeto latino mediante Modelos Ocultos de Markov (HMM). A diferencia del capítulo anterior, donde se presentaron los fundamentos teóricos del modelo, en esta sección se detallan las decisiones experimentales adoptadas, así como las etapas seguidas para la construcción, entrenamiento y evaluación del sistema de reconocimiento.</p>
 <p>Con el propósito de garantizar la reproducibilidad del experimento, se presenta el código utilizado durante el desarrollo del proyecto. Debido al elevado tiempo de ejecución requerido para el entrenamiento de los modelos, los bloques de código se muestran únicamente con fines documentales y no son ejecutados automáticamente dentro del presente documento.</p>
 <section id="configuración-del-entorno-experimental" class="level2" data-number="3.1">
@@ -450,7 +470,7 @@ except ImportError:
     from hmmlearn import hmm  
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report 
 import warnings </code></pre>
-<p>La utilización de estas bibliotecas responde a necesidades específicas del sistema. OpenCV permitió realizar operaciones de preprocesamiento sobre las imágenes; <span class="math inline">\(\texttt{torchvision}\)</span> proporcionó acceso al conjunto de datos EMNIST; <span class="math inline">\(\texttt{hmmlearn}\)</span> hizo posible la implementación de los modelos ocultos de Markov; mientras que <span class="math inline">\(\texttt{scikit-learn}\)</span> facilitó el cálculo de las métricas de evaluación.</p>
+<p>La utilización de estas bibliotecas responde a necesidades específicas del sistema. <span class="math inline">\(\texttt{OpenCV}\)</span> permitió realizar operaciones de preprocesamiento sobre las imágenes; <span class="math inline">\(\texttt{torchvision}\)</span> proporcionó acceso al conjunto de datos <strong>EMNIST</strong> <span class="citation" data-cites="cohen2017emnist">(<a href="#ref-cohen2017emnist" role="doc-biblioref">Cohen et&nbsp;al. 2017</a>)</span>; <span class="math inline">\(\texttt{hmmlearn}\)</span> hizo posible la implementación de los modelos ocultos de Markov; mientras que <span class="math inline">\(\texttt{scikit-learn}\)</span> facilitó el cálculo de las métricas de evaluación.</p>
 <p>Con el fin de asegurar la reproducibilidad de los resultados, se fijaron semillas aleatorias y se deshabilitaron advertencias no críticas del entorno de ejecución.</p>
 <pre><code>np.random.seed(42) 
 random.seed(42) 
@@ -477,15 +497,15 @@ LETRAS_OBJETIVO = [chr(ord('A') + i) for i in range(26)]</code></pre>
 </section>
 <section id="obtención-del-conjunto-de-datos" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="obtención-del-conjunto-de-datos"><span class="header-section-number">3.3</span> Obtención del conjunto de datos</h2>
-<p>Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos EMNIST ByClass, una extensión del conocido conjunto MNIST que incorpora letras manuscritas y dígitos.</p>
+<p>Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos <strong>EMNIST ByClass</strong>, una extensión del conocido conjunto <strong>MNIST</strong> que incorpora letras manuscritas y dígitos.</p>
 <pre><code>
 print("Descargando EMNIST ByClass...")
 emnist_train = datasets.EMNIST(root='./data', split='byclass', train=True, download=True, transform=transforms.ToTensor())
 emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, download=True, transform=transforms.ToTensor())</code></pre>
 <p>A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, descartando las demás clases disponibles. Esta decisión se tomó con el propósito de acotar el problema de clasificación y evaluar específicamente la capacidad del modelo para reconocer caracteres alfabéticos manuscritos.</p>
 </section>
-<section id="definición-de-la-topología-del-hmm" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="definición-de-la-topología-del-hmm"><span class="header-section-number">3.4</span> Definición de la topología del HMM</h2>
+<section id="definición-de-la-arquitectura-del-hmm" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="definición-de-la-arquitectura-del-hmm"><span class="header-section-number">3.4</span> Definición de la arquitectura del HMM</h2>
 <p>Se construyó una matriz de transición tipo Bakis (falta citar) flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.</p>
 <pre><code>def construir_matriz_bakis_flexible(n_states):
     A = np.zeros((n_states, n_states))
@@ -536,8 +556,9 @@ emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, downl
 
     imagen = (imagen &gt; UMBRAL).astype(float)
     return imagen</code></pre>
-<p>El procedimiento incluyó la corrección de orientación propia del conjunto EMNIST, la eliminación de espacios vacíos mediante recortes automáticos, la incorporación de relleno para conservar la proporción del carácter y el redimensionamiento a un tamaño uniforme.</p>
+<p>El procedimiento incluyó la corrección de orientación propia del conjunto <strong>EMNIST</strong>, la eliminación de espacios vacíos mediante recortes automáticos, la incorporación de relleno para conservar la proporción del carácter y el redimensionamiento a un tamaño uniforme.</p>
 <p>Estas transformaciones buscan reducir la variabilidad irrelevante asociada a la posición y escala de las letras, favoreciendo que el modelo capture características relacionadas con la estructura del carácter y no con aspectos accidentales de adquisición.</p>
+<p><img src="images/paste-4.png" class="img-fluid"></p>
 </section>
 <section id="extracción-de-características" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="extracción-de-características"><span class="header-section-number">3.6</span> Extracción de características</h2>
@@ -584,7 +605,7 @@ emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, downl
 
     return np.array(secuencia)</code></pre>
 <p>La extracción se realizó mediante ventanas deslizantes verticales. Para cada ventana se calcularon características geométricas relacionadas con la distribución de “tinta”, el centro de gravedad, el número de transiciones entre regiones activas e inactivas y la ubicación relativa de los perfiles superior e inferior del trazo.</p>
-<p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación de HMM categóricos, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
+<p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
 </section>
 <section id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba"><span class="header-section-number">3.7</span> Construcción de los conjuntos de entrenamiento y prueba</h2>
@@ -705,6 +726,11 @@ plt.show()</code></pre>
 <p>La matriz de confusión permitió identificar cuáles letras presentan mayores dificultades de discriminación, proporcionando información valiosa para analizar las fortalezas y limitaciones del sistema propuesto. En conjunto, estas métricas ofrecen una evaluación integral del desempeño alcanzado por el modelo de reconocimiento desarrollado.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cohen2017emnist" class="csl-entry" role="listitem">
+Cohen, Gregory, Saeed Afshar, Jonathan Tapson, y André van Schaik. 2017. <span>«<span>EMNIST</span>: An Extension of <span>MNIST</span> to Handwritten Letters»</span>. <em>arXiv preprint arXiv:1702.05373</em>. <a href="https://arxiv.org/abs/1702.05373">https://arxiv.org/abs/1702.05373</a>.
+</div>
+</div>
 </section>
 </section>
 

@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Reconocimiento de Caracteres – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./index.html" rel="prev">
+<link href="./LOGOunach.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d640c705e8c17715bca3574aa719063f.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d6a2ae2cb249da1580f0a11f71b8f854.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5b2cc3fa21794160b313e4ac029c03c1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fe2070592f9b8f3438b31c1dc38ae10b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="2&nbsp; Reconocimiento de Caracteres – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta property="og:description" content="">
+<meta property="og:image" content="images/paste-1.png">
+<meta property="og:site_name" content="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta name="twitter:title" content="2&nbsp; Reconocimiento de Caracteres – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="images/paste-1.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = true;
+    const darkModeDefault = authorPrefersDark;
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Caso de estudio.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconocimiento de Caracteres</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./LOGOunach.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./LOGOunach.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/maribecrurod-art/AlfabetoHMM" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Verano_Delfin_Mariana.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Verano_Delfin_Mariana.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Reconocimiento de Caracteres</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Caso de estudio.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconocimiento de Caracteres</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#reconocimiento-de-caracteres" id="toc-reconocimiento-de-caracteres" class="nav-link active" data-scroll-target="#reconocimiento-de-caracteres"><span class="header-section-number">3</span> Reconocimiento de Caracteres</a>
+  <ul class="collapse">
+  <li><a href="#configuración-del-entorno-experimental" id="toc-configuración-del-entorno-experimental" class="nav-link" data-scroll-target="#configuración-del-entorno-experimental"><span class="header-section-number">3.1</span> Configuración del entorno experimental</a></li>
+  <li><a href="#definición-de-parámetros-del-experimento" id="toc-definición-de-parámetros-del-experimento" class="nav-link" data-scroll-target="#definición-de-parámetros-del-experimento"><span class="header-section-number">3.2</span> Definición de parámetros del experimento</a></li>
+  <li><a href="#obtención-del-conjunto-de-datos" id="toc-obtención-del-conjunto-de-datos" class="nav-link" data-scroll-target="#obtención-del-conjunto-de-datos"><span class="header-section-number">3.3</span> Obtención del conjunto de datos</a></li>
+  <li><a href="#definición-de-la-topología-del-hmm" id="toc-definición-de-la-topología-del-hmm" class="nav-link" data-scroll-target="#definición-de-la-topología-del-hmm"><span class="header-section-number">3.4</span> Definición de la topología del HMM</a></li>
+  <li><a href="#preprocesamiento-de-imágenes" id="toc-preprocesamiento-de-imágenes" class="nav-link" data-scroll-target="#preprocesamiento-de-imágenes"><span class="header-section-number">3.5</span> Preprocesamiento de imágenes</a></li>
+  <li><a href="#extracción-de-características" id="toc-extracción-de-características" class="nav-link" data-scroll-target="#extracción-de-características"><span class="header-section-number">3.6</span> Extracción de características</a></li>
+  <li><a href="#construcción-de-los-conjuntos-de-entrenamiento-y-prueba" id="toc-construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="nav-link" data-scroll-target="#construcción-de-los-conjuntos-de-entrenamiento-y-prueba"><span class="header-section-number">3.7</span> Construcción de los conjuntos de entrenamiento y prueba</a></li>
+  <li><a href="#entrenamiento-de-los-modelos" id="toc-entrenamiento-de-los-modelos" class="nav-link" data-scroll-target="#entrenamiento-de-los-modelos"><span class="header-section-number">3.8</span> Entrenamiento de los modelos</a></li>
+  <li><a href="#inferencia-y-clasificación" id="toc-inferencia-y-clasificación" class="nav-link" data-scroll-target="#inferencia-y-clasificación"><span class="header-section-number">3.9</span> Inferencia y clasificación</a></li>
+  <li><a href="#evaluación-del-desempeño" id="toc-evaluación-del-desempeño" class="nav-link" data-scroll-target="#evaluación-del-desempeño"><span class="header-section-number">3.10</span> Evaluación del desempeño</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/Caso de estudio.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/Caso de estudio.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconocimiento de Caracteres</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="reconocimiento-de-caracteres" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Reconocimiento de Caracteres</h1>
+<p>En este capítulo se describe la metodología implementada para el reconocimiento automático de letras mayúsculas manuscritas del alfabeto latino mediante Modelos Ocultos de Markov (HMM). A diferencia del capítulo anterior, donde se presentaron los fundamentos teóricos del modelo, en esta sección se detallan las decisiones experimentales adoptadas, así como las etapas seguidas para la construcción, entrenamiento y evaluación del sistema de reconocimiento.</p>
+<p>Con el propósito de garantizar la reproducibilidad del experimento, se presenta el código utilizado durante el desarrollo del proyecto. Debido al elevado tiempo de ejecución requerido para el entrenamiento de los modelos, los bloques de código se muestran únicamente con fines documentales y no son ejecutados automáticamente dentro del presente documento.</p>
+<section id="configuración-del-entorno-experimental" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="configuración-del-entorno-experimental"><span class="header-section-number">3.1</span> Configuración del entorno experimental</h2>
+<p>El primer paso consistió en importar las bibliotecas necesarias para el procesamiento de imágenes, manipulación de datos, entrenamiento de los modelos HMM y evaluación de resultados. Asimismo, se estableció una conexión con un sistema de almacenamiento externo para conservar los modelos entrenados y evitar repetir el proceso de ajuste en ejecuciones posteriores.</p>
+<pre><code>from google.colab import drive 
+drive.mount('/content/drive') 
+import cv2 
+import numpy as np 
+import torchvision.datasets as datasets 
+import torchvision.transforms as transforms 
+import matplotlib.pyplot as plt 
+import seaborn as sns 
+import random 
+import os 
+import pickle 
+from tqdm import tqdm  
+try:     
+    from hmmlearn import hmm 
+except ImportError:     
+    import subprocess     
+    import sys     
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "hmmlearn"])     
+    from hmmlearn import hmm  
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report 
+import warnings </code></pre>
+<p>La utilización de estas bibliotecas responde a necesidades específicas del sistema. OpenCV permitió realizar operaciones de preprocesamiento sobre las imágenes; <span class="math inline">\(\texttt{torchvision}\)</span> proporcionó acceso al conjunto de datos EMNIST; <span class="math inline">\(\texttt{hmmlearn}\)</span> hizo posible la implementación de los modelos ocultos de Markov; mientras que <span class="math inline">\(\texttt{scikit-learn}\)</span> facilitó el cálculo de las métricas de evaluación.</p>
+<p>Con el fin de asegurar la reproducibilidad de los resultados, se fijaron semillas aleatorias y se deshabilitaron advertencias no críticas del entorno de ejecución.</p>
+<pre><code>np.random.seed(42) 
+random.seed(42) 
+warnings.filterwarnings("ignore") </code></pre>
+<p>El establecimiento de semillas garantiza que los procesos dependientes del azar produzcan resultados consistentes entre diferentes ejecuciones, permitiendo replicar los experimentos bajo las mismas condiciones iniciales.</p>
+</section>
+<section id="definición-de-parámetros-del-experimento" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="definición-de-parámetros-del-experimento"><span class="header-section-number">3.2</span> Definición de parámetros del experimento</h2>
+<p>A continuación, se definieron los parámetros principales utilizados durante el entrenamiento y evaluación del sistema.</p>
+<pre><code>N_ESTADOS = 12
+TRAIN_POR_CLASE = 1500
+TEST_POR_CLASE = 400
+
+IMG_SIZE = 40
+UMBRAL = 0.30
+
+ARCHIVO_MODELOS_CAT = "/content/drive/MyDrive/modelos_categorical_v_avanzada_hmm.pkl"
+
+TARGETS_MAYUSCULAS = list(range(10,36))
+MAPEO_LETTERS = {i: chr(ord('A') + (i - 10)) for i in range(10,36)}
+LETRAS_OBJETIVO = [chr(ord('A') + i) for i in range(26)]</code></pre>
+<p>Se optó por utilizar 12 estados ocultos para representar la evolución secuencial de cada letra manuscrita. Este número proporciona un equilibrio entre la capacidad descriptiva del modelo y el costo computacional asociado al entrenamiento. Asimismo, se seleccionaron 1500 muestras de entrenamiento y 400 muestras de prueba por clase con el objetivo de mantener una representación equilibrada de todas las letras del alfabeto.</p>
+<p>El tamaño de imagen fue fijado en 40×40 píxeles, permitiendo estandarizar las observaciones y reducir la variabilidad asociada a las dimensiones originales de escritura.</p>
+</section>
+<section id="obtención-del-conjunto-de-datos" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="obtención-del-conjunto-de-datos"><span class="header-section-number">3.3</span> Obtención del conjunto de datos</h2>
+<p>Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos EMNIST ByClass, una extensión del conocido conjunto MNIST que incorpora letras manuscritas y dígitos.</p>
+<pre><code>
+print("Descargando EMNIST ByClass...")
+emnist_train = datasets.EMNIST(root='./data', split='byclass', train=True, download=True, transform=transforms.ToTensor())
+emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, download=True, transform=transforms.ToTensor())</code></pre>
+<p>A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, descartando las demás clases disponibles. Esta decisión se tomó con el propósito de acotar el problema de clasificación y evaluar específicamente la capacidad del modelo para reconocer caracteres alfabéticos manuscritos.</p>
+</section>
+<section id="definición-de-la-topología-del-hmm" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="definición-de-la-topología-del-hmm"><span class="header-section-number">3.4</span> Definición de la topología del HMM</h2>
+<p>Se construyó una matriz de transición tipo Bakis (falta citar) flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.</p>
+<pre><code>def construir_matriz_bakis_flexible(n_states):
+    A = np.zeros((n_states, n_states))
+    for i in range(n_states):
+        if i == n_states - 1:
+            A[i, i] = 1.0
+        elif i == n_states - 2:
+            A[i, i] = 0.60
+            A[i, i+1] = 0.40
+        else:
+            A[i, i] = 0.60
+            A[i, i+1] = 0.30
+            A[i, i+2] = 0.10
+    return A</code></pre>
+<p>La topología Bakis impone una restricción direccional sobre las transiciones, permitiendo permanecer en el mismo estado o avanzar hacia estados posteriores, pero evitando retrocesos. Esta estructura resulta adecuada para describir procesos con una evolución secuencial, como la formación de los trazos manuscritos.</p>
+</section>
+<section id="preprocesamiento-de-imágenes" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="preprocesamiento-de-imágenes"><span class="header-section-number">3.5</span> Preprocesamiento de imágenes</h2>
+<p>Antes de convertir las imágenes en secuencias observables, se aplicó un proceso de normalización y alineamiento.</p>
+<pre><code>def procesar_imagen(imagen_tensor):
+    imagen = imagen_tensor.squeeze().numpy()
+    imagen = np.fliplr(imagen)
+    imagen = np.rot90(imagen)
+
+    img_bin = (imagen &gt; UMBRAL).astype(np.uint8)
+    filas = np.any(img_bin, axis=1)
+    columnas = np.any(img_bin, axis=0)
+
+    if np.any(filas) and np.any(columnas):
+        ymin, ymax = np.where(filas)[0][[0,-1]]
+        xmin, xmax = np.where(columnas)[0][[0,-1]]
+        recorte = imagen[ymin:ymax+1, xmin:xmax+1]
+
+        h, w = recorte.shape
+        max_dim = max(h, w)
+        pad_h = max_dim - h
+        pad_w = max_dim - w
+
+        pad_top = pad_h // 2
+        pad_bottom = pad_h - pad_top
+        pad_left = pad_w // 2
+        pad_right = pad_w - pad_left
+
+        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), (pad_left, pad_right)), mode='constant', constant_values=0)
+        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), (IMG_SIZE, IMG_SIZE), interpolation=cv2.INTER_LINEAR)
+    else:
+        imagen = cv2.resize(imagen.astype(np.float32), (IMG_SIZE, IMG_SIZE), interpolation=cv2.INTER_LINEAR)
+
+    imagen = (imagen &gt; UMBRAL).astype(float)
+    return imagen</code></pre>
+<p>El procedimiento incluyó la corrección de orientación propia del conjunto EMNIST, la eliminación de espacios vacíos mediante recortes automáticos, la incorporación de relleno para conservar la proporción del carácter y el redimensionamiento a un tamaño uniforme.</p>
+<p>Estas transformaciones buscan reducir la variabilidad irrelevante asociada a la posición y escala de las letras, favoreciendo que el modelo capture características relacionadas con la estructura del carácter y no con aspectos accidentales de adquisición.</p>
+</section>
+<section id="extracción-de-características" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="extracción-de-características"><span class="header-section-number">3.6</span> Extracción de características</h2>
+<p>Posteriormente, cada imagen preprocesada fue transformada en una secuencia discreta de observaciones.</p>
+<pre><code>def imagen_a_secuencia(img, w=5, stride=2):
+    secuencia = []
+    altura = IMG_SIZE
+
+    for t in range(0, img.shape[1] - w + 1, stride):
+        ventana = img[:, t:t+w]
+        columna = np.mean(ventana, axis=1)
+        col_bin = (columna &gt; 0.35).astype(int)
+
+        suma_tinta = np.sum(col_bin)
+
+        if suma_tinta == 0:
+            simbolo = 0 
+            secuencia.append([simbolo])
+            continue
+
+        if suma_tinta &lt; 8: tinta_q = 0
+        elif suma_tinta &lt; 16: tinta_q = 1
+        elif suma_tinta &lt; 24: tinta_q = 2
+        else: tinta_q = 3
+
+        cg = np.sum(col_bin * np.arange(altura)) / suma_tinta
+        if cg &lt; 12: cg_q = 0
+        elif cg &lt; 20: cg_q = 1
+        elif cg &lt; 28: cg_q = 2
+        else: cg_q = 3
+
+        transiciones = np.sum(np.abs(np.diff(col_bin)))
+        trans_q = min(int(transiciones), 3)
+
+        indices_tinta = np.where(col_bin &gt; 0)[0]
+        perfil_sup = indices_tinta[0]
+        perfil_inf = indices_tinta[-1]
+
+        up_q = 1 if perfil_sup &gt; 10 else 0    
+        low_q = 1 if perfil_inf &lt; 30 else 0   
+
+        simbolo = (tinta_q &lt;&lt; 6) | (cg_q &lt;&lt; 4) | (trans_q &lt;&lt; 2) | (up_q &lt;&lt; 1) | low_q
+        secuencia.append([simbolo])
+
+    return np.array(secuencia)</code></pre>
+<p>La extracción se realizó mediante ventanas deslizantes verticales. Para cada ventana se calcularon características geométricas relacionadas con la distribución de “tinta”, el centro de gravedad, el número de transiciones entre regiones activas e inactivas y la ubicación relativa de los perfiles superior e inferior del trazo.</p>
+<p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación de HMM categóricos, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
+</section>
+<section id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba"><span class="header-section-number">3.7</span> Construcción de los conjuntos de entrenamiento y prueba</h2>
+<p>Las secuencias obtenidas fueron organizadas en conjuntos balanceados de entrenamiento y evaluación.</p>
+<pre><code>def construir_dataset(dataset, max_muestras):
+    X, y = [], []
+    conteos = {k:0 for k in TARGETS_MAYUSCULAS}
+
+    for tensor, target in dataset:
+        if target not in TARGETS_MAYUSCULAS: continue
+        if conteos[target] &gt;= max_muestras: continue
+
+        img = procesar_imagen(tensor)
+        seq = imagen_a_secuencia(img)
+
+        X.append(seq)
+        y.append(MAPEO_LETTERS[target])
+        conteos[target] += 1
+
+        if all(c &gt;= max_muestras for c in conteos.values()): break
+
+    return X, np.array(y)
+
+print("Construyendo entrenamiento...")
+X_train, y_train = construir_dataset(emnist_train, TRAIN_POR_CLASE)
+
+print("Construyendo prueba...")
+X_test, y_test = construir_dataset(emnist_test, TEST_POR_CLASE)</code></pre>
+<p>El balance entre clases evita sesgos hacia letras con mayor número de muestras disponibles y permite interpretar las métricas de desempeño de manera más objetiva.</p>
+</section>
+<section id="entrenamiento-de-los-modelos" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="entrenamiento-de-los-modelos"><span class="header-section-number">3.8</span> Entrenamiento de los modelos</h2>
+<p>Se entrenó un modelo HMM independiente para cada una de las letras del alfabeto.</p>
+<pre><code>modelos_hmm = {}
+
+if os.path.exists(ARCHIVO_MODELOS_CAT):
+    print("\n[INFO] Modelos detectados en Drive. Cargando...")
+    with open(ARCHIVO_MODELOS_CAT, 'rb') as f:
+        modelos_hmm = pickle.load(f)
+else:
+    print("\nEntrenando CategoricalHMMs...\n")
+    barra = tqdm(LETRAS_OBJETIVO, desc="Entrenando", unit="letra")
+    for letra in barra:
+        barra.set_description(f"Entrenando '{letra}'")
+        idx = np.where(y_train == letra)[0]
+        secuencias = [X_train[i] for i in idx]
+        lengths = [len(s) for s in secuencias]
+        X_concat = np.vstack(secuencias)
+
+        model = hmm.CategoricalHMM(
+            n_components=N_ESTADOS,
+            n_features=256, 
+            n_iter=250,
+            random_state=42,
+            init_params='e'
+        )
+
+        model.startprob_ = np.zeros(N_ESTADOS)
+        model.startprob_[0] = 1.0
+        model.transmat_ = construir_matriz_bakis_flexible(N_ESTADOS)
+
+        model.fit(X_concat, lengths)
+        modelos_hmm[letra] = model
+
+    with open(ARCHIVO_MODELOS_CAT, 'wb') as f:
+        pickle.dump(modelos_hmm, f)</code></pre>
+<p>Cada modelo fue ajustado utilizando exclusivamente las secuencias correspondientes a su letra asociada. Esta estrategia de clasificación por modelos independientes permite estimar la probabilidad de que una secuencia haya sido generada por cada carácter y seleccionar posteriormente la hipótesis más probable.</p>
+<p>Los modelos entrenados fueron almacenados en un sistema externo de persistencia, evitando repetir el costoso proceso de entrenamiento en futuras ejecuciones.</p>
+</section>
+<section id="inferencia-y-clasificación" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="inferencia-y-clasificación"><span class="header-section-number">3.9</span> Inferencia y clasificación</h2>
+<p>Una vez entrenados los modelos, cada muestra del conjunto de prueba fue evaluada frente a todos los HMM disponibles.</p>
+<pre><code>print("\nClasificando...\n")
+y_pred = []
+
+for seq in tqdm(X_test, desc="Evaluando Inferencia"):
+    scores = {}
+    for letra, model in modelos_hmm.items():
+        try: scores[letra] = model.score(seq)
+        except: scores[letra] = -np.inf
+
+    pred = max(scores, key=scores.get)
+    y_pred.append(pred)</code></pre>
+<p>La predicción final se obtuvo seleccionando la letra cuyo modelo produjo la mayor puntuación de verosimilitud sobre la secuencia observada.</p>
+<p>Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM.</p>
+</section>
+<section id="evaluación-del-desempeño" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="evaluación-del-desempeño"><span class="header-section-number">3.10</span> Evaluación del desempeño</h2>
+<p>Finalmente, se calcularon diferentes métricas para evaluar el rendimiento del sistema.</p>
+<pre><code>accuracy = accuracy_score(y_test, y_pred)
+cm = confusion_matrix(y_test, y_pred, labels=LETRAS_OBJETIVO)
+
+precision_por_letra = cm.diagonal() / cm.sum(axis=1)
+
+print("\n" + "="*70)
+print("EXACTITUD (ACCURACY) INDIVIDUAL POR LETRA")
+print("="*70)
+for i, letra in enumerate(LETRAS_OBJETIVO):
+    acc = precision_por_letra[i] * 100
+    print(f"Precisión Letra {letra} : {acc:&gt;6.2f} %")
+
+print("\n" + "="*70)
+print(f"ACCURACY GLOBAL: {accuracy*100:.2f}%")
+print("="*70 + "\n")
+
+print(classification_report(y_test, y_pred, target_names=LETRAS_OBJETIVO))</code></pre>
+<p><img src="images/paste-1.png" class="img-fluid"></p>
+<p><img src="images/paste-2.png" class="img-fluid"></p>
+<p>Además del porcentaje global de aciertos, se estimó la precisión individual para cada letra y se construyó una matriz de confusión.</p>
+<pre><code>plt.figure(figsize=(16,14))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=LETRAS_OBJETIVO, yticklabels=LETRAS_OBJETIVO)
+plt.title(f'Matriz CategoricalHMM con Rasgos Estructurales (Precisión: {accuracy*100:.2f}%)', fontsize=16, fontweight='bold')
+plt.ylabel('Letra Real', fontsize=14)
+plt.xlabel('Letra Predicha', fontsize=14)
+plt.tight_layout()
+plt.show()</code></pre>
+<p><img src="images/paste-3.png" class="img-fluid"></p>
+<p>La matriz de confusión permitió identificar cuáles letras presentan mayores dificultades de discriminación, proporcionando información valiosa para analizar las fortalezas y limitaciones del sistema propuesto. En conjunto, estas métricas ofrecen una evaluación integral del desempeño alcanzado por el modelo de reconocimiento desarrollado.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Reconocimiento de Caracteres">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Reconocimiento de Caracteres</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/Caso de estudio.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/Caso de estudio.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></div></div></footer></body></html>

@@ -34,6 +34,7 @@ book:
   page-navigation: true
   chapters:
     - index.qmd
+    - Caso de estudio.qmd
 
 comments:
   hypothesis: true

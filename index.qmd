@@ -123,7 +123,6 @@ $$
 
 ![La probabilidad de transición $p\_{ij}(t+s)$ se obtiene sumando las contribuciones de todos los posibles estados intermedios $k$.](chapman-k.png){#fig-chapman fig-align="center" width="700"}
 
-
 # Dinámica Infinitesimal y Generador de la Cadena
 
 La evolución continua del color del pixel requiere una descripción mediante probabilidades de transición, lo cual nos lleva a la representación matricial de la derivada de $P(t)$.
@@ -190,8 +189,6 @@ e^{Qt}
 \frac{(Qt)^n}{n!}.
 $$
 :::
-
-
 
 # Utilidad hacia Cadenas de Márkov Ocultas (HMM)
 
@@ -662,5 +659,3 @@ dado un conjunto de secuencias observadas se realiza mediante un proceso iterati
 :::
 
 ![Esquema general del algoritmo Expectation–Maximization (Baum–Welch) para un Modelo Oculto de Markov. En el Paso E se estiman las probabilidades posteriores de los estados ocultos y las transiciones esperadas mediante los algoritmos Forward–Backward. En el Paso M se actualizan iterativamente la matriz generadora y la matriz de emisión para maximizar la verosimilitud de las observaciones.](imagenesHMM/ME_HMM.png){#fig-ME fig-align="center" width="800"}
-
-

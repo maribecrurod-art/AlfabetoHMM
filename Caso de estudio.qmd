@@ -4,7 +4,7 @@ format: html
 bibliography: Referencias.bib
 ---
 
-# Reconocimiento de Caracteres
+# Reconocimiento de Caracteres Caso de estudio
 
 En este capítulo se describe la metodología implementada para el reconocimiento automático de letras mayúsculas manuscritas del alfabeto latino mediante Modelos Ocultos de Markov (HMM). A diferencia del capítulo anterior, donde se presentaron los fundamentos teóricos del modelo, en esta sección se detallan las decisiones experimentales adoptadas, así como las etapas seguidas para la construcción, entrenamiento y evaluación del sistema de reconocimiento.
 
@@ -38,7 +38,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 import warnings 
 ```
 
-La utilización de estas bibliotecas responde a necesidades específicas del sistema. OpenCV permitió realizar operaciones de preprocesamiento sobre las imágenes; $\texttt{torchvision}$ proporcionó acceso al conjunto de datos EMNIST; $\texttt{hmmlearn}$ hizo posible la implementación de los modelos ocultos de Markov; mientras que $\texttt{scikit-learn}$ facilitó el cálculo de las métricas de evaluación.
+La utilización de estas bibliotecas responde a necesidades específicas del sistema. $\texttt{OpenCV}$ permitió realizar operaciones de preprocesamiento sobre las imágenes; $\texttt{torchvision}$ proporcionó acceso al conjunto de datos **EMNIST** [@cohen2017emnist]; $\texttt{hmmlearn}$ hizo posible la implementación de los modelos ocultos de Markov; mientras que $\texttt{scikit-learn}$ facilitó el cálculo de las métricas de evaluación.
 
 Con el fin de asegurar la reproducibilidad de los resultados, se fijaron semillas aleatorias y se deshabilitaron advertencias no críticas del entorno de ejecución.
 
@@ -75,7 +75,7 @@ El tamaño de imagen fue fijado en 40×40 píxeles, permitiendo estandarizar las
 
 ## Obtención del conjunto de datos
 
-Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos EMNIST ByClass, una extensión del conocido conjunto MNIST que incorpora letras manuscritas y dígitos.
+Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos **EMNIST ByClass**, una extensión del conocido conjunto **MNIST** que incorpora letras manuscritas y dígitos.
 
 ```         
 
@@ -86,7 +86,7 @@ emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, downl
 
 A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, descartando las demás clases disponibles. Esta decisión se tomó con el propósito de acotar el problema de clasificación y evaluar específicamente la capacidad del modelo para reconocer caracteres alfabéticos manuscritos.
 
-## Definición de la topología del HMM
+## Definición de la arquitectura del HMM
 
 Se construyó una matriz de transición tipo Bakis (falta citar) flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.
 
@@ -146,9 +146,11 @@ def procesar_imagen(imagen_tensor):
     return imagen
 ```
 
-El procedimiento incluyó la corrección de orientación propia del conjunto EMNIST, la eliminación de espacios vacíos mediante recortes automáticos, la incorporación de relleno para conservar la proporción del carácter y el redimensionamiento a un tamaño uniforme.
+El procedimiento incluyó la corrección de orientación propia del conjunto **EMNIST**, la eliminación de espacios vacíos mediante recortes automáticos, la incorporación de relleno para conservar la proporción del carácter y el redimensionamiento a un tamaño uniforme.
 
 Estas transformaciones buscan reducir la variabilidad irrelevante asociada a la posición y escala de las letras, favoreciendo que el modelo capture características relacionadas con la estructura del carácter y no con aspectos accidentales de adquisición.
+
+![](images/paste-4.png)
 
 ## Extracción de características
 
@@ -200,7 +202,7 @@ def imagen_a_secuencia(img, w=5, stride=2):
 
 La extracción se realizó mediante ventanas deslizantes verticales. Para cada ventana se calcularon características geométricas relacionadas con la distribución de "tinta", el centro de gravedad, el número de transiciones entre regiones activas e inactivas y la ubicación relativa de los perfiles superior e inferior del trazo.
 
-Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación de HMM categóricos, cuyos mecanismos de emisión operan sobre observaciones discretas.
+Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM, cuyos mecanismos de emisión operan sobre observaciones discretas.
 
 ## Construcción de los conjuntos de entrenamiento y prueba
 

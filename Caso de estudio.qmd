@@ -150,9 +150,11 @@ def procesar_imagen(imagen_tensor):
         pad_left = pad_w // 2
         pad_right = pad_w - pad_left
 
-        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), (pad_left, pad_right)), 
+        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), 
+        (pad_left, pad_right)), 
         mode='constant', constant_values=0)
-        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), (IMG_SIZE, IMG_SIZE),
+        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), 
+        (IMG_SIZE, IMG_SIZE),
         interpolation=cv2.INTER_LINEAR)
     else:
         imagen = cv2.resize(imagen.astype(np.float32), (IMG_SIZE, IMG_SIZE), 
@@ -210,7 +212,8 @@ def imagen_a_secuencia(img, w=5, stride=2):
         up_q = 1 if perfil_sup > 10 else 0    
         low_q = 1 if perfil_inf < 30 else 0   
 
-        simbolo = (tinta_q << 6) | (cg_q << 4) | (trans_q << 2) | (up_q << 1) | low_q
+        simbolo = (tinta_q << 6) | (cg_q << 4) | (trans_q << 2) 
+        | (up_q << 1) | low_q
         secuencia.append([simbolo])
 
     return np.array(secuencia)
@@ -353,8 +356,10 @@ Además del porcentaje global de aciertos, se estimó la precisión individual p
 
 ```         
 plt.figure(figsize=(16,14))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=LETRAS_OBJETIVO, yticklabels=LETRAS_OBJETIVO)
-plt.title(f'Matriz CategoricalHMM con Rasgos Estructurales (Precisión: {accuracy*100:.2f}%)', fontsize=16, fontweight='bold')
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=LETRAS_OBJETIVO,
+yticklabels=LETRAS_OBJETIVO)
+plt.title(f'Matriz CategoricalHMM con Rasgos Estructurales 
+(Precisión: {accuracy*100:.2f}%)', fontsize=16, fontweight='bold')
 plt.ylabel('Letra Real', fontsize=14)
 plt.xlabel('Letra Predicha', fontsize=14)
 plt.tight_layout()

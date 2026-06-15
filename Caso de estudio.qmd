@@ -93,8 +93,10 @@ Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos 
 ```         
 
 print("Descargando EMNIST ByClass...")
-emnist_train = datasets.EMNIST(root='./data', split='byclass', train=True, download=True, transform=transforms.ToTensor())
-emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, download=True, transform=transforms.ToTensor())
+emnist_train = datasets.EMNIST(root='./data', split='byclass', train=True, 
+download=True, transform=transforms.ToTensor())
+emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, 
+download=True, transform=transforms.ToTensor())
 ```
 
 A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, descartando las demás clases disponibles. Esta decisión se tomó con el propósito de acotar el problema de clasificación y evaluar específicamente la capacidad del modelo para reconocer caracteres alfabéticos manuscritos.

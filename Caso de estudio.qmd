@@ -1,6 +1,12 @@
 ---
 title: "Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM"
-format: html
+format: 
+  html: default
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 bibliography: Referencias.bib
 ---
 

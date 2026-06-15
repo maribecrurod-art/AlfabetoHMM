@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -449,32 +484,32 @@ window.Quarto = {
 <section id="configuración-del-entorno-experimental" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="configuración-del-entorno-experimental"><span class="header-section-number">3.1</span> Configuración del entorno experimental</h2>
 <p>El primer paso consistió en importar las bibliotecas necesarias para el procesamiento de imágenes, manipulación de datos, entrenamiento de los modelos HMM y evaluación de resultados. Asimismo, se estableció una conexión con un sistema de almacenamiento externo para conservar los modelos entrenados y evitar repetir el proceso de ajuste en ejecuciones posteriores.</p>
-<pre><code>from google.colab import drive 
-drive.mount('/content/drive') 
-import cv2 
-import numpy as np 
-import torchvision.datasets as datasets 
-import torchvision.transforms as transforms 
-import matplotlib.pyplot as plt 
-import seaborn as sns 
-import random 
-import os 
-import pickle 
-from tqdm import tqdm  
-try:     
-    from hmmlearn import hmm 
-except ImportError:     
-    import subprocess     
-    import sys     
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "hmmlearn"])     
-    from hmmlearn import hmm  
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report 
-import warnings </code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> drive </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>drive.mount(<span class="st">'/content/drive'</span>) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cv2 </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.datasets <span class="im">as</span> datasets </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.transforms <span class="im">as</span> transforms </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:     </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> hmmlearn <span class="im">import</span> hmm </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:     </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> subprocess     </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> sys     </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    subprocess.check_call([sys.executable, <span class="st">"-m"</span>, <span class="st">"pip"</span>, <span class="st">"install"</span>, <span class="st">"hmmlearn"</span>])     </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> hmmlearn <span class="im">import</span> hmm  </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, classification_report </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>La utilización de estas bibliotecas responde a necesidades específicas del sistema. <span class="math inline">\(\texttt{OpenCV}\)</span> permitió realizar operaciones de preprocesamiento sobre las imágenes; <span class="math inline">\(\texttt{torchvision}\)</span> proporcionó acceso al conjunto de datos <strong>EMNIST</strong> <span class="citation" data-cites="cohen2017emnist">(<a href="#ref-cohen2017emnist" role="doc-biblioref">Cohen et&nbsp;al. 2017</a>)</span>; <span class="math inline">\(\texttt{hmmlearn}\)</span> hizo posible la implementación de los modelos ocultos de Markov; mientras que <span class="math inline">\(\texttt{scikit-learn}\)</span> facilitó el cálculo de las métricas de evaluación.</p>
 <p>Con el fin de asegurar la reproducibilidad de los resultados, se fijaron semillas aleatorias y se deshabilitaron advertencias no críticas del entorno de ejecución.</p>
-<pre><code>np.random.seed(42) 
-random.seed(42) 
-warnings.filterwarnings("ignore") </code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">42</span>) </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>) </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>El establecimiento de semillas garantiza que los procesos dependientes del azar produzcan resultados consistentes entre diferentes ejecuciones, permitiendo replicar los experimentos bajo las mismas condiciones iniciales.</p>
 </section>
 <section id="definición-de-parámetros-del-experimento" class="level2" data-number="3.2">
@@ -498,69 +533,71 @@ LETRAS_OBJETIVO = [chr(ord('A') + i) for i in range(26)]</code></pre>
 <section id="obtención-del-conjunto-de-datos" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="obtención-del-conjunto-de-datos"><span class="header-section-number">3.3</span> Obtención del conjunto de datos</h2>
 <p>Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos <strong>EMNIST ByClass</strong>, una extensión del conocido conjunto <strong>MNIST</strong> que incorpora letras manuscritas y dígitos.</p>
-<pre><code>
-print("Descargando EMNIST ByClass...")
-emnist_train = datasets.EMNIST(root='./data', split='byclass', train=True, download=True, transform=transforms.ToTensor())
-emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, download=True, transform=transforms.ToTensor())</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Descargando EMNIST ByClass..."</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>emnist_train <span class="op">=</span> datasets.EMNIST(root<span class="op">=</span><span class="st">'./data'</span>, split<span class="op">=</span><span class="st">'byclass'</span>, train<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>transforms.ToTensor())</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>emnist_test <span class="op">=</span> datasets.EMNIST(root<span class="op">=</span><span class="st">'./data'</span>, split<span class="op">=</span><span class="st">'byclass'</span>, train<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>transforms.ToTensor())</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, descartando las demás clases disponibles. Esta decisión se tomó con el propósito de acotar el problema de clasificación y evaluar específicamente la capacidad del modelo para reconocer caracteres alfabéticos manuscritos.</p>
 </section>
 <section id="definición-de-la-arquitectura-del-hmm" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="definición-de-la-arquitectura-del-hmm"><span class="header-section-number">3.4</span> Definición de la arquitectura del HMM</h2>
 <p>Se construyó una matriz de transición tipo Bakis (falta citar) flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.</p>
-<pre><code>def construir_matriz_bakis_flexible(n_states):
-    A = np.zeros((n_states, n_states))
-    for i in range(n_states):
-        if i == n_states - 1:
-            A[i, i] = 1.0
-        elif i == n_states - 2:
-            A[i, i] = 0.60
-            A[i, i+1] = 0.40
-        else:
-            A[i, i] = 0.60
-            A[i, i+1] = 0.30
-            A[i, i+2] = 0.10
-    return A</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> construir_matriz_bakis_flexible(n_states):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.zeros((n_states, n_states))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_states):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> n_states <span class="op">-</span> <span class="dv">1</span>:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            A[i, i] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">==</span> n_states <span class="op">-</span> <span class="dv">2</span>:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            A[i, i] <span class="op">=</span> <span class="fl">0.60</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            A[i, i<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.40</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            A[i, i] <span class="op">=</span> <span class="fl">0.60</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            A[i, i<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.30</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            A[i, i<span class="op">+</span><span class="dv">2</span>] <span class="op">=</span> <span class="fl">0.10</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>La arquitectura Bakis impone una restricción direccional sobre las transiciones, permitiendo permanecer en el mismo estado o avanzar hacia estados posteriores, pero evitando retrocesos. Esta estructura resulta adecuada para describir procesos con una evolución secuencial, como la formación de los trazos manuscritos.</p>
 </section>
 <section id="preprocesamiento-de-imágenes" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="preprocesamiento-de-imágenes"><span class="header-section-number">3.5</span> Preprocesamiento de imágenes</h2>
 <p>Antes de convertir las imágenes en secuencias observables, se aplicó un proceso de normalización y alineamiento.</p>
-<pre><code>def procesar_imagen(imagen_tensor):
-    imagen = imagen_tensor.squeeze().numpy()
-    imagen = np.fliplr(imagen)
-    imagen = np.rot90(imagen)
-
-    img_bin = (imagen &gt; UMBRAL).astype(np.uint8)
-    filas = np.any(img_bin, axis=1)
-    columnas = np.any(img_bin, axis=0)
-
-    if np.any(filas) and np.any(columnas):
-        ymin, ymax = np.where(filas)[0][[0,-1]]
-        xmin, xmax = np.where(columnas)[0][[0,-1]]
-        recorte = imagen[ymin:ymax+1, xmin:xmax+1]
-
-        h, w = recorte.shape
-        max_dim = max(h, w)
-        pad_h = max_dim - h
-        pad_w = max_dim - w
-
-        pad_top = pad_h // 2
-        pad_bottom = pad_h - pad_top
-        pad_left = pad_w // 2
-        pad_right = pad_w - pad_left
-
-        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), 
-        (pad_left, pad_right)), 
-        mode='constant', constant_values=0)
-        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), 
-        (IMG_SIZE, IMG_SIZE),
-        interpolation=cv2.INTER_LINEAR)
-    else:
-        imagen = cv2.resize(imagen.astype(np.float32), (IMG_SIZE, IMG_SIZE), 
-        interpolation=cv2.INTER_LINEAR)
-
-    imagen = (imagen &gt; UMBRAL).astype(float)
-    return imagen</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> procesar_imagen(imagen_tensor):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    imagen <span class="op">=</span> imagen_tensor.squeeze().numpy()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    imagen <span class="op">=</span> np.fliplr(imagen)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    imagen <span class="op">=</span> np.rot90(imagen)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    img_bin <span class="op">=</span> (imagen <span class="op">&gt;</span> UMBRAL).astype(np.uint8)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    filas <span class="op">=</span> np.<span class="bu">any</span>(img_bin, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    columnas <span class="op">=</span> np.<span class="bu">any</span>(img_bin, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.<span class="bu">any</span>(filas) <span class="kw">and</span> np.<span class="bu">any</span>(columnas):</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        ymin, ymax <span class="op">=</span> np.where(filas)[<span class="dv">0</span>][[<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        xmin, xmax <span class="op">=</span> np.where(columnas)[<span class="dv">0</span>][[<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        recorte <span class="op">=</span> imagen[ymin:ymax<span class="op">+</span><span class="dv">1</span>, xmin:xmax<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        h, w <span class="op">=</span> recorte.shape</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        max_dim <span class="op">=</span> <span class="bu">max</span>(h, w)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        pad_h <span class="op">=</span> max_dim <span class="op">-</span> h</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        pad_w <span class="op">=</span> max_dim <span class="op">-</span> w</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        pad_top <span class="op">=</span> pad_h <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        pad_bottom <span class="op">=</span> pad_h <span class="op">-</span> pad_top</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        pad_left <span class="op">=</span> pad_w <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        pad_right <span class="op">=</span> pad_w <span class="op">-</span> pad_left</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        recorte_cuadrado <span class="op">=</span> np.pad(recorte, ((pad_top, pad_bottom), </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        (pad_left, pad_right)), </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        mode<span class="op">=</span><span class="st">'constant'</span>, constant_values<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        imagen <span class="op">=</span> cv2.resize(recorte_cuadrado.astype(np.float32), </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        (IMG_SIZE, IMG_SIZE),</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        interpolation<span class="op">=</span>cv2.INTER_LINEAR)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        imagen <span class="op">=</span> cv2.resize(imagen.astype(np.float32), (IMG_SIZE, IMG_SIZE), </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        interpolation<span class="op">=</span>cv2.INTER_LINEAR)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    imagen <span class="op">=</span> (imagen <span class="op">&gt;</span> UMBRAL).astype(<span class="bu">float</span>)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> imagen</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>El procedimiento incluyó la corrección de orientación propia del conjunto <strong>EMNIST</strong>, la eliminación de espacios vacíos mediante recortes automáticos, la incorporación de relleno para conservar la proporción del carácter y el redimensionamiento a un tamaño uniforme.</p>
 <p>Estas transformaciones buscan reducir la variabilidad irrelevante asociada a la posición y escala de las letras, favoreciendo que el modelo capture características relacionadas con la estructura del carácter y no con aspectos accidentales de adquisición.</p>
 <p><img src="images/paste-4.png" class="img-fluid"></p>
@@ -568,48 +605,48 @@ emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, downl
 <section id="extracción-de-características" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="extracción-de-características"><span class="header-section-number">3.6</span> Extracción de características</h2>
 <p>Posteriormente, cada imagen preprocesada fue transformada en una secuencia discreta de observaciones.</p>
-<pre><code>def imagen_a_secuencia(img, w=5, stride=2):
-    secuencia = []
-    altura = IMG_SIZE
-
-    for t in range(0, img.shape[1] - w + 1, stride):
-        ventana = img[:, t:t+w]
-        columna = np.mean(ventana, axis=1)
-        col_bin = (columna &gt; 0.35).astype(int)
-
-        suma_tinta = np.sum(col_bin)
-
-        if suma_tinta == 0:
-            simbolo = 0 
-            secuencia.append([simbolo])
-            continue
-
-        if suma_tinta &lt; 8: tinta_q = 0
-        elif suma_tinta &lt; 16: tinta_q = 1
-        elif suma_tinta &lt; 24: tinta_q = 2
-        else: tinta_q = 3
-
-        cg = np.sum(col_bin * np.arange(altura)) / suma_tinta
-        if cg &lt; 12: cg_q = 0
-        elif cg &lt; 20: cg_q = 1
-        elif cg &lt; 28: cg_q = 2
-        else: cg_q = 3
-
-        transiciones = np.sum(np.abs(np.diff(col_bin)))
-        trans_q = min(int(transiciones), 3)
-
-        indices_tinta = np.where(col_bin &gt; 0)[0]
-        perfil_sup = indices_tinta[0]
-        perfil_inf = indices_tinta[-1]
-
-        up_q = 1 if perfil_sup &gt; 10 else 0    
-        low_q = 1 if perfil_inf &lt; 30 else 0   
-
-        simbolo = (tinta_q &lt;&lt; 6) | (cg_q &lt;&lt; 4) | (trans_q &lt;&lt; 2) 
-        | (up_q &lt;&lt; 1) | low_q
-        secuencia.append([simbolo])
-
-    return np.array(secuencia)</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> imagen_a_secuencia(img, w<span class="op">=</span><span class="dv">5</span>, stride<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    secuencia <span class="op">=</span> []</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    altura <span class="op">=</span> IMG_SIZE</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, img.shape[<span class="dv">1</span>] <span class="op">-</span> w <span class="op">+</span> <span class="dv">1</span>, stride):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        ventana <span class="op">=</span> img[:, t:t<span class="op">+</span>w]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        columna <span class="op">=</span> np.mean(ventana, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        col_bin <span class="op">=</span> (columna <span class="op">&gt;</span> <span class="fl">0.35</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        suma_tinta <span class="op">=</span> np.<span class="bu">sum</span>(col_bin)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> suma_tinta <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            simbolo <span class="op">=</span> <span class="dv">0</span> </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            secuencia.append([simbolo])</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> suma_tinta <span class="op">&lt;</span> <span class="dv">8</span>: tinta_q <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> suma_tinta <span class="op">&lt;</span> <span class="dv">16</span>: tinta_q <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> suma_tinta <span class="op">&lt;</span> <span class="dv">24</span>: tinta_q <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: tinta_q <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        cg <span class="op">=</span> np.<span class="bu">sum</span>(col_bin <span class="op">*</span> np.arange(altura)) <span class="op">/</span> suma_tinta</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cg <span class="op">&lt;</span> <span class="dv">12</span>: cg_q <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> cg <span class="op">&lt;</span> <span class="dv">20</span>: cg_q <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> cg <span class="op">&lt;</span> <span class="dv">28</span>: cg_q <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: cg_q <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>        transiciones <span class="op">=</span> np.<span class="bu">sum</span>(np.<span class="bu">abs</span>(np.diff(col_bin)))</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        trans_q <span class="op">=</span> <span class="bu">min</span>(<span class="bu">int</span>(transiciones), <span class="dv">3</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        indices_tinta <span class="op">=</span> np.where(col_bin <span class="op">&gt;</span> <span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        perfil_sup <span class="op">=</span> indices_tinta[<span class="dv">0</span>]</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>        perfil_inf <span class="op">=</span> indices_tinta[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>        up_q <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> perfil_sup <span class="op">&gt;</span> <span class="dv">10</span> <span class="cf">else</span> <span class="dv">0</span>    </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        low_q <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> perfil_inf <span class="op">&lt;</span> <span class="dv">30</span> <span class="cf">else</span> <span class="dv">0</span>   </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        simbolo <span class="op">=</span> (tinta_q <span class="op">&lt;&lt;</span> <span class="dv">6</span>) <span class="op">|</span> (cg_q <span class="op">&lt;&lt;</span> <span class="dv">4</span>) <span class="op">|</span> (trans_q <span class="op">&lt;&lt;</span> <span class="dv">2</span>) </span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="op">|</span> (up_q <span class="op">&lt;&lt;</span> <span class="dv">1</span>) <span class="op">|</span> low_q</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        secuencia.append([simbolo])</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(secuencia)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>La extracción se realizó mediante ventanas deslizantes verticales. Para cada ventana se calcularon características geométricas relacionadas con la distribución de “tinta”, el centro de gravedad, el número de transiciones entre regiones activas e inactivas y la ubicación relativa de los perfiles superior e inferior del trazo.</p>
 <p><img src="images/paste-5.png" class="img-fluid"></p>
 <p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
@@ -646,39 +683,39 @@ X_test, y_test = construir_dataset(emnist_test, TEST_POR_CLASE)</code></pre>
 <section id="entrenamiento-de-los-modelos" class="level2" data-number="3.8">
 <h2 data-number="3.8" class="anchored" data-anchor-id="entrenamiento-de-los-modelos"><span class="header-section-number">3.8</span> Entrenamiento de los modelos</h2>
 <p>Se entrenó un modelo HMM independiente para cada una de las letras del alfabeto.</p>
-<pre><code>modelos_hmm = {}
-
-if os.path.exists(ARCHIVO_MODELOS_CAT):
-    print("\n[INFO] Modelos detectados en Drive. Cargando...")
-    with open(ARCHIVO_MODELOS_CAT, 'rb') as f:
-        modelos_hmm = pickle.load(f)
-else:
-    print("\nEntrenando CategoricalHMMs...\n")
-    barra = tqdm(LETRAS_OBJETIVO, desc="Entrenando", unit="letra")
-    for letra in barra:
-        barra.set_description(f"Entrenando '{letra}'")
-        idx = np.where(y_train == letra)[0]
-        secuencias = [X_train[i] for i in idx]
-        lengths = [len(s) for s in secuencias]
-        X_concat = np.vstack(secuencias)
-
-        model = hmm.CategoricalHMM(
-            n_components=N_ESTADOS,
-            n_features=256, 
-            n_iter=250,
-            random_state=42,
-            init_params='e'
-        )
-
-        model.startprob_ = np.zeros(N_ESTADOS)
-        model.startprob_[0] = 1.0
-        model.transmat_ = construir_matriz_bakis_flexible(N_ESTADOS)
-
-        model.fit(X_concat, lengths)
-        modelos_hmm[letra] = model
-
-    with open(ARCHIVO_MODELOS_CAT, 'wb') as f:
-        pickle.dump(modelos_hmm, f)</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>modelos_hmm <span class="op">=</span> {}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> os.path.exists(ARCHIVO_MODELOS_CAT):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">[INFO] Modelos detectados en Drive. Cargando..."</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(ARCHIVO_MODELOS_CAT, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        modelos_hmm <span class="op">=</span> pickle.load(f)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Entrenando CategoricalHMMs...</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    barra <span class="op">=</span> tqdm(LETRAS_OBJETIVO, desc<span class="op">=</span><span class="st">"Entrenando"</span>, unit<span class="op">=</span><span class="st">"letra"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letra <span class="kw">in</span> barra:</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        barra.set_description(<span class="ss">f"Entrenando '</span><span class="sc">{</span>letra<span class="sc">}</span><span class="ss">'"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">=</span> np.where(y_train <span class="op">==</span> letra)[<span class="dv">0</span>]</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        secuencias <span class="op">=</span> [X_train[i] <span class="cf">for</span> i <span class="kw">in</span> idx]</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        lengths <span class="op">=</span> [<span class="bu">len</span>(s) <span class="cf">for</span> s <span class="kw">in</span> secuencias]</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        X_concat <span class="op">=</span> np.vstack(secuencias)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> hmm.CategoricalHMM(</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>            n_components<span class="op">=</span>N_ESTADOS,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>            n_features<span class="op">=</span><span class="dv">256</span>, </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>            n_iter<span class="op">=</span><span class="dv">250</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>            init_params<span class="op">=</span><span class="st">'e'</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        model.startprob_ <span class="op">=</span> np.zeros(N_ESTADOS)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        model.startprob_[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        model.transmat_ <span class="op">=</span> construir_matriz_bakis_flexible(N_ESTADOS)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        model.fit(X_concat, lengths)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        modelos_hmm[letra] <span class="op">=</span> model</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(ARCHIVO_MODELOS_CAT, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>        pickle.dump(modelos_hmm, f)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Cada modelo fue ajustado utilizando exclusivamente las secuencias correspondientes a su letra asociada. Esta estrategia de clasificación por modelos independientes permite estimar la probabilidad de que una secuencia haya sido generada por cada carácter y seleccionar posteriormente la hipótesis más probable.</p>
 <p>Los modelos entrenados fueron almacenados en un sistema externo de persistencia, evitando repetir el costoso proceso de entrenamiento en futuras ejecuciones.</p>
 </section>
@@ -702,35 +739,35 @@ for seq in tqdm(X_test, desc="Evaluando Inferencia"):
 <section id="evaluación-del-desempeño" class="level2" data-number="3.10">
 <h2 data-number="3.10" class="anchored" data-anchor-id="evaluación-del-desempeño"><span class="header-section-number">3.10</span> Evaluación del desempeño</h2>
 <p>Finalmente, se calcularon diferentes métricas para evaluar el rendimiento del sistema.</p>
-<pre><code>accuracy = accuracy_score(y_test, y_pred)
-cm = confusion_matrix(y_test, y_pred, labels=LETRAS_OBJETIVO)
-
-precision_por_letra = cm.diagonal() / cm.sum(axis=1)
-
-print("\n" + "="*70)
-print("EXACTITUD (ACCURACY) INDIVIDUAL POR LETRA")
-print("="*70)
-for i, letra in enumerate(LETRAS_OBJETIVO):
-    acc = precision_por_letra[i] * 100
-    print(f"Precisión Letra {letra} : {acc:&gt;6.2f} %")
-
-print("\n" + "="*70)
-print(f"ACCURACY GLOBAL: {accuracy*100:.2f}%")
-print("="*70 + "\n")
-
-print(classification_report(y_test, y_pred, target_names=LETRAS_OBJETIVO))</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_pred, labels<span class="op">=</span>LETRAS_OBJETIVO)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>precision_por_letra <span class="op">=</span> cm.diagonal() <span class="op">/</span> cm.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">70</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"EXACTITUD (ACCURACY) INDIVIDUAL POR LETRA"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">70</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, letra <span class="kw">in</span> <span class="bu">enumerate</span>(LETRAS_OBJETIVO):</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> precision_por_letra[i] <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Precisión Letra </span><span class="sc">{</span>letra<span class="sc">}</span><span class="ss"> : </span><span class="sc">{</span>acc<span class="sc">:&gt;6.2f}</span><span class="ss"> %"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">70</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ACCURACY GLOBAL: </span><span class="sc">{</span>accuracy<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">70</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred, target_names<span class="op">=</span>LETRAS_OBJETIVO))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="images/paste-1.png" class="img-fluid"></p>
 <p><img src="images/paste-2.png" class="img-fluid"></p>
 <p>Además del porcentaje global de aciertos, se estimó la precisión individual para cada letra y se construyó una matriz de confusión.</p>
-<pre><code>plt.figure(figsize=(16,14))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=LETRAS_OBJETIVO,
-yticklabels=LETRAS_OBJETIVO)
-plt.title(f'Matriz CategoricalHMM con Rasgos Estructurales 
-(Precisión: {accuracy*100:.2f}%)', fontsize=16, fontweight='bold')
-plt.ylabel('Letra Real', fontsize=14)
-plt.xlabel('Letra Predicha', fontsize=14)
-plt.tight_layout()
-plt.show()</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">14</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>, xticklabels<span class="op">=</span>LETRAS_OBJETIVO,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>yticklabels<span class="op">=</span>LETRAS_OBJETIVO)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Matriz CategoricalHMM con Rasgos Estructurales </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="er">(Precisión: {accuracy*100:.2f}%)', fontsize=16, fontweight='bold')</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="er">plt.ylabel</span>(<span class="st">'Letra Real'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Letra Predicha'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="images/paste-3.png" class="img-fluid"></p>
 <p>La matriz de confusión permitió identificar cuáles letras presentan mayores dificultades de discriminación, proporcionando información valiosa para analizar las fortalezas y limitaciones del sistema propuesto. En conjunto, estas métricas ofrecen una evaluación integral del desempeño alcanzado por el modelo de reconocimiento desarrollado.</p>
 

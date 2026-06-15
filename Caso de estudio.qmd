@@ -27,7 +27,7 @@ Con el propósito de garantizar la reproducibilidad del experimento, se presenta
 
 El primer paso consistió en importar las bibliotecas necesarias para el procesamiento de imágenes, manipulación de datos, entrenamiento de los modelos HMM y evaluación de resultados. Asimismo, se estableció una conexión con un sistema de almacenamiento externo para conservar los modelos entrenados y evitar repetir el proceso de ajuste en ejecuciones posteriores.
 
-```         
+```python         
 from google.colab import drive 
 drive.mount('/content/drive') 
 import cv2 
@@ -55,7 +55,7 @@ La utilización de estas bibliotecas responde a necesidades específicas del sis
 
 Con el fin de asegurar la reproducibilidad de los resultados, se fijaron semillas aleatorias y se deshabilitaron advertencias no críticas del entorno de ejecución.
 
-```         
+```python         
 np.random.seed(42) 
 random.seed(42) 
 warnings.filterwarnings("ignore") 
@@ -90,13 +90,13 @@ El tamaño de imagen fue fijado en 40×40 píxeles, permitiendo estandarizar las
 
 Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos **EMNIST ByClass**, una extensión del conocido conjunto **MNIST** que incorpora letras manuscritas y dígitos.
 
-```         
+```python         
 
 print("Descargando EMNIST ByClass...")
 emnist_train = datasets.EMNIST(root='./data', split='byclass', train=True, 
-download=True, transform=transforms.ToTensor())
+                                download=True, transform=transforms.ToTensor())
 emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, 
-download=True, transform=transforms.ToTensor())
+                                download=True, transform=transforms.ToTensor())
 ```
 
 A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, descartando las demás clases disponibles. Esta decisión se tomó con el propósito de acotar el problema de clasificación y evaluar específicamente la capacidad del modelo para reconocer caracteres alfabéticos manuscritos.
@@ -105,7 +105,7 @@ A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, d
 
 Se construyó una matriz de transición tipo Bakis (falta citar) flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.
 
-```         
+```python        
 def construir_matriz_bakis_flexible(n_states):
     A = np.zeros((n_states, n_states))
     for i in range(n_states):
@@ -127,7 +127,7 @@ La arquitectura Bakis impone una restricción direccional sobre las transiciones
 
 Antes de convertir las imágenes en secuencias observables, se aplicó un proceso de normalización y alineamiento.
 
-```         
+```python         
 def procesar_imagen(imagen_tensor):
     imagen = imagen_tensor.squeeze().numpy()
     imagen = np.fliplr(imagen)
@@ -176,7 +176,7 @@ Estas transformaciones buscan reducir la variabilidad irrelevante asociada a la 
 
 Posteriormente, cada imagen preprocesada fue transformada en una secuencia discreta de observaciones.
 
-```         
+```python         
 def imagen_a_secuencia(img, w=5, stride=2):
     secuencia = []
     altura = IMG_SIZE
@@ -264,7 +264,7 @@ El balance entre clases evita sesgos hacia letras con mayor número de muestras 
 
 Se entrenó un modelo HMM independiente para cada una de las letras del alfabeto.
 
-```         
+```python         
 modelos_hmm = {}
 
 if os.path.exists(ARCHIVO_MODELOS_CAT):
@@ -330,7 +330,7 @@ Este criterio corresponde al principio de máxima verosimilitud y constituye una
 
 Finalmente, se calcularon diferentes métricas para evaluar el rendimiento del sistema.
 
-```         
+```python         
 accuracy = accuracy_score(y_test, y_pred)
 cm = confusion_matrix(y_test, y_pred, labels=LETRAS_OBJETIVO)
 
@@ -356,7 +356,7 @@ print(classification_report(y_test, y_pred, target_names=LETRAS_OBJETIVO))
 
 Además del porcentaje global de aciertos, se estimó la precisión individual para cada letra y se construyó una matriz de confusión.
 
-```         
+```python         
 plt.figure(figsize=(16,14))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=LETRAS_OBJETIVO,
 yticklabels=LETRAS_OBJETIVO)

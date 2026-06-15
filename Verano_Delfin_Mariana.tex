@@ -66,6 +66,46 @@
 \fi
 \makeatother
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
@@ -255,7 +295,7 @@ Para esto, se asumirá que el lector tiene conocimientos previos sobre
 teoría de la medida como lo son las \(\sigma\)-álgebras, espacio
 muestral y medida de probabilidad, entre otros.
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Espacio de Probabilidad Filtrado)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Espacio de Probabilidad Filtrado)}, left=2mm, toprule=.15mm, colback=white]
 
 Sea \((\Omega, \mathcal{F}, \mathbb{P})\) un espacio de probabilidad,
 donde \(\Omega\) es el espacio muestral, \(\mathcal{F}\) es una
@@ -270,7 +310,7 @@ probabilidad filtrado.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Espacio de Estados Discreto)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Espacio de Estados Discreto)}, left=2mm, toprule=.15mm, colback=white]
 
 Definimos el espacio de estados \(S\) como un conjunto discreto y finito
 (o numerable).
@@ -284,7 +324,7 @@ En el contexto de nuestro proyecto, \(S\) representa el conjunto de
 posibles colores o intensidades de un pixel (por ejemplo, el espacio RGB
 donde \(|S| = 256^3\), o una escala de grises finita).
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso Estocástico a Tiempo Continuo)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso Estocástico a Tiempo Continuo)}, left=2mm, toprule=.15mm, colback=white]
 
 Un proceso estocástico en tiempo continuo con espacio de estados
 discreto \(S\) es una familia de variables aleatorias
@@ -309,7 +349,7 @@ instante (o parámetro continuo) \(t\).
 La transición del concepto general de proceso estocástico al de proceso
 de Markov requiere la propiedad de amnesia (pérdida de memoria).
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Propiedad de Markov)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Propiedad de Markov)}, left=2mm, toprule=.15mm, colback=white]
 
 El proceso adaptado \(X = \{X(t)\}_{t \ge 0}\) es una Cadena de Markov a
 Tiempo Continuo si satisface la condición de Markov relativa a la
@@ -347,7 +387,7 @@ para todo \(0 \le s \le t\).
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Probabilidades de Transición y Homogeneidad)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Probabilidades de Transición y Homogeneidad)}, left=2mm, toprule=.15mm, colback=white]
 
 Definimos la probabilidad de transición del estado \(i\) al estado \(j\)
 en el intervalo \([s,t]\) como
@@ -383,7 +423,7 @@ P(\tau)
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-important-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Ecuaciones de Chapman-Kolmogorov)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Ecuaciones de Chapman-Kolmogorov)}, left=2mm, toprule=.15mm, colback=white]
 
 Para cualquier \(s,t \ge 0\), la familia de matrices de transición
 \(\{P(t)\}_{t\ge0}\) forma un semigrupo de operadores estocásticos,
@@ -427,7 +467,7 @@ La evolución continua del color del pixel requiere una descripción
 mediante probabilidades de transición, lo cual nos lleva a la
 representación matricial de la derivada de \(P(t)\).
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Matriz Generadora Infinitesimal)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Matriz Generadora Infinitesimal)}, left=2mm, toprule=.15mm, colback=white]
 
 Asumiendo que \(p_{ij}(t)\) es diferenciable por la derecha en \(t=0\),
 definimos la tasa de transición \(q_{ij}\) del estado \(i\) al estado
@@ -469,7 +509,7 @@ suman cero:
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-important-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Ecuaciones Diferenciales de Kolmogorov)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Ecuaciones Diferenciales de Kolmogorov)}, left=2mm, toprule=.15mm, colback=white]
 
 Bajo condiciones de regularidad (que se cumplen trivialmente si el
 espacio de estados del color \(S\) es finito), la matriz de transición
@@ -523,7 +563,7 @@ Modelo Oculto de Márkov (HMM) en el contexto de la inferencia y análisis
 de píxeles en imágenes que contienen letras del alfabeto latino, se
 formaliza la siguiente estructura bivariada:
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso Latente e Inobservable)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso Latente e Inobservable)}, left=2mm, toprule=.15mm, colback=white]
 
 El proceso de Markov a tiempo continuo
 
@@ -542,7 +582,7 @@ manteniéndose inaccesibles a la medición directa.
 
 La variable \(X(t)\) describe el estado ideal o ``verdadero'' del pixel.
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso de Observación Empírica)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso de Observación Empírica)}, left=2mm, toprule=.15mm, colback=white]
 
 Sea
 
@@ -573,7 +613,7 @@ En este caso \(O\) denota el conjunto finito de colores o intensidades
 registrables por un sensor óptico y \(Y\) es la lectura ruidosa del
 pixel en el tiempo \(t\).
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Matriz de Emisión e Independencia Condicional)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Matriz de Emisión e Independencia Condicional)}, left=2mm, toprule=.15mm, colback=white]
 
 La dependencia estocástica entre ambos procesos queda unívocamente
 determinada por la condición de independencia local.
@@ -633,7 +673,7 @@ en instantes discretos de tiempo (o espacio)
 0 \le t_1 < t_2 < \dots < t_K \le T.
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)}, left=2mm, toprule=.15mm, colback=white]
 
 Definimos la variable de avance \(\alpha_k(i)\) como la probabilidad
 conjunta de observar la secuencia parcial hasta el \(k\)-ésimo instante
@@ -699,7 +739,7 @@ La verosimilitud total de la secuencia de observaciones es simplemente
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Decodificación Óptima Global)}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Decodificación Óptima Global)}, left=2mm, toprule=.15mm, colback=white]
 
 Para reconstruir la trayectoria más probable, buscamos la secuencia de
 estados latentes
@@ -1048,7 +1088,7 @@ probabilidades de emisión empírica rara vez son conocidas a priori y
 deben ser estimadas a partir de un dataset de imágenes (el alfabeto
 latino modificado).
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, colframe=quarto-callout-important-color-frame, colback=white, bottomtitle=1mm, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))}, toprule=.15mm, titlerule=0mm, arc=.35mm, rightrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, left=2mm, bottomrule=.15mm, breakable]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, bottomtitle=1mm, bottomrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, breakable, rightrule=.15mm, arc=.35mm, coltitle=black, toptitle=1mm, opacityback=0, titlerule=0mm, leftrule=.75mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))}, left=2mm, toprule=.15mm, colback=white]
 
 La estimación por máxima verosimilitud del conjunto de parámetros del
 modelo
@@ -1132,29 +1172,31 @@ conexión con un sistema de almacenamiento externo para conservar los
 modelos entrenados y evitar repetir el proceso de ajuste en ejecuciones
 posteriores.
 
-\begin{verbatim}
-from google.colab import drive 
-drive.mount('/content/drive') 
-import cv2 
-import numpy as np 
-import torchvision.datasets as datasets 
-import torchvision.transforms as transforms 
-import matplotlib.pyplot as plt 
-import seaborn as sns 
-import random 
-import os 
-import pickle 
-from tqdm import tqdm  
-try:     
-    from hmmlearn import hmm 
-except ImportError:     
-    import subprocess     
-    import sys     
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "hmmlearn"])     
-    from hmmlearn import hmm  
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report 
-import warnings 
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ google.colab }\ImportTok{import}\NormalTok{ drive }
+\NormalTok{drive.mount(}\StringTok{\textquotesingle{}/content/drive\textquotesingle{}}\NormalTok{) }
+\ImportTok{import}\NormalTok{ cv2 }
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np }
+\ImportTok{import}\NormalTok{ torchvision.datasets }\ImportTok{as}\NormalTok{ datasets }
+\ImportTok{import}\NormalTok{ torchvision.transforms }\ImportTok{as}\NormalTok{ transforms }
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt }
+\ImportTok{import}\NormalTok{ seaborn }\ImportTok{as}\NormalTok{ sns }
+\ImportTok{import}\NormalTok{ random }
+\ImportTok{import}\NormalTok{ os }
+\ImportTok{import}\NormalTok{ pickle }
+\ImportTok{from}\NormalTok{ tqdm }\ImportTok{import}\NormalTok{ tqdm  }
+\ControlFlowTok{try}\NormalTok{:     }
+    \ImportTok{from}\NormalTok{ hmmlearn }\ImportTok{import}\NormalTok{ hmm }
+\ControlFlowTok{except} \PreprocessorTok{ImportError}\NormalTok{:     }
+    \ImportTok{import}\NormalTok{ subprocess     }
+    \ImportTok{import}\NormalTok{ sys     }
+\NormalTok{    subprocess.check\_call([sys.executable, }\StringTok{"{-}m"}\NormalTok{, }\StringTok{"pip"}\NormalTok{, }\StringTok{"install"}\NormalTok{, }\StringTok{"hmmlearn"}\NormalTok{])     }
+    \ImportTok{from}\NormalTok{ hmmlearn }\ImportTok{import}\NormalTok{ hmm  }
+\ImportTok{from}\NormalTok{ sklearn.metrics }\ImportTok{import}\NormalTok{ accuracy\_score, confusion\_matrix, classification\_report }
+\ImportTok{import}\NormalTok{ warnings }
+\end{Highlighting}
+\end{Shaded}
 
 La utilización de estas bibliotecas responde a necesidades específicas
 del sistema. \(\texttt{OpenCV}\) permitió realizar operaciones de
@@ -1168,11 +1210,13 @@ Con el fin de asegurar la reproducibilidad de los resultados, se fijaron
 semillas aleatorias y se deshabilitaron advertencias no críticas del
 entorno de ejecución.
 
-\begin{verbatim}
-np.random.seed(42) 
-random.seed(42) 
-warnings.filterwarnings("ignore") 
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{np.random.seed(}\DecValTok{42}\NormalTok{) }
+\NormalTok{random.seed(}\DecValTok{42}\NormalTok{) }
+\NormalTok{warnings.filterwarnings(}\StringTok{"ignore"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
 
 El establecimiento de semillas garantiza que los procesos dependientes
 del azar produzcan resultados consistentes entre diferentes ejecuciones,
@@ -1219,12 +1263,16 @@ Para el entrenamiento y evaluación del sistema se empleó el conjunto de
 datos \textbf{EMNIST ByClass}, una extensión del conocido conjunto
 \textbf{MNIST} que incorpora letras manuscritas y dígitos.
 
-\begin{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
 
-print("Descargando EMNIST ByClass...")
-emnist_train = datasets.EMNIST(root='./data', split='byclass', train=True, download=True, transform=transforms.ToTensor())
-emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, download=True, transform=transforms.ToTensor())
-\end{verbatim}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Descargando EMNIST ByClass..."}\NormalTok{)}
+\NormalTok{emnist\_train }\OperatorTok{=}\NormalTok{ datasets.EMNIST(root}\OperatorTok{=}\StringTok{\textquotesingle{}./data\textquotesingle{}}\NormalTok{, split}\OperatorTok{=}\StringTok{\textquotesingle{}byclass\textquotesingle{}}\NormalTok{, train}\OperatorTok{=}\VariableTok{True}\NormalTok{, }
+\NormalTok{                                download}\OperatorTok{=}\VariableTok{True}\NormalTok{, transform}\OperatorTok{=}\NormalTok{transforms.ToTensor())}
+\NormalTok{emnist\_test }\OperatorTok{=}\NormalTok{ datasets.EMNIST(root}\OperatorTok{=}\StringTok{\textquotesingle{}./data\textquotesingle{}}\NormalTok{, split}\OperatorTok{=}\StringTok{\textquotesingle{}byclass\textquotesingle{}}\NormalTok{, train}\OperatorTok{=}\VariableTok{False}\NormalTok{, }
+\NormalTok{                                download}\OperatorTok{=}\VariableTok{True}\NormalTok{, transform}\OperatorTok{=}\NormalTok{transforms.ToTensor())}
+\end{Highlighting}
+\end{Shaded}
 
 A partir de este conjunto se seleccionaron únicamente las letras
 mayúsculas, descartando las demás clases disponibles. Esta decisión se
@@ -1239,21 +1287,23 @@ Se construyó una matriz de transición tipo Bakis (falta citar) flexible
 para modelar la evolución progresiva de los trazos durante la generación
 de cada letra.
 
-\begin{verbatim}
-def construir_matriz_bakis_flexible(n_states):
-    A = np.zeros((n_states, n_states))
-    for i in range(n_states):
-        if i == n_states - 1:
-            A[i, i] = 1.0
-        elif i == n_states - 2:
-            A[i, i] = 0.60
-            A[i, i+1] = 0.40
-        else:
-            A[i, i] = 0.60
-            A[i, i+1] = 0.30
-            A[i, i+2] = 0.10
-    return A
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ construir\_matriz\_bakis\_flexible(n\_states):}
+\NormalTok{    A }\OperatorTok{=}\NormalTok{ np.zeros((n\_states, n\_states))}
+    \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(n\_states):}
+        \ControlFlowTok{if}\NormalTok{ i }\OperatorTok{==}\NormalTok{ n\_states }\OperatorTok{{-}} \DecValTok{1}\NormalTok{:}
+\NormalTok{            A[i, i] }\OperatorTok{=} \FloatTok{1.0}
+        \ControlFlowTok{elif}\NormalTok{ i }\OperatorTok{==}\NormalTok{ n\_states }\OperatorTok{{-}} \DecValTok{2}\NormalTok{:}
+\NormalTok{            A[i, i] }\OperatorTok{=} \FloatTok{0.60}
+\NormalTok{            A[i, i}\OperatorTok{+}\DecValTok{1}\NormalTok{] }\OperatorTok{=} \FloatTok{0.40}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            A[i, i] }\OperatorTok{=} \FloatTok{0.60}
+\NormalTok{            A[i, i}\OperatorTok{+}\DecValTok{1}\NormalTok{] }\OperatorTok{=} \FloatTok{0.30}
+\NormalTok{            A[i, i}\OperatorTok{+}\DecValTok{2}\NormalTok{] }\OperatorTok{=} \FloatTok{0.10}
+    \ControlFlowTok{return}\NormalTok{ A}
+\end{Highlighting}
+\end{Shaded}
 
 La arquitectura Bakis impone una restricción direccional sobre las
 transiciones, permitiendo permanecer en el mismo estado o avanzar hacia
@@ -1267,44 +1317,46 @@ imágenes}\label{preprocesamiento-de-imuxe1genes}
 Antes de convertir las imágenes en secuencias observables, se aplicó un
 proceso de normalización y alineamiento.
 
-\begin{verbatim}
-def procesar_imagen(imagen_tensor):
-    imagen = imagen_tensor.squeeze().numpy()
-    imagen = np.fliplr(imagen)
-    imagen = np.rot90(imagen)
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ procesar\_imagen(imagen\_tensor):}
+\NormalTok{    imagen }\OperatorTok{=}\NormalTok{ imagen\_tensor.squeeze().numpy()}
+\NormalTok{    imagen }\OperatorTok{=}\NormalTok{ np.fliplr(imagen)}
+\NormalTok{    imagen }\OperatorTok{=}\NormalTok{ np.rot90(imagen)}
 
-    img_bin = (imagen > UMBRAL).astype(np.uint8)
-    filas = np.any(img_bin, axis=1)
-    columnas = np.any(img_bin, axis=0)
+\NormalTok{    img\_bin }\OperatorTok{=}\NormalTok{ (imagen }\OperatorTok{\textgreater{}}\NormalTok{ UMBRAL).astype(np.uint8)}
+\NormalTok{    filas }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{any}\NormalTok{(img\_bin, axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
+\NormalTok{    columnas }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{any}\NormalTok{(img\_bin, axis}\OperatorTok{=}\DecValTok{0}\NormalTok{)}
 
-    if np.any(filas) and np.any(columnas):
-        ymin, ymax = np.where(filas)[0][[0,-1]]
-        xmin, xmax = np.where(columnas)[0][[0,-1]]
-        recorte = imagen[ymin:ymax+1, xmin:xmax+1]
+    \ControlFlowTok{if}\NormalTok{ np.}\BuiltInTok{any}\NormalTok{(filas) }\KeywordTok{and}\NormalTok{ np.}\BuiltInTok{any}\NormalTok{(columnas):}
+\NormalTok{        ymin, ymax }\OperatorTok{=}\NormalTok{ np.where(filas)[}\DecValTok{0}\NormalTok{][[}\DecValTok{0}\NormalTok{,}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]]}
+\NormalTok{        xmin, xmax }\OperatorTok{=}\NormalTok{ np.where(columnas)[}\DecValTok{0}\NormalTok{][[}\DecValTok{0}\NormalTok{,}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]]}
+\NormalTok{        recorte }\OperatorTok{=}\NormalTok{ imagen[ymin:ymax}\OperatorTok{+}\DecValTok{1}\NormalTok{, xmin:xmax}\OperatorTok{+}\DecValTok{1}\NormalTok{]}
 
-        h, w = recorte.shape
-        max_dim = max(h, w)
-        pad_h = max_dim - h
-        pad_w = max_dim - w
+\NormalTok{        h, w }\OperatorTok{=}\NormalTok{ recorte.shape}
+\NormalTok{        max\_dim }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(h, w)}
+\NormalTok{        pad\_h }\OperatorTok{=}\NormalTok{ max\_dim }\OperatorTok{{-}}\NormalTok{ h}
+\NormalTok{        pad\_w }\OperatorTok{=}\NormalTok{ max\_dim }\OperatorTok{{-}}\NormalTok{ w}
 
-        pad_top = pad_h // 2
-        pad_bottom = pad_h - pad_top
-        pad_left = pad_w // 2
-        pad_right = pad_w - pad_left
+\NormalTok{        pad\_top }\OperatorTok{=}\NormalTok{ pad\_h }\OperatorTok{//} \DecValTok{2}
+\NormalTok{        pad\_bottom }\OperatorTok{=}\NormalTok{ pad\_h }\OperatorTok{{-}}\NormalTok{ pad\_top}
+\NormalTok{        pad\_left }\OperatorTok{=}\NormalTok{ pad\_w }\OperatorTok{//} \DecValTok{2}
+\NormalTok{        pad\_right }\OperatorTok{=}\NormalTok{ pad\_w }\OperatorTok{{-}}\NormalTok{ pad\_left}
 
-        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), 
-        (pad_left, pad_right)), 
-        mode='constant', constant_values=0)
-        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), 
-        (IMG_SIZE, IMG_SIZE),
-        interpolation=cv2.INTER_LINEAR)
-    else:
-        imagen = cv2.resize(imagen.astype(np.float32), (IMG_SIZE, IMG_SIZE), 
-        interpolation=cv2.INTER_LINEAR)
+\NormalTok{        recorte\_cuadrado }\OperatorTok{=}\NormalTok{ np.pad(recorte, ((pad\_top, pad\_bottom), }
+\NormalTok{        (pad\_left, pad\_right)), }
+\NormalTok{        mode}\OperatorTok{=}\StringTok{\textquotesingle{}constant\textquotesingle{}}\NormalTok{, constant\_values}\OperatorTok{=}\DecValTok{0}\NormalTok{)}
+\NormalTok{        imagen }\OperatorTok{=}\NormalTok{ cv2.resize(recorte\_cuadrado.astype(np.float32), }
+\NormalTok{        (IMG\_SIZE, IMG\_SIZE),}
+\NormalTok{        interpolation}\OperatorTok{=}\NormalTok{cv2.INTER\_LINEAR)}
+    \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{        imagen }\OperatorTok{=}\NormalTok{ cv2.resize(imagen.astype(np.float32), (IMG\_SIZE, IMG\_SIZE), }
+\NormalTok{        interpolation}\OperatorTok{=}\NormalTok{cv2.INTER\_LINEAR)}
 
-    imagen = (imagen > UMBRAL).astype(float)
-    return imagen
-\end{verbatim}
+\NormalTok{    imagen }\OperatorTok{=}\NormalTok{ (imagen }\OperatorTok{\textgreater{}}\NormalTok{ UMBRAL).astype(}\BuiltInTok{float}\NormalTok{)}
+    \ControlFlowTok{return}\NormalTok{ imagen}
+\end{Highlighting}
+\end{Shaded}
 
 El procedimiento incluyó la corrección de orientación propia del
 conjunto \textbf{EMNIST}, la eliminación de espacios vacíos mediante
@@ -1324,50 +1376,52 @@ características}\label{extracciuxf3n-de-caracteruxedsticas}
 Posteriormente, cada imagen preprocesada fue transformada en una
 secuencia discreta de observaciones.
 
-\begin{verbatim}
-def imagen_a_secuencia(img, w=5, stride=2):
-    secuencia = []
-    altura = IMG_SIZE
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ imagen\_a\_secuencia(img, w}\OperatorTok{=}\DecValTok{5}\NormalTok{, stride}\OperatorTok{=}\DecValTok{2}\NormalTok{):}
+\NormalTok{    secuencia }\OperatorTok{=}\NormalTok{ []}
+\NormalTok{    altura }\OperatorTok{=}\NormalTok{ IMG\_SIZE}
 
-    for t in range(0, img.shape[1] - w + 1, stride):
-        ventana = img[:, t:t+w]
-        columna = np.mean(ventana, axis=1)
-        col_bin = (columna > 0.35).astype(int)
+    \ControlFlowTok{for}\NormalTok{ t }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{0}\NormalTok{, img.shape[}\DecValTok{1}\NormalTok{] }\OperatorTok{{-}}\NormalTok{ w }\OperatorTok{+} \DecValTok{1}\NormalTok{, stride):}
+\NormalTok{        ventana }\OperatorTok{=}\NormalTok{ img[:, t:t}\OperatorTok{+}\NormalTok{w]}
+\NormalTok{        columna }\OperatorTok{=}\NormalTok{ np.mean(ventana, axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
+\NormalTok{        col\_bin }\OperatorTok{=}\NormalTok{ (columna }\OperatorTok{\textgreater{}} \FloatTok{0.35}\NormalTok{).astype(}\BuiltInTok{int}\NormalTok{)}
 
-        suma_tinta = np.sum(col_bin)
+\NormalTok{        suma\_tinta }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{sum}\NormalTok{(col\_bin)}
 
-        if suma_tinta == 0:
-            simbolo = 0 
-            secuencia.append([simbolo])
-            continue
+        \ControlFlowTok{if}\NormalTok{ suma\_tinta }\OperatorTok{==} \DecValTok{0}\NormalTok{:}
+\NormalTok{            simbolo }\OperatorTok{=} \DecValTok{0} 
+\NormalTok{            secuencia.append([simbolo])}
+            \ControlFlowTok{continue}
 
-        if suma_tinta < 8: tinta_q = 0
-        elif suma_tinta < 16: tinta_q = 1
-        elif suma_tinta < 24: tinta_q = 2
-        else: tinta_q = 3
+        \ControlFlowTok{if}\NormalTok{ suma\_tinta }\OperatorTok{\textless{}} \DecValTok{8}\NormalTok{: tinta\_q }\OperatorTok{=} \DecValTok{0}
+        \ControlFlowTok{elif}\NormalTok{ suma\_tinta }\OperatorTok{\textless{}} \DecValTok{16}\NormalTok{: tinta\_q }\OperatorTok{=} \DecValTok{1}
+        \ControlFlowTok{elif}\NormalTok{ suma\_tinta }\OperatorTok{\textless{}} \DecValTok{24}\NormalTok{: tinta\_q }\OperatorTok{=} \DecValTok{2}
+        \ControlFlowTok{else}\NormalTok{: tinta\_q }\OperatorTok{=} \DecValTok{3}
 
-        cg = np.sum(col_bin * np.arange(altura)) / suma_tinta
-        if cg < 12: cg_q = 0
-        elif cg < 20: cg_q = 1
-        elif cg < 28: cg_q = 2
-        else: cg_q = 3
+\NormalTok{        cg }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{sum}\NormalTok{(col\_bin }\OperatorTok{*}\NormalTok{ np.arange(altura)) }\OperatorTok{/}\NormalTok{ suma\_tinta}
+        \ControlFlowTok{if}\NormalTok{ cg }\OperatorTok{\textless{}} \DecValTok{12}\NormalTok{: cg\_q }\OperatorTok{=} \DecValTok{0}
+        \ControlFlowTok{elif}\NormalTok{ cg }\OperatorTok{\textless{}} \DecValTok{20}\NormalTok{: cg\_q }\OperatorTok{=} \DecValTok{1}
+        \ControlFlowTok{elif}\NormalTok{ cg }\OperatorTok{\textless{}} \DecValTok{28}\NormalTok{: cg\_q }\OperatorTok{=} \DecValTok{2}
+        \ControlFlowTok{else}\NormalTok{: cg\_q }\OperatorTok{=} \DecValTok{3}
 
-        transiciones = np.sum(np.abs(np.diff(col_bin)))
-        trans_q = min(int(transiciones), 3)
+\NormalTok{        transiciones }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{sum}\NormalTok{(np.}\BuiltInTok{abs}\NormalTok{(np.diff(col\_bin)))}
+\NormalTok{        trans\_q }\OperatorTok{=} \BuiltInTok{min}\NormalTok{(}\BuiltInTok{int}\NormalTok{(transiciones), }\DecValTok{3}\NormalTok{)}
 
-        indices_tinta = np.where(col_bin > 0)[0]
-        perfil_sup = indices_tinta[0]
-        perfil_inf = indices_tinta[-1]
+\NormalTok{        indices\_tinta }\OperatorTok{=}\NormalTok{ np.where(col\_bin }\OperatorTok{\textgreater{}} \DecValTok{0}\NormalTok{)[}\DecValTok{0}\NormalTok{]}
+\NormalTok{        perfil\_sup }\OperatorTok{=}\NormalTok{ indices\_tinta[}\DecValTok{0}\NormalTok{]}
+\NormalTok{        perfil\_inf }\OperatorTok{=}\NormalTok{ indices\_tinta[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]}
 
-        up_q = 1 if perfil_sup > 10 else 0    
-        low_q = 1 if perfil_inf < 30 else 0   
+\NormalTok{        up\_q }\OperatorTok{=} \DecValTok{1} \ControlFlowTok{if}\NormalTok{ perfil\_sup }\OperatorTok{\textgreater{}} \DecValTok{10} \ControlFlowTok{else} \DecValTok{0}    
+\NormalTok{        low\_q }\OperatorTok{=} \DecValTok{1} \ControlFlowTok{if}\NormalTok{ perfil\_inf }\OperatorTok{\textless{}} \DecValTok{30} \ControlFlowTok{else} \DecValTok{0}   
 
-        simbolo = (tinta_q << 6) | (cg_q << 4) | (trans_q << 2) 
-        | (up_q << 1) | low_q
-        secuencia.append([simbolo])
+\NormalTok{        simbolo }\OperatorTok{=}\NormalTok{ (tinta\_q }\OperatorTok{\textless{}\textless{}} \DecValTok{6}\NormalTok{) }\OperatorTok{|}\NormalTok{ (cg\_q }\OperatorTok{\textless{}\textless{}} \DecValTok{4}\NormalTok{) }\OperatorTok{|}\NormalTok{ (trans\_q }\OperatorTok{\textless{}\textless{}} \DecValTok{2}\NormalTok{) }
+        \OperatorTok{|}\NormalTok{ (up\_q }\OperatorTok{\textless{}\textless{}} \DecValTok{1}\NormalTok{) }\OperatorTok{|}\NormalTok{ low\_q}
+\NormalTok{        secuencia.append([simbolo])}
 
-    return np.array(secuencia)
-\end{verbatim}
+    \ControlFlowTok{return}\NormalTok{ np.array(secuencia)}
+\end{Highlighting}
+\end{Shaded}
 
 La extracción se realizó mediante ventanas deslizantes verticales. Para
 cada ventana se calcularon características geométricas relacionadas con
@@ -1425,41 +1479,43 @@ modelos}\label{entrenamiento-de-los-modelos}
 Se entrenó un modelo HMM independiente para cada una de las letras del
 alfabeto.
 
-\begin{verbatim}
-modelos_hmm = {}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelos\_hmm }\OperatorTok{=}\NormalTok{ \{\}}
 
-if os.path.exists(ARCHIVO_MODELOS_CAT):
-    print("\n[INFO] Modelos detectados en Drive. Cargando...")
-    with open(ARCHIVO_MODELOS_CAT, 'rb') as f:
-        modelos_hmm = pickle.load(f)
-else:
-    print("\nEntrenando CategoricalHMMs...\n")
-    barra = tqdm(LETRAS_OBJETIVO, desc="Entrenando", unit="letra")
-    for letra in barra:
-        barra.set_description(f"Entrenando '{letra}'")
-        idx = np.where(y_train == letra)[0]
-        secuencias = [X_train[i] for i in idx]
-        lengths = [len(s) for s in secuencias]
-        X_concat = np.vstack(secuencias)
+\ControlFlowTok{if}\NormalTok{ os.path.exists(ARCHIVO\_MODELOS\_CAT):}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{[INFO] Modelos detectados en Drive. Cargando..."}\NormalTok{)}
+    \ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(ARCHIVO\_MODELOS\_CAT, }\StringTok{\textquotesingle{}rb\textquotesingle{}}\NormalTok{) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{        modelos\_hmm }\OperatorTok{=}\NormalTok{ pickle.load(f)}
+\ControlFlowTok{else}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{Entrenando CategoricalHMMs...}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{    barra }\OperatorTok{=}\NormalTok{ tqdm(LETRAS\_OBJETIVO, desc}\OperatorTok{=}\StringTok{"Entrenando"}\NormalTok{, unit}\OperatorTok{=}\StringTok{"letra"}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ letra }\KeywordTok{in}\NormalTok{ barra:}
+\NormalTok{        barra.set\_description(}\SpecialStringTok{f"Entrenando \textquotesingle{}}\SpecialCharTok{\{}\NormalTok{letra}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}"}\NormalTok{)}
+\NormalTok{        idx }\OperatorTok{=}\NormalTok{ np.where(y\_train }\OperatorTok{==}\NormalTok{ letra)[}\DecValTok{0}\NormalTok{]}
+\NormalTok{        secuencias }\OperatorTok{=}\NormalTok{ [X\_train[i] }\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ idx]}
+\NormalTok{        lengths }\OperatorTok{=}\NormalTok{ [}\BuiltInTok{len}\NormalTok{(s) }\ControlFlowTok{for}\NormalTok{ s }\KeywordTok{in}\NormalTok{ secuencias]}
+\NormalTok{        X\_concat }\OperatorTok{=}\NormalTok{ np.vstack(secuencias)}
 
-        model = hmm.CategoricalHMM(
-            n_components=N_ESTADOS,
-            n_features=256, 
-            n_iter=250,
-            random_state=42,
-            init_params='e'
-        )
+\NormalTok{        model }\OperatorTok{=}\NormalTok{ hmm.CategoricalHMM(}
+\NormalTok{            n\_components}\OperatorTok{=}\NormalTok{N\_ESTADOS,}
+\NormalTok{            n\_features}\OperatorTok{=}\DecValTok{256}\NormalTok{, }
+\NormalTok{            n\_iter}\OperatorTok{=}\DecValTok{250}\NormalTok{,}
+\NormalTok{            random\_state}\OperatorTok{=}\DecValTok{42}\NormalTok{,}
+\NormalTok{            init\_params}\OperatorTok{=}\StringTok{\textquotesingle{}e\textquotesingle{}}
+\NormalTok{        )}
 
-        model.startprob_ = np.zeros(N_ESTADOS)
-        model.startprob_[0] = 1.0
-        model.transmat_ = construir_matriz_bakis_flexible(N_ESTADOS)
+\NormalTok{        model.startprob\_ }\OperatorTok{=}\NormalTok{ np.zeros(N\_ESTADOS)}
+\NormalTok{        model.startprob\_[}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \FloatTok{1.0}
+\NormalTok{        model.transmat\_ }\OperatorTok{=}\NormalTok{ construir\_matriz\_bakis\_flexible(N\_ESTADOS)}
 
-        model.fit(X_concat, lengths)
-        modelos_hmm[letra] = model
+\NormalTok{        model.fit(X\_concat, lengths)}
+\NormalTok{        modelos\_hmm[letra] }\OperatorTok{=}\NormalTok{ model}
 
-    with open(ARCHIVO_MODELOS_CAT, 'wb') as f:
-        pickle.dump(modelos_hmm, f)
-\end{verbatim}
+    \ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(ARCHIVO\_MODELOS\_CAT, }\StringTok{\textquotesingle{}wb\textquotesingle{}}\NormalTok{) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{        pickle.dump(modelos\_hmm, f)}
+\end{Highlighting}
+\end{Shaded}
 
 Cada modelo fue ajustado utilizando exclusivamente las secuencias
 correspondientes a su letra asociada. Esta estrategia de clasificación
@@ -1503,25 +1559,27 @@ reconocimiento basadas en HMM.
 Finalmente, se calcularon diferentes métricas para evaluar el
 rendimiento del sistema.
 
-\begin{verbatim}
-accuracy = accuracy_score(y_test, y_pred)
-cm = confusion_matrix(y_test, y_pred, labels=LETRAS_OBJETIVO)
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{accuracy }\OperatorTok{=}\NormalTok{ accuracy\_score(y\_test, y\_pred)}
+\NormalTok{cm }\OperatorTok{=}\NormalTok{ confusion\_matrix(y\_test, y\_pred, labels}\OperatorTok{=}\NormalTok{LETRAS\_OBJETIVO)}
 
-precision_por_letra = cm.diagonal() / cm.sum(axis=1)
+\NormalTok{precision\_por\_letra }\OperatorTok{=}\NormalTok{ cm.diagonal() }\OperatorTok{/}\NormalTok{ cm.}\BuiltInTok{sum}\NormalTok{(axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
 
-print("\n" + "="*70)
-print("EXACTITUD (ACCURACY) INDIVIDUAL POR LETRA")
-print("="*70)
-for i, letra in enumerate(LETRAS_OBJETIVO):
-    acc = precision_por_letra[i] * 100
-    print(f"Precisión Letra {letra} : {acc:>6.2f} %")
+\BuiltInTok{print}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"} \OperatorTok{+} \StringTok{"="}\OperatorTok{*}\DecValTok{70}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"EXACTITUD (ACCURACY) INDIVIDUAL POR LETRA"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"="}\OperatorTok{*}\DecValTok{70}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ i, letra }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(LETRAS\_OBJETIVO):}
+\NormalTok{    acc }\OperatorTok{=}\NormalTok{ precision\_por\_letra[i] }\OperatorTok{*} \DecValTok{100}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Precisión Letra }\SpecialCharTok{\{}\NormalTok{letra}\SpecialCharTok{\}}\SpecialStringTok{ : }\SpecialCharTok{\{}\NormalTok{acc}\SpecialCharTok{:\textgreater{}6.2f\}}\SpecialStringTok{ \%"}\NormalTok{)}
 
-print("\n" + "="*70)
-print(f"ACCURACY GLOBAL: {accuracy*100:.2f}%")
-print("="*70 + "\n")
+\BuiltInTok{print}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"} \OperatorTok{+} \StringTok{"="}\OperatorTok{*}\DecValTok{70}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"ACCURACY GLOBAL: }\SpecialCharTok{\{}\NormalTok{accuracy}\OperatorTok{*}\DecValTok{100}\SpecialCharTok{:.2f\}}\SpecialStringTok{\%"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"="}\OperatorTok{*}\DecValTok{70} \OperatorTok{+} \StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 
-print(classification_report(y_test, y_pred, target_names=LETRAS_OBJETIVO))
-\end{verbatim}
+\BuiltInTok{print}\NormalTok{(classification\_report(y\_test, y\_pred, target\_names}\OperatorTok{=}\NormalTok{LETRAS\_OBJETIVO))}
+\end{Highlighting}
+\end{Shaded}
 
 \pandocbounded{\includegraphics[keepaspectratio]{images/paste-1.png}}
 
@@ -1530,17 +1588,19 @@ print(classification_report(y_test, y_pred, target_names=LETRAS_OBJETIVO))
 Además del porcentaje global de aciertos, se estimó la precisión
 individual para cada letra y se construyó una matriz de confusión.
 
-\begin{verbatim}
-plt.figure(figsize=(16,14))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=LETRAS_OBJETIVO,
-yticklabels=LETRAS_OBJETIVO)
-plt.title(f'Matriz CategoricalHMM con Rasgos Estructurales 
-(Precisión: {accuracy*100:.2f}%)', fontsize=16, fontweight='bold')
-plt.ylabel('Letra Real', fontsize=14)
-plt.xlabel('Letra Predicha', fontsize=14)
-plt.tight_layout()
-plt.show()
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{16}\NormalTok{,}\DecValTok{14}\NormalTok{))}
+\NormalTok{sns.heatmap(cm, annot}\OperatorTok{=}\VariableTok{True}\NormalTok{, fmt}\OperatorTok{=}\StringTok{\textquotesingle{}d\textquotesingle{}}\NormalTok{, cmap}\OperatorTok{=}\StringTok{\textquotesingle{}Blues\textquotesingle{}}\NormalTok{, xticklabels}\OperatorTok{=}\NormalTok{LETRAS\_OBJETIVO,}
+\NormalTok{yticklabels}\OperatorTok{=}\NormalTok{LETRAS\_OBJETIVO)}
+\NormalTok{plt.title(}\SpecialStringTok{f\textquotesingle{}Matriz CategoricalHMM con Rasgos Estructurales }
+\ErrorTok{(Precisión: \{accuracy*100:.2f\}\%)\textquotesingle{}, fontsize=16, fontweight=\textquotesingle{}bold\textquotesingle{})}
+\ErrorTok{plt.ylabel}\NormalTok{(}\StringTok{\textquotesingle{}Letra Real\textquotesingle{}}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{14}\NormalTok{)}
+\NormalTok{plt.xlabel(}\StringTok{\textquotesingle{}Letra Predicha\textquotesingle{}}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{14}\NormalTok{)}
+\NormalTok{plt.tight\_layout()}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
 
 \pandocbounded{\includegraphics[keepaspectratio]{images/paste-3.png}}
 

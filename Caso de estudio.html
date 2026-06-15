@@ -723,8 +723,10 @@ print(classification_report(y_test, y_pred, target_names=LETRAS_OBJETIVO))</code
 <p><img src="images/paste-2.png" class="img-fluid"></p>
 <p>Además del porcentaje global de aciertos, se estimó la precisión individual para cada letra y se construyó una matriz de confusión.</p>
 <pre><code>plt.figure(figsize=(16,14))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=LETRAS_OBJETIVO, yticklabels=LETRAS_OBJETIVO)
-plt.title(f'Matriz CategoricalHMM con Rasgos Estructurales (Precisión: {accuracy*100:.2f}%)', fontsize=16, fontweight='bold')
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=LETRAS_OBJETIVO,
+yticklabels=LETRAS_OBJETIVO)
+plt.title(f'Matriz CategoricalHMM con Rasgos Estructurales 
+(Precisión: {accuracy*100:.2f}%)', fontsize=16, fontweight='bold')
 plt.ylabel('Letra Real', fontsize=14)
 plt.xlabel('Letra Predicha', fontsize=14)
 plt.tight_layout()

@@ -549,10 +549,13 @@ emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, downl
         pad_left = pad_w // 2
         pad_right = pad_w - pad_left
 
-        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), (pad_left, pad_right)), mode='constant', constant_values=0)
-        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), (IMG_SIZE, IMG_SIZE), interpolation=cv2.INTER_LINEAR)
+        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), (pad_left, pad_right)), 
+        mode='constant', constant_values=0)
+        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), (IMG_SIZE, IMG_SIZE),
+        interpolation=cv2.INTER_LINEAR)
     else:
-        imagen = cv2.resize(imagen.astype(np.float32), (IMG_SIZE, IMG_SIZE), interpolation=cv2.INTER_LINEAR)
+        imagen = cv2.resize(imagen.astype(np.float32), (IMG_SIZE, IMG_SIZE), 
+        interpolation=cv2.INTER_LINEAR)
 
     imagen = (imagen &gt; UMBRAL).astype(float)
     return imagen</code></pre>

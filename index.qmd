@@ -660,4 +660,4 @@ dado un conjunto de secuencias observadas se realiza mediante un proceso iterati
 
 \
 
-![Esquema general del algoritmo Expectation–Maximization (Baum–Welch) para un Modelo Oculto de Markov. En el Paso E se estiman las probabilidades posteriores de los estados ocultos y las transiciones esperadas mediante los algoritmos Forward–Backward. En el Paso M se actualizan iterativamente la matriz generadora y la matriz de emisión para maximizar la verosimilitud de las observaciones.](imagenesHMM/ME_HMM.png){#fig-ME fig-align="center" width="600"}
+![Esquema general del algoritmo Expectation–Maximization (Baum–Welch) para un Modelo Oculto de Markov. En el Paso E se estiman las probabilidades posteriores de los estados ocultos y las transiciones esperadas mediante los algoritmos Forward–Backward. En el Paso M se actualizan iterativamente la matriz generadora y la matriz de emisión para maximizar la verosimilitud de las observaciones.](imagenesHMM/ME_HMM.png){#fig-ME fig-align="center" width="300"}

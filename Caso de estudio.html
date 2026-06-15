@@ -549,9 +549,11 @@ emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, downl
         pad_left = pad_w // 2
         pad_right = pad_w - pad_left
 
-        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), (pad_left, pad_right)), 
+        recorte_cuadrado = np.pad(recorte, ((pad_top, pad_bottom), 
+        (pad_left, pad_right)), 
         mode='constant', constant_values=0)
-        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), (IMG_SIZE, IMG_SIZE),
+        imagen = cv2.resize(recorte_cuadrado.astype(np.float32), 
+        (IMG_SIZE, IMG_SIZE),
         interpolation=cv2.INTER_LINEAR)
     else:
         imagen = cv2.resize(imagen.astype(np.float32), (IMG_SIZE, IMG_SIZE), 
@@ -603,7 +605,8 @@ emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, downl
         up_q = 1 if perfil_sup &gt; 10 else 0    
         low_q = 1 if perfil_inf &lt; 30 else 0   
 
-        simbolo = (tinta_q &lt;&lt; 6) | (cg_q &lt;&lt; 4) | (trans_q &lt;&lt; 2) | (up_q &lt;&lt; 1) | low_q
+        simbolo = (tinta_q &lt;&lt; 6) | (cg_q &lt;&lt; 4) | (trans_q &lt;&lt; 2) 
+        | (up_q &lt;&lt; 1) | low_q
         secuencia.append([simbolo])
 
     return np.array(secuencia)</code></pre>

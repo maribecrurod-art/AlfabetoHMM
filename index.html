@@ -448,26 +448,26 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Espacio Probabilístico y Procesos Estocásticos Subyacentes</h1><p><img src="imagenesHMM/LogoDelfin.png" title="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino" class="quarto-cover-image nolightbox img-fluid"></p>
 <p>Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es necesario partir de los axiomas fundamentales de la teoría de la medida, para más detalle consultar el libro de <span class="citation" data-cites="Rudin1987">Rudin (<a href="#ref-Rudin1987" role="doc-biblioref">1987</a>)</span>.</p>
 <p>Para esto, se asumirá que el lector tiene conocimientos previos sobre teoría de la medida como lo son las <span class="math inline">\(\sigma\)</span>-álgebras, espacio muestral y medida de probabilidad, entre otros.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Probabilidad Filtrado)">
+<div id="nte-espacio-filtrado" class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Probabilidad Filtrado)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Espacio de Probabilidad Filtrado)
+Definición&nbsp;1.1: Definición (Espacio de Probabilidad Filtrado)
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Sea <span class="math inline">\((\Omega, \mathcal{F}, \mathbb{P})\)</span> un espacio de probabilidad, donde <span class="math inline">\(\Omega\)</span> es el espacio muestral, <span class="math inline">\(\mathcal{F}\)</span> es una <span class="math inline">\(\sigma\)</span>-álgebra sobre <span class="math inline">\(\Omega\)</span>, y <span class="math inline">\(\mathbb{P}\)</span> es una medida de probabilidad. Sea <span class="math inline">\(\mathbb{F} = \{\mathcal{F}_t\}_{t \ge 0}\)</span> una filtración, es decir, una familia no decreciente de sub-<span class="math inline">\(\sigma\)</span>-álgebras de <span class="math inline">\(\mathcal{F}\)</span> tal que <span class="math inline">\(\mathcal{F}_s \subseteq \mathcal{F}_t \subseteq \mathcal{F}\)</span> para todo <span class="math inline">\(0 \le s &lt; t\)</span>. El conjunto <span class="math inline">\((\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})\)</span> se denomina espacio de probabilidad filtrado.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Estados Discreto)">
+<div id="nte-espacio-estados-discreto" class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Estados Discreto)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Espacio de Estados Discreto)
+Definición&nbsp;1.2: Definición (Espacio de Estados Discreto)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -476,13 +476,13 @@ window.Quarto = {
 </div>
 </div>
 <p>En el contexto de nuestro proyecto, <span class="math inline">\(S\)</span> representa el conjunto de posibles colores o intensidades de un pixel (por ejemplo, el espacio RGB donde <span class="math inline">\(|S| = 256^3\)</span>, o una escala de grises finita).</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso Estocástico a Tiempo Continuo)">
+<div id="nte-proceso-estocastico" class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso Estocástico a Tiempo Continuo)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Proceso Estocástico a Tiempo Continuo)
+Definición&nbsp;1.3: Definición (Proceso Estocástico a Tiempo Continuo)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -498,13 +498,13 @@ X = \{X(t) : t \in \mathbb{R}_{\ge 0}\},
 <section id="cadenas-de-markov-a-tiempo-continuo-ctmc" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Cadenas de Markov a Tiempo Continuo (CTMC)</h1>
 <p>La transición del concepto general de proceso estocástico al de proceso de Markov requiere la propiedad de amnesia (pérdida de memoria).</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Propiedad de Markov)">
+<div id="nte-propiedad-markov" class="callout callout-style-default callout-note callout-titled" title="Definición (Propiedad de Markov)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Propiedad de Markov)
+Definición&nbsp;2.1: Definición (Propiedad de Markov)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -533,13 +533,13 @@ i_1, i_2, \dots, i_n, i, j \in S,
 <p>para todo <span class="math inline">\(0 \le s \le t\)</span>.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Probabilidades de Transición y Homogeneidad)">
+<div id="nte-probabilidades-transicion" class="callout callout-style-default callout-note callout-titled" title="Definición (Probabilidades de Transición y Homogeneidad)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Probabilidades de Transición y Homogeneidad)
+Definición&nbsp;2.2: Definición (Probabilidades de Transición y Homogeneidad)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -567,13 +567,13 @@ P(\tau)
 \]</span></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled" title="Propiedad (Ecuaciones de Chapman-Kolmogorov)">
+<div id="imp-chapman-kolmogorov" class="callout callout-style-default callout-important callout-titled" title="Propiedad (Ecuaciones de Chapman-Kolmogorov)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>Propiedad (Ecuaciones de Chapman-Kolmogorov)
+Propiedad&nbsp;2.1: Propiedad (Ecuaciones de Chapman-Kolmogorov)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -604,17 +604,17 @@ Figura&nbsp;2.1: La probabilidad de transición <span class="math inline">\(p\_{
 <section id="dinámica-infinitesimal-y-generador-de-la-cadena" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Dinámica Infinitesimal y Generador de la Cadena</h1>
 <p>La evolución continua del color del pixel requiere una descripción mediante probabilidades de transición, lo cual nos lleva a la representación matricial de la derivada de <span class="math inline">\(P(t)\)</span>.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Matriz Generadora Infinitesimal)">
+<div id="nte-matriz-generadora" class="callout callout-style-default callout-note callout-titled" title="Definición (Matriz Generadora Infinitesimal)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Matriz Generadora Infinitesimal)
+Definición&nbsp;3.1: Definición (Matriz Generadora Infinitesimal)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Asumiendo que <span class="math inline">\(p_{ij}(t)\)</span> es diferenciable por la derecha en <span class="math inline">\(t=0\)</span>, definimos la tasa de transición <span class="math inline">\(q_{ij}\)</span> del estado <span class="math inline">\(i\)</span> al estado <span class="math inline">\(j\)</span> (donde <span class="math inline">\(i \neq j\)</span>) como:</p>
+<p>Asumiendo que <span class="math inline">\(p_{ij}(t)\)</span> es diferenciable por la derecha en <span class="math inline">\(t=0\)</span>, definimos la probabilidad de transición <span class="math inline">\(q_{ij}\)</span> del estado <span class="math inline">\(i\)</span> al estado <span class="math inline">\(j\)</span> (donde <span class="math inline">\(i \neq j\)</span>) como:</p>
 <p><span class="math display">\[
 q_{ij}
 =
@@ -642,13 +642,13 @@ Q=[q_{ij}]_{i,j\in S}
 \]</span></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled" title="Propiedad (Ecuaciones Diferenciales de Kolmogorov)">
+<div id="imp-ecuaciones-dif-kolmogorov" class="callout callout-style-default callout-important callout-titled" title="Propiedad (Ecuaciones Diferenciales de Kolmogorov)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>Propiedad (Ecuaciones Diferenciales de Kolmogorov)
+Propiedad&nbsp;3.1: Propiedad (Ecuaciones Diferenciales de Kolmogorov)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -680,13 +680,13 @@ e^{Qt}
 <section id="utilidad-hacia-cadenas-de-márkov-ocultas-hmm" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Utilidad hacia Cadenas de Márkov Ocultas (HMM)</h1>
 <p>La fundamentación teórica precedente modela la dinámica subyacente determinista de la matriz de transición y la evolución estocástica de las trayectorias del sistema. Para extender esta arquitectura a un Modelo Oculto de Márkov (HMM) en el contexto de la inferencia y análisis de píxeles en imágenes que contienen letras del alfabeto latino, se formaliza la siguiente estructura bivariada:</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso Latente e Inobservable)">
+<div id="nte-proceso-latente" class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso Latente e Inobservable)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Proceso Latente e Inobservable)
+Definición&nbsp;4.1: Definición (Proceso Latente e Inobservable)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -698,13 +698,13 @@ X = \{X(t)\}_{t \ge 0}
 </div>
 </div>
 <p>La variable <span class="math inline">\(X(t)\)</span> describe el estado ideal o “verdadero” del pixel.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso de Observación Empírica)">
+<div id="nte-proceso-observacion" class="callout callout-style-default callout-note callout-titled" title="Definición (Proceso de Observación Empírica)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Proceso de Observación Empírica)
+Definición&nbsp;4.2: Definición (Proceso de Observación Empírica)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -725,13 +725,13 @@ Y(t):\Omega\to O
 </div>
 </div>
 <p>En este caso <span class="math inline">\(O\)</span> denota el conjunto finito de colores o intensidades registrables por un sensor óptico y <span class="math inline">\(Y\)</span> es la lectura ruidosa del pixel en el tiempo <span class="math inline">\(t\)</span>.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Matriz de Emisión e Independencia Condicional)">
+<div id="nte-matriz-emision" class="callout callout-style-default callout-note callout-titled" title="Definición (Matriz de Emisión e Independencia Condicional)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Matriz de Emisión e Independencia Condicional)
+Definición&nbsp;4.3: Definición (Matriz de Emisión e Independencia Condicional)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -745,13 +745,12 @@ Y(t):\Omega\to O
 \quad
 \text{c.s.}
 \]</span></p>
-<p>donde <span class="math inline">\(\mathcal{F}_t^X\)</span> y <span class="math inline">\(\mathcal{F}_{t^-}^Y\)</span> denotan las filtraciones del historial latente y observable, respectivamente.</p>
+<p>donde <span class="math inline">\(\mathcal{F}_t^X\)</span> y <span class="math inline">\(\mathcal{F}_{t^-}^Y\)</span> denotan las filtraciones <a href="#nte-espacio-filtrado" class="quarto-xref">Definición&nbsp;<span>1.1</span></a> del historial latente y observable, respectivamente.</p>
 <p>Estas probabilidades definen las entradas de la matriz de emisión estocástica</p>
 <p><span class="math display">\[
 E=[e_{xy}],
 \]</span></p>
-<p>donde</p>
-<p><span class="math display">\[
+<p>donde <span class="math display">\[
 e_{xy}
 =
 \mathbb{P}(Y(t)=y \mid X(t)=x).
@@ -770,13 +769,13 @@ Y=(y_1,y_2,\dots,y_K)
 <p><span class="math display">\[
 0 \le t_1 &lt; t_2 &lt; \dots &lt; t_K \le T.
 \]</span></p>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)">
+<div id="nte-filtro-forward" class="callout callout-style-default callout-note callout-titled" title="Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)
+Definición&nbsp;5.1: Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -790,7 +789,7 @@ Y(t_1)=y_1,\dots,Y(t_k)=y_k,
 X(t_k)=i
 \bigr).
 \]</span></p>
-<p>Esta cantidad se calcula recursivamente mediante la ecuación de Chapman-Kolmogorov y la matriz de emisión:</p>
+<p>Esta cantidad se calcula recursivamente mediante la ecuación de Chapman-Kolmogorov <a href="#imp-chapman-kolmogorov" class="quarto-xref">Propiedad&nbsp;<span>2.1</span></a> y la matriz de emisión <span class="math inline">\(E\)</span> <a href="#nte-matriz-emision" class="quarto-xref">Definición&nbsp;<span>4.3</span></a>:</p>
 <p><span class="math display">\[
 \alpha_k(j)
 =
@@ -829,13 +828,13 @@ e^{Q\Delta t_k}.
 \]</span></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Definición (Decodificación Óptima Global)">
+<div id="nte-decodificacion-optima" class="callout callout-style-default callout-note callout-titled" title="Definición (Decodificación Óptima Global)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Definición (Decodificación Óptima Global)
+Definición&nbsp;5.2: Definición (Decodificación Óptima Global)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -857,6 +856,7 @@ X(t_1)=x_1,\dots,X(t_K)=x_K
 Y(t_1)=y_1,\dots,Y(t_K)=y_K
 \Bigr).
 \]</span></p>
+<p>A diferencia de la función <span class="math inline">\(\max\)</span>, que devuelve el <strong>valor numérico</strong> de la probabilidad más alta alcanzada, el operador <span class="math inline">\(\arg\max\)</span> (argumento del máximo) devuelve el <strong>conjunto de entradas</strong> que producen ese valor máximo. En este contexto, no nos interesa saber cuál es el porcentaje exacto de la probabilidad máxima, sino descubrir específicamente <strong>cuál es la secuencia exacta de estados latentes</strong> <span class="math inline">\(\hat{X}\)</span> que hace que esa probabilidad sea máxima</p>
 <p>La solución sistemática a este problema de programación dinámica espacial/temporal se obtiene mediante la adaptación del Algoritmo de Viterbi para cadenas a tiempo continuo, evaluando las transiciones máximas sobre</p>
 <p><span class="math display">\[
 P(\Delta t_k).
@@ -1093,13 +1093,13 @@ Figura&nbsp;5.1: Modelo Oculto de Markov para un píxel con dos estados ocultos 
 <section id="estimación-de-parámetros-y-calibración-del-modelo" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Estimación de Parámetros y Calibración del Modelo</h1>
 <p>En la práctica, la matriz generadora infinitesimal <span class="math inline">\(Q\)</span> (que dicta la tasa de degradación del color para el caso de estudio) y las probabilidades de emisión empírica rara vez son conocidas a priori y deben ser estimadas a partir de un dataset de imágenes (el alfabeto latino modificado).</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))">
+<div id="nte-baum-welch" class="callout callout-style-default callout-important callout-titled" title="Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))
+Definición&nbsp;6.1: Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1109,8 +1109,8 @@ Figura&nbsp;5.1: Modelo Oculto de Markov para un píxel con dos estados ocultos 
 \]</span></p>
 <p>dado un conjunto de secuencias observadas se realiza mediante un proceso iterativo.</p>
 <ul>
-<li><p><strong>Paso E (Expectation):</strong> Se calculan las estadísticas suficientes esperadas del sistema latente (tiempo esperado de permanencia en cada estado de color y número esperado de transiciones) condicionado a las observaciones y a la estimación actual de los parámetros <span class="math inline">\(\Theta^{(m)}\)</span>, utilizando las variables recursivas Forward y Backward.</p></li>
-<li><p><strong>Paso M (Maximization):</strong> Se actualizan los parámetros <span class="math inline">\(\Theta^{(m+1)}\)</span> para maximizar la función Q de verosimilitud esperada. En particular, la estimación de las probabilidades de transición empíricas se formula restringiendo las soluciones para garantizar que las filas de <span class="math inline">\(Q^{(m+1)}\)</span> sigan sumando cero y <span class="math inline">\(q_{ij}\ge0\)</span> para <span class="math inline">\(i\neq j\)</span>.</p></li>
+<li><p><strong>Paso</strong> <span class="math inline">\(E\)</span> (<strong>Expectation):</strong> Se calculan las estadísticas suficientes esperadas del sistema latente (tiempo esperado de permanencia en cada estado de color y número esperado de transiciones) condicionado a las observaciones y a la estimación actual de los parámetros en el paso <span class="math inline">\(m\)</span> <span class="math inline">\(\Theta^{(m)}\)</span>, utilizando las variables recursivas Forward y Backward.</p></li>
+<li><p><strong>Paso</strong> <span class="math inline">\(M\)</span> <strong>(Maximization):</strong> Se actualizan los parámetros <span class="math inline">\(\Theta^{(m+1)}\)</span> para maximizar la función <span class="math inline">\(Q\)</span> de verosimilitud esperada. En particular, la estimación de las probabilidades de transición empíricas se formula restringiendo las soluciones para garantizar que las filas de <span class="math inline">\(Q^{(m+1)}\)</span> sigan sumando cero y <span class="math inline">\(q_{ij}\ge0\)</span> para <span class="math inline">\(i\neq j\)</span>.</p></li>
 </ul>
 </div>
 </div>
@@ -1119,7 +1119,7 @@ Figura&nbsp;5.1: Modelo Oculto de Markov para un píxel con dos estados ocultos 
 <div id="fig-ME" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="imagenesHMM/ME_HMM.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="300">
+<img src="imagenesHMM/ME_HMM.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="750">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;6.1: Esquema general del algoritmo Expectation–Maximization (Baum–Welch) para un Modelo Oculto de Markov. En el Paso E se estiman las probabilidades posteriores de los estados ocultos y las transiciones esperadas mediante los algoritmos Forward–Backward. En el Paso M se actualizan iterativamente la matriz generadora y la matriz de emisión para maximizar la verosimilitud de las observaciones.

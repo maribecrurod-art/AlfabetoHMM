@@ -501,10 +501,12 @@ window.Quarto = {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:     </span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> subprocess     </span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> sys     </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    subprocess.check_call([sys.executable, <span class="st">"-m"</span>, <span class="st">"pip"</span>, <span class="st">"install"</span>, <span class="st">"hmmlearn"</span>])     </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> hmmlearn <span class="im">import</span> hmm  </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, classification_report </span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    subprocess.check_call([sys.executable, <span class="st">"-m"</span>, <span class="st">"pip"</span>, <span class="st">"install"</span>, </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"hmmlearn"</span>])     </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> hmmlearn <span class="im">import</span> hmm  </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        classification_report </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>La utilización de estas bibliotecas responde a necesidades específicas del sistema. <span class="math inline">\(\texttt{OpenCV}\)</span> permitió realizar operaciones de preprocesamiento sobre las imágenes; <span class="math inline">\(\texttt{torchvision}\)</span> proporcionó acceso al conjunto de datos <strong>EMNIST</strong> <span class="citation" data-cites="cohen2017emnist">(<a href="#ref-cohen2017emnist" role="doc-biblioref">Cohen et&nbsp;al. 2017</a>)</span>; <span class="math inline">\(\texttt{hmmlearn}\)</span> hizo posible la implementación de los modelos ocultos de Markov; mientras que <span class="math inline">\(\texttt{scikit-learn}\)</span> facilitó el cálculo de las métricas de evaluación.</p>
 <p>Con el fin de asegurar la reproducibilidad de los resultados, se fijaron semillas aleatorias y se deshabilitaron advertencias no críticas del entorno de ejecución.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>) </span>
@@ -515,18 +517,19 @@ window.Quarto = {
 <section id="definición-de-parámetros-del-experimento" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="definición-de-parámetros-del-experimento"><span class="header-section-number">3.2</span> Definición de parámetros del experimento</h2>
 <p>A continuación, se definieron los parámetros principales utilizados durante el entrenamiento y evaluación del sistema.</p>
-<pre><code>N_ESTADOS = 12
-TRAIN_POR_CLASE = 1500
-TEST_POR_CLASE = 400
-
-IMG_SIZE = 40
-UMBRAL = 0.30
-
-ARCHIVO_MODELOS_CAT = "/content/drive/MyDrive/modelos_categorical_v_avanzada_hmm.pkl"
-
-TARGETS_MAYUSCULAS = list(range(10,36))
-MAPEO_LETTERS = {i: chr(ord('A') + (i - 10)) for i in range(10,36)}
-LETRAS_OBJETIVO = [chr(ord('A') + i) for i in range(26)]</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>N_ESTADOS <span class="op">=</span> <span class="dv">12</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>TRAIN_POR_CLASE <span class="op">=</span> <span class="dv">1500</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>TEST_POR_CLASE <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>IMG_SIZE <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>UMBRAL <span class="op">=</span> <span class="fl">0.30</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>ARCHIVO_MODELOS_CAT <span class="op">=</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"/content/drive/MyDrive/modelos_categorical_v_avanzada_hmm.pkl"</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>TARGETS_MAYUSCULAS <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>,<span class="dv">36</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>MAPEO_LETTERS <span class="op">=</span> {i: <span class="bu">chr</span>(<span class="bu">ord</span>(<span class="st">'A'</span>) <span class="op">+</span> (i <span class="op">-</span> <span class="dv">10</span>)) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>,<span class="dv">36</span>)}</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>LETRAS_OBJETIVO <span class="op">=</span> [<span class="bu">chr</span>(<span class="bu">ord</span>(<span class="st">'A'</span>) <span class="op">+</span> i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">26</span>)]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Se optó por utilizar 12 estados ocultos para representar la evolución secuencial de cada letra manuscrita. Este número proporciona un equilibrio entre la capacidad descriptiva del modelo y el costo computacional asociado al entrenamiento. Asimismo, se seleccionaron 1500 muestras de entrenamiento y 400 muestras de prueba por clase con el objetivo de mantener una representación equilibrada de todas las letras del alfabeto.</p>
 <p>El tamaño de imagen fue fijado en 40×40 píxeles, permitiendo estandarizar las observaciones y reducir la variabilidad asociada a las dimensiones originales de escritura.</p>
 </section>
@@ -535,10 +538,12 @@ LETRAS_OBJETIVO = [chr(ord('A') + i) for i in range(26)]</code></pre>
 <p>Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos <strong>EMNIST ByClass</strong>, una extensión del conocido conjunto <strong>MNIST</strong> que incorpora letras manuscritas y dígitos.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Descargando EMNIST ByClass..."</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>emnist_train <span class="op">=</span> datasets.EMNIST(root<span class="op">=</span><span class="st">'./data'</span>, split<span class="op">=</span><span class="st">'byclass'</span>, train<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>transforms.ToTensor())</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>emnist_test <span class="op">=</span> datasets.EMNIST(root<span class="op">=</span><span class="st">'./data'</span>, split<span class="op">=</span><span class="st">'byclass'</span>, train<span class="op">=</span><span class="va">False</span>, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>transforms.ToTensor())</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>emnist_train <span class="op">=</span> datasets.EMNIST(root<span class="op">=</span><span class="st">'./data'</span>, split<span class="op">=</span><span class="st">'byclass'</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                train<span class="op">=</span><span class="va">True</span>, download<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                                transform<span class="op">=</span>transforms.ToTensor())</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>emnist_test <span class="op">=</span> datasets.EMNIST(root<span class="op">=</span><span class="st">'./data'</span>, split<span class="op">=</span><span class="st">'byclass'</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                                train<span class="op">=</span><span class="va">False</span>, download<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                transform<span class="op">=</span>transforms.ToTensor())</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, descartando las demás clases disponibles. Esta decisión se tomó con el propósito de acotar el problema de clasificación y evaluar específicamente la capacidad del modelo para reconocer caracteres alfabéticos manuscritos.</p>
 </section>
 <section id="definición-de-la-arquitectura-del-hmm" class="level2" data-number="3.4">
@@ -654,30 +659,30 @@ LETRAS_OBJETIVO = [chr(ord('A') + i) for i in range(26)]</code></pre>
 <section id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba"><span class="header-section-number">3.7</span> Construcción de los conjuntos de entrenamiento y prueba</h2>
 <p>Las secuencias obtenidas fueron organizadas en conjuntos balanceados de entrenamiento y evaluación.</p>
-<pre><code>def construir_dataset(dataset, max_muestras):
-    X, y = [], []
-    conteos = {k:0 for k in TARGETS_MAYUSCULAS}
-
-    for tensor, target in dataset:
-        if target not in TARGETS_MAYUSCULAS: continue
-        if conteos[target] &gt;= max_muestras: continue
-
-        img = procesar_imagen(tensor)
-        seq = imagen_a_secuencia(img)
-
-        X.append(seq)
-        y.append(MAPEO_LETTERS[target])
-        conteos[target] += 1
-
-        if all(c &gt;= max_muestras for c in conteos.values()): break
-
-    return X, np.array(y)
-
-print("Construyendo entrenamiento...")
-X_train, y_train = construir_dataset(emnist_train, TRAIN_POR_CLASE)
-
-print("Construyendo prueba...")
-X_test, y_test = construir_dataset(emnist_test, TEST_POR_CLASE)</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> construir_dataset(dataset, max_muestras):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    X, y <span class="op">=</span> [], []</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    conteos <span class="op">=</span> {k:<span class="dv">0</span> <span class="cf">for</span> k <span class="kw">in</span> TARGETS_MAYUSCULAS}</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> tensor, target <span class="kw">in</span> dataset:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> target <span class="kw">not</span> <span class="kw">in</span> TARGETS_MAYUSCULAS: <span class="cf">continue</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> conteos[target] <span class="op">&gt;=</span> max_muestras: <span class="cf">continue</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        img <span class="op">=</span> procesar_imagen(tensor)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        seq <span class="op">=</span> imagen_a_secuencia(img)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        X.append(seq)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        y.append(MAPEO_LETTERS[target])</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        conteos[target] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">all</span>(c <span class="op">&gt;=</span> max_muestras <span class="cf">for</span> c <span class="kw">in</span> conteos.values()): <span class="cf">break</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X, np.array(y)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Construyendo entrenamiento..."</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> construir_dataset(emnist_train, TRAIN_POR_CLASE)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Construyendo prueba..."</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> construir_dataset(emnist_test, TEST_POR_CLASE)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>El balance entre clases evita sesgos hacia letras con mayor número de muestras disponibles y permite interpretar las métricas de desempeño de manera más objetiva.</p>
 </section>
 <section id="entrenamiento-de-los-modelos" class="level2" data-number="3.8">

@@ -45,9 +45,11 @@ try:
 except ImportError:     
     import subprocess     
     import sys     
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "hmmlearn"])     
+    subprocess.check_call([sys.executable, "-m", "pip", "install", 
+                           "hmmlearn"])     
     from hmmlearn import hmm  
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report 
+from sklearn.metrics import accuracy_score, confusion_matrix,
+        classification_report 
 import warnings 
 ```
 
@@ -55,7 +57,7 @@ La utilización de estas bibliotecas responde a necesidades específicas del sis
 
 Con el fin de asegurar la reproducibilidad de los resultados, se fijaron semillas aleatorias y se deshabilitaron advertencias no críticas del entorno de ejecución.
 
-``` python
+```python
 np.random.seed(42) 
 random.seed(42) 
 warnings.filterwarnings("ignore") 
@@ -67,7 +69,7 @@ El establecimiento de semillas garantiza que los procesos dependientes del azar 
 
 A continuación, se definieron los parámetros principales utilizados durante el entrenamiento y evaluación del sistema.
 
-```         
+```python         
 N_ESTADOS = 12
 TRAIN_POR_CLASE = 1500
 TEST_POR_CLASE = 400
@@ -75,7 +77,8 @@ TEST_POR_CLASE = 400
 IMG_SIZE = 40
 UMBRAL = 0.30
 
-ARCHIVO_MODELOS_CAT = "/content/drive/MyDrive/modelos_categorical_v_avanzada_hmm.pkl"
+ARCHIVO_MODELOS_CAT = 
+    "/content/drive/MyDrive/modelos_categorical_v_avanzada_hmm.pkl"
 
 TARGETS_MAYUSCULAS = list(range(10,36))
 MAPEO_LETTERS = {i: chr(ord('A') + (i - 10)) for i in range(10,36)}
@@ -93,10 +96,12 @@ Para el entrenamiento y evaluación del sistema se empleó el conjunto de datos 
 ``` python
 
 print("Descargando EMNIST ByClass...")
-emnist_train = datasets.EMNIST(root='./data', split='byclass', train=True, 
-                                download=True, transform=transforms.ToTensor())
-emnist_test = datasets.EMNIST(root='./data', split='byclass', train=False, 
-                                download=True, transform=transforms.ToTensor())
+emnist_train = datasets.EMNIST(root='./data', split='byclass', 
+                                train=True, download=True, 
+                                transform=transforms.ToTensor())
+emnist_test = datasets.EMNIST(root='./data', split='byclass',
+                                train=False, download=True, 
+                                transform=transforms.ToTensor())
 ```
 
 A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, descartando las demás clases disponibles. Esta decisión se tomó con el propósito de acotar el problema de clasificación y evaluar específicamente la capacidad del modelo para reconocer caracteres alfabéticos manuscritos.
@@ -231,7 +236,7 @@ Dichas características fueron cuantificadas y codificadas en un conjunto discre
 
 Las secuencias obtenidas fueron organizadas en conjuntos balanceados de entrenamiento y evaluación.
 
-```         
+```python         
 def construir_dataset(dataset, max_muestras):
     X, y = [], []
     conteos = {k:0 for k in TARGETS_MAYUSCULAS}

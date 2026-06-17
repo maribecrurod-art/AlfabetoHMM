@@ -788,7 +788,8 @@ Definición&nbsp;5.1: Definición (Filtro Hacia Adelante (Forward) y Verosimilit
 Y(t_1)=y_1,\dots,Y(t_k)=y_k,
 X(t_k)=i
 \bigr).
-\]</span></p>
+\]</span><br>
+</p>
 <p>Esta cantidad se calcula recursivamente mediante la ecuación de Chapman-Kolmogorov <a href="#imp-chapman-kolmogorov" class="quarto-xref">Propiedad&nbsp;<span>2.1</span></a> y la matriz de emisión <span class="math inline">\(E\)</span> <a href="#nte-matriz-emision" class="quarto-xref">Definición&nbsp;<span>4.3</span></a>:</p>
 <p><span class="math display">\[
 \alpha_k(j)
@@ -856,8 +857,9 @@ X(t_1)=x_1,\dots,X(t_K)=x_K
 Y(t_1)=y_1,\dots,Y(t_K)=y_K
 \Bigr).
 \]</span></p>
-<p>A diferencia de la función <span class="math inline">\(\max\)</span>, que devuelve el <strong>valor numérico</strong> de la probabilidad más alta alcanzada, el operador <span class="math inline">\(\arg\max\)</span> (argumento del máximo) devuelve el <strong>conjunto de entradas</strong> que producen ese valor máximo. En este contexto, no nos interesa saber cuál es el porcentaje exacto de la probabilidad máxima, sino descubrir específicamente <strong>cuál es la secuencia exacta de estados latentes</strong> <span class="math inline">\(\hat{X}\)</span> que hace que esa probabilidad sea máxima</p>
-<p>La solución sistemática a este problema de programación dinámica espacial/temporal se obtiene mediante la adaptación del Algoritmo de Viterbi para cadenas a tiempo continuo, evaluando las transiciones máximas sobre</p>
+<p>A diferencia de la función <span class="math inline">\(\max\)</span>, que devuelve el <strong>valor numérico</strong> de la probabilidad más alta alcanzada, el operador <span class="math inline">\(\arg\max\)</span> (argumento del máximo) devuelve el <strong>conjunto de entradas</strong> que producen ese valor máximo. En este contexto, no nos interesa saber cuál es el porcentaje exacto de la probabilidad máxi<br>
+ma, sino descubrir específicamente <strong>cuál es la secuencia exacta de estados latentes</strong> <span class="math inline">\(\hat{X}\)</span> que hace que esa probabilidad sea máxima</p>
+<p>La solución sistemática a este problema de programación dinámica espacial/temporal se obtiene mediante la adaptación del Algoritmo de Viterbi <span class="citation" data-cites="rabiner1989tutorial">Rabiner (<a href="#ref-rabiner1989tutorial" role="doc-biblioref">1989</a>)</span> para cadenas a tiempo continuo, evaluando las transiciones máximas sobre</p>
 <p><span class="math display">\[
 P(\Delta t_k).
 \]</span></p>
@@ -1092,7 +1094,7 @@ Figura&nbsp;5.1: Modelo Oculto de Markov para un píxel con dos estados ocultos 
 </section>
 <section id="estimación-de-parámetros-y-calibración-del-modelo" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Estimación de Parámetros y Calibración del Modelo</h1>
-<p>En la práctica, la matriz generadora infinitesimal <span class="math inline">\(Q\)</span> (que dicta la tasa de degradación del color para el caso de estudio) y las probabilidades de emisión empírica rara vez son conocidas a priori y deben ser estimadas a partir de un dataset de imágenes (el alfabeto latino modificado).</p>
+<p>En la práctica, la matriz generadora infinitesimal <span class="math inline">\(Q\)</span> (que dicta la probabilidad de degradación del color para el caso de estudio) y las probabilidades de emisión empírica rara vez son conocidas a priori y deben ser estimadas a partir de un dataset de imágenes (el alfabeto latino modificado).</p>
 <div id="nte-baum-welch" class="callout callout-style-default callout-important callout-titled" title="Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1131,6 +1133,9 @@ Figura&nbsp;6.1: Esquema general del algoritmo Expectation–Maximization (Baum�
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Norris1998" class="csl-entry" role="listitem">
 Norris, J. R. 1998. <em>Markov Chains</em>. Cambridge: Cambridge University Press.
+</div>
+<div id="ref-rabiner1989tutorial" class="csl-entry" role="listitem">
+Rabiner, Lawrence R. 1989. <span>«A tutorial on hidden Markov models and selected applications in speech recognition»</span>. <em>Proceedings of the IEEE</em> 77 (2): 257-86. <a href="https://doi.org/10.1109/5.18626">https://doi.org/10.1109/5.18626</a>.
 </div>
 <div id="ref-Rudin1987" class="csl-entry" role="listitem">
 Rudin, Walter. 1987. <em>Real and Complex Analysis</em>. 3.ª ed. New York: McGraw-Hill.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Referencias – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino</title>
+<title>3&nbsp; Conclusiones – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,6 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -49,7 +50,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Conclusiones.html" rel="prev">
+<link href="./Referencias.html" rel="next">
+<link href="./Caso de estudio.html" rel="prev">
 <link href="./LOGOunach.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -100,10 +102,12 @@ div.csl-indent {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="4&nbsp; Referencias – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta property="og:title" content="3&nbsp; Conclusiones – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta property="og:description" content="">
 <meta property="og:image" content="imagenesHMM/LogoDelfin.png">
 <meta property="og:site_name" content="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
-<meta name="twitter:title" content="4&nbsp; Referencias – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta name="twitter:title" content="3&nbsp; Conclusiones – Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino">
+<meta name="twitter:description" content="">
 <meta name="twitter:image" content="imagenesHMM/LogoDelfin.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -277,7 +281,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Referencias.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Referencias</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Conclusiones.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusiones</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -363,13 +367,13 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Conclusiones.html" class="sidebar-item-text sidebar-link">
+  <a href="./Conclusiones.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusiones</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Referencias.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Referencias.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Referencias</span></span></a>
   </div>
 </li>
@@ -387,7 +391,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Referencias</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusiones</span></h1>
 </div>
 
 
@@ -404,36 +408,22 @@ div.csl-indent {
 </header>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<p>La implementación del modelo CategoricalHMM para el reconocimiento de caracteres del alfabeto latino ha demostrado ser una aproximación viable, alcanzando una exactitud global (accuracy) del 76.12% sobre un conjunto de prueba de 10,382 muestras. El uso de secuencias estocásticas permite modelar la variabilidad en los trazos de los caracteres.</p>
+<p>A partir del análisis de las métricas de evaluación (Precisión, Recall y F1-Score) y la matriz de confusión, se extraen las siguientes conclusiones clave:</p>
+<ul>
+<li><strong>Efectividad de los Rasgos Estructurales:</strong> El modelo es altamente eficaz para clasificar caracteres con atributos morfológicos muy definidos y únicos. Esto se evidencia en los altos niveles de exactitud individual obtenidos en letras como la “T” (91.00%), la “X” (83.75%) y la “L” (precisión de 0.92).</li>
+<li><strong>Limitaciones morfológicas:</strong> El principal cuello de botella del sistema radica en la confusión entre caracteres que comparten similitudes estructurales o direccionales. Las caídas de rendimiento más notables ocurrieron en letras como la “B”, “C” y “N” (con exactitudes en el rango del 64% al 66%). Esto indica que los rasgos estructurales extraídos actualmente no son suficientes para capturar las sutilezas geométricas que diferencian a estas clases.</li>
+<li><strong>Viabilidad de la Arquitectura:</strong> La adopción de una topología de Bakis <span class="citation" data-cites="chen2012applying">(<a href="Referencias.html#ref-chen2012applying" role="doc-biblioref">Chen et&nbsp;al. 2012</a>)</span> resulta adecuada para el problema de reconocimiento fuera de línea (off-line), ya que restringe las transiciones de estado a un flujo unidireccional que se alinea naturalmente con la lectura secuencial de los rasgos extraídos de la imagen.</li>
+</ul>
+<p><strong>Trabajo futuro</strong> Para mejorar el rendimiento del sistema, las líneas de investigación futuras deberían enfocarse en refinar el algoritmo de extracción de características. Combinar los rasgos estructurales actuales con características estadísticas o direccionales (como gradientes) podría reducir significativamente la tasa de falsos positivos entre letras similares. Asimismo, la expansión del conjunto de datos mediante técnicas de aumento de imágenes con distintos niveles de ruido permitiría entrenar matrices de transición y emisión más robustas.</p>
+<p>En resumen, aunque el modelo CategoricalHMM implementado muestra un rendimiento prometedor, la mejora de la extracción de características es crucial para alcanzar niveles de exactitud más altos y reducir la confusión entre caracteres morfológicamente similares.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-chen2012applying" class="csl-entry" role="listitem">
-Chen, Jin, Bing Zhang, Rohit Prasad, Huaigu Cao, and Prem Natarajan.
-2012. <span>“Applying Discriminatively Optimized Feature Transform for
-HMM-Based Off-Line Handwriting Recognition.”</span> In <em>2012
-International Conference on Frontiers in Handwriting Recognition</em>.
-IEEE.
-</div>
-<div id="ref-cohen2017emnist" class="csl-entry" role="listitem">
-Cohen, Gregory, Saeed Afshar, Jonathan Tapson, and André van Schaik.
-2017. <span>“<span>EMNIST</span>: An Extension of <span>MNIST</span> to
-Handwritten Letters.”</span> <em>arXiv Preprint arXiv:1702.05373</em>.
-<a href="https://arxiv.org/abs/1702.05373">https://arxiv.org/abs/1702.05373</a>.
-</div>
-<div id="ref-Norris1998" class="csl-entry" role="listitem">
-Norris, J. R. 1998. <em>Markov Chains</em>. Cambridge: Cambridge
-University Press.
-</div>
-<div id="ref-rabiner1989tutorial" class="csl-entry" role="listitem">
-Rabiner, Lawrence R. 1989. <span>“A Tutorial on Hidden Markov Models and
-Selected Applications in Speech Recognition.”</span> <em>Proceedings of
-the IEEE</em> 77 (2): 257–86. <a href="https://doi.org/10.1109/5.18626">https://doi.org/10.1109/5.18626</a>.
-</div>
-<div id="ref-Rudin1987" class="csl-entry" role="listitem">
-Rudin, Walter. 1987. <em>Real and Complex Analysis</em>. 3rd ed. New
-York: McGraw-Hill.
+Chen, Jin, Bing Zhang, Rohit Prasad, Huaigu Cao, y Prem Natarajan. 2012. <span>«Applying Discriminatively Optimized Feature Transform for HMM-based Off-line Handwriting Recognition»</span>. En <em>2012 International Conference on Frontiers in Handwriting Recognition</em>. IEEE.
 </div>
 </div>
-
-
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -851,11 +841,14 @@ York: McGraw-Hill.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Conclusiones.html" class="pagination-link" aria-label="Conclusiones">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusiones</span></span>
+      <a href="./Caso de estudio.html" class="pagination-link" aria-label="Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./Referencias.html" class="pagination-link" aria-label="Referencias">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Referencias</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -863,4 +856,4 @@ York: McGraw-Hill.
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/Referencias.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/Referencias.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/Conclusiones.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/Conclusiones.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></div></div></footer></body></html>

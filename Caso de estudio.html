@@ -462,7 +462,7 @@ window.Quarto = {
   <li><a href="#construcción-de-los-conjuntos-de-entrenamiento-y-prueba" id="toc-construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="nav-link" data-scroll-target="#construcción-de-los-conjuntos-de-entrenamiento-y-prueba"><span class="header-section-number">3.7</span> Construcción de los conjuntos de entrenamiento y prueba</a></li>
   <li><a href="#entrenamiento-de-los-modelos" id="toc-entrenamiento-de-los-modelos" class="nav-link" data-scroll-target="#entrenamiento-de-los-modelos"><span class="header-section-number">3.8</span> Entrenamiento de los modelos</a></li>
   <li><a href="#inferencia-y-clasificación" id="toc-inferencia-y-clasificación" class="nav-link" data-scroll-target="#inferencia-y-clasificación"><span class="header-section-number">3.9</span> Inferencia y clasificación</a></li>
-  <li><a href="#evaluación-del-desempeño" id="toc-evaluación-del-desempeño" class="nav-link" data-scroll-target="#evaluación-del-desempeño"><span class="header-section-number">3.10</span> Evaluación del desempeño</a></li>
+  <li><a href="#sec-evaluacion" id="toc-sec-evaluacion" class="nav-link" data-scroll-target="#sec-evaluacion"><span class="header-section-number">3.10</span> Evaluación del desempeño</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/Caso de estudio.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/Caso de estudio.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></nav>
@@ -685,7 +685,7 @@ Figura&nbsp;3.2: La imagen muestra una representación de la descomposición de 
 </figcaption>
 </figure>
 </div>
-<p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
+<p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM <span class="quarto-unresolved-ref">?nte-hmm-categorico</span>, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
 </section>
 <section id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba"><span class="header-section-number">3.7</span> Construcción de los conjuntos de entrenamiento y prueba</h2>
@@ -772,9 +772,12 @@ for seq in tqdm(X_test, desc="Evaluando Inferencia"):
 <p>La predicción final se obtuvo seleccionando la letra cuyo modelo produjo la mayor puntuación de verosimilitud sobre la secuencia observada.</p>
 <p>Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM <a href="index.html#nte-propiedad-markov" class="quarto-xref">Note&nbsp;<span>2.1</span></a>.</p>
 </section>
-<section id="evaluación-del-desempeño" class="level2" data-number="3.10">
-<h2 data-number="3.10" class="anchored" data-anchor-id="evaluación-del-desempeño"><span class="header-section-number">3.10</span> Evaluación del desempeño</h2>
+<section id="sec-evaluacion" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="sec-evaluacion"><span class="header-section-number">3.10</span> Evaluación del desempeño</h2>
 <p>Finalmente, se calcularon diferentes métricas para evaluar el rendimiento del sistema.</p>
+<p>La selección de estas métricas se fundamenta en la necesidad de evaluar de manera exhaustiva y rigurosa la capacidad de generalización del HMM ante la variabilidad y el ruido presente en las imágenes de los caracteres.</p>
+<p>En primer lugar, la Exactitud Global (Accuracy) proporciona una medida general del rendimiento del sistema bajo el principio de máxima verosimilitud, indicando la proporción total de predicciones correctas. Sin embargo, en tareas de reconocimiento de alfabetos, una métrica global puede enmascarar deficiencias en clases minoritarias o más complejas. Por ello, se calculó la Exactitud Individual por Letra a partir de la diagonal de la matriz de confusión. Esto permite identificar específicamente la tasa de acierto de cada carácter y detectar si existen símbolos particulares que presenten mayor susceptibilidad a errores de clasificación debido a similitudes topológicas.</p>
+<p>Finalmente, se integró un Reporte de Clasificación para obtener la Precisión, Sensibilidad (Recall) y el F1-Score. El uso del F1-Score es de particular importancia para este enfoque estocástico, ya que al ser la media armónica entre la precisión y la sensibilidad, ofrece una evaluación robusta que penaliza fuertemente los falsos positivos y falsos negativos causados por el ruido en las muestras, garantizando así la fiabilidad del modelo de reconocimiento en cada una de las clases objetivo</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_pred, labels<span class="op">=</span>LETRAS_OBJETIVO)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>

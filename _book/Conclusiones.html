@@ -382,8 +382,14 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link active" data-scroll-target="#conclusiones"><span class="header-section-number">4</span> Conclusiones</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/Conclusiones.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/Conclusiones.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -408,15 +414,17 @@ div.csl-indent {
 </header>
 
 
-<p>La implementación del modelo CategoricalHMM para el reconocimiento de caracteres del alfabeto latino ha demostrado ser una aproximación viable, alcanzando una exactitud global (accuracy) del 76.12% sobre un conjunto de prueba de 10,382 muestras. El uso de secuencias estocásticas permite modelar la variabilidad en los trazos de los caracteres.</p>
-<p>A partir del análisis de las métricas de evaluación (Precisión, Recall y F1-Score) y la matriz de confusión, se extraen las siguientes conclusiones clave:</p>
+<section id="conclusiones" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Conclusiones</h1>
+<p>La implementación del modelo HMM categórico <a href="index.html#nte-hmm-categorico-1" class="quarto-xref">Definición&nbsp;<span>2.3</span></a> para el reconocimiento de caracteres del alfabeto latino ha demostrado ser una aproximación viable, alcanzando una exactitud global (accuracy) del 76.12% sobre un conjunto de prueba de 10,382 muestras. El uso de secuencias estocásticas permite modelar la variabilidad en los trazos de los caracteres.</p>
+<p>A partir del análisis de las métricas de evaluación (Precisión, Recall y F1-Score) <a href="Caso de estudio.html#sec-evaluacion" class="quarto-xref"><span>Sección 3.10</span></a> y la matriz de confusión <a href="Caso de estudio.html#fig-matriz-hmm-estructural" class="quarto-xref">Figura&nbsp;<span>3.5</span></a>, se extraen las siguientes conclusiones clave:</p>
 <ul>
 <li><strong>Efectividad de los Rasgos Estructurales:</strong> El modelo es altamente eficaz para clasificar caracteres con atributos morfológicos muy definidos y únicos. Esto se evidencia en los altos niveles de exactitud individual obtenidos en letras como la “T” (91.00%), la “X” (83.75%) y la “L” (precisión de 0.92).</li>
 <li><strong>Limitaciones morfológicas:</strong> El principal cuello de botella del sistema radica en la confusión entre caracteres que comparten similitudes estructurales o direccionales. Las caídas de rendimiento más notables ocurrieron en letras como la “B”, “C” y “N” (con exactitudes en el rango del 64% al 66%). Esto indica que los rasgos estructurales extraídos actualmente no son suficientes para capturar las sutilezas geométricas que diferencian a estas clases.</li>
 <li><strong>Viabilidad de la Arquitectura:</strong> La adopción de una topología de Bakis <span class="citation" data-cites="chen2012applying">(<a href="Referencias.html#ref-chen2012applying" role="doc-biblioref">Chen et&nbsp;al. 2012</a>)</span> resulta adecuada para el problema de reconocimiento fuera de línea (off-line), ya que restringe las transiciones de estado a un flujo unidireccional que se alinea naturalmente con la lectura secuencial de los rasgos extraídos de la imagen.</li>
 </ul>
-<p><strong>Trabajo futuro</strong> Para mejorar el rendimiento del sistema, las líneas de investigación futuras deberían enfocarse en refinar el algoritmo de extracción de características. Combinar los rasgos estructurales actuales con características estadísticas o direccionales (como gradientes) podría reducir significativamente la tasa de falsos positivos entre letras similares. Asimismo, la expansión del conjunto de datos mediante técnicas de aumento de imágenes con distintos niveles de ruido permitiría entrenar matrices de transición y emisión más robustas.</p>
-<p>En resumen, aunque el modelo CategoricalHMM implementado muestra un rendimiento prometedor, la mejora de la extracción de características es crucial para alcanzar niveles de exactitud más altos y reducir la confusión entre caracteres morfológicamente similares.</p>
+<p><strong>Trabajo futuro</strong> Para mejorar el rendimiento del sistema, las líneas de investigación futuras deberían enfocarse en refinar el algoritmo de extracción de características. Combinar los rasgos estructurales actuales con características estadísticas o direccionales (como gradientes) podría reducir significativamente la tasa de falsos positivos entre letras similares. Asimismo, la expansión del conjunto de datos mediante técnicas de aumento de imágenes con distintos niveles de ruido permitiría entrenar matrices de transición y emisión más robustas. Finalmente, se plantea el desarrollo de un modelo basado en Redes Neuronales Convolucionales (CNN) para establecer un análisis comparativo. Dado que las CNN aprenden representaciones espaciales y topológicas directamente de los píxeles sin necesidad de un diseño manual de características, contrastar ambas arquitecturas permitirá evaluar el equilibrio entre la interpretabilidad estocástica del HMM y el rendimiento del aprendizaje profundo en esta tarea de clasificación.</p>
+<p>En resumen, aunque el modelo HMM categórico <a href="index.html#nte-hmm-categorico-1" class="quarto-xref">Definición&nbsp;<span>2.3</span></a> implementado muestra un rendimiento prometedor, la mejora de la extracción de características es crucial para alcanzar niveles de exactitud más altos y reducir la confusión entre caracteres morfológicamente similares.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -424,6 +432,7 @@ div.csl-indent {
 Chen, Jin, Bing Zhang, Rohit Prasad, Huaigu Cao, y Prem Natarajan. 2012. <span>«Applying Discriminatively Optimized Feature Transform for HMM-based Off-line Handwriting Recognition»</span>. En <em>2012 International Conference on Frontiers in Handwriting Recognition</em>. IEEE.
 </div>
 </div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -856,4 +865,4 @@ Chen, Jin, Bing Zhang, Rohit Prasad, Huaigu Cao, y Prem Natarajan. 2012. <span>�
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/Conclusiones.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/Conclusiones.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/edit/main/Conclusiones.qmd" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li><li><a href="https://github.com/maribecrurod-art/AlfabetoHMM/blob/main/Conclusiones.qmd" class="toc-action"><i class="bi empty"></i>Ver el código</a></li></ul></div></div></div></footer></body></html>

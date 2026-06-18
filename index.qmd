@@ -128,6 +128,14 @@ $$
 
 ![La probabilidad de transición $p\_{ij}(t+s)$ se obtiene sumando las contribuciones de todos los posibles estados intermedios $k$.](chapman-k.png){#fig-chapman fig-align="center" width="550"}
 
+Por otro lado, también se tiene la existencia de los HMM categóricos.
+
+::: {#nte-hmm-categorico-1 .callout-note title="Definición (Modelo Oculto de Markov Categórico)"}
+Un Modelo Oculto de Márkov Categórico (Categorical HMM, a menudo también llamado HMM Discreto o Multinomial) es una variante de los modelos HMM donde las observaciones emitidas por los estados ocultos son valores discretos y finitos que pertenecen a categorías específicas, en lugar de ser valores numéricos continuos.
+
+En cualquier HMM, el sistema modela un proceso estocástico con estados que no son directamente visibles, y cada estado genera (emite) una observación que sí podemos medir.
+:::
+
 # Dinámica Infinitesimal y Generador de la Cadena
 
 La evolución continua del color del pixel requiere una descripción mediante probabilidades de transición, lo cual nos lleva a la representación matricial de la derivada de $P(t)$.

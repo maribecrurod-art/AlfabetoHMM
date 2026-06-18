@@ -13,6 +13,12 @@ format:
           commandchars=\\\{\},
           fontsize=\small
         }
+lang: es
+language:
+  crossref-nte-title: "Definición"
+  crossref-nte-prefix: "Definición"
+  crossref-imp-title: "Propiedad"
+  crossref-imp-prefix: "Propiedad"
 
 ---
 
@@ -230,7 +236,7 @@ La extracción se realizó mediante ventanas deslizantes verticales. Para cada v
 
 ![La imagen muestra una representación de la descomposición de la imagen de una letra A en 9 secciones para su procesamiento](images/paste-5.png){#fig-bakis}
 
-Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM, cuyos mecanismos de emisión operan sobre observaciones discretas.
+Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM @nte-hmm-categorico-1, cuyos mecanismos de emisión operan sobre observaciones discretas.
 
 ## Construcción de los conjuntos de entrenamiento y prueba
 
@@ -331,9 +337,15 @@ La predicción final se obtuvo seleccionando la letra cuyo modelo produjo la may
 
 Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM @nte-propiedad-markov.
 
-## Evaluación del desempeño
+## Evaluación del desempeño {#sec-evaluacion}
 
 Finalmente, se calcularon diferentes métricas para evaluar el rendimiento del sistema.
+
+La selección de estas métricas se fundamenta en la necesidad de evaluar de manera exhaustiva y rigurosa la capacidad de generalización del HMM ante la variabilidad y el ruido presente en las imágenes de los caracteres.
+
+En primer lugar, la Exactitud Global (Accuracy) proporciona una medida general del rendimiento del sistema bajo el principio de máxima verosimilitud, indicando la proporción total de predicciones correctas. Sin embargo, en tareas de reconocimiento de alfabetos, una métrica global puede enmascarar deficiencias en clases minoritarias o más complejas. Por ello, se calculó la Exactitud Individual por Letra a partir de la diagonal de la matriz de confusión. Esto permite identificar específicamente la tasa de acierto de cada carácter y detectar si existen símbolos particulares que presenten mayor susceptibilidad a errores de clasificación debido a similitudes topológicas.
+
+Finalmente, se integró un Reporte de Clasificación para obtener la Precisión, Sensibilidad (Recall) y el F1-Score. El uso del F1-Score es de particular importancia para este enfoque estocástico, ya que al ser la media armónica entre la precisión y la sensibilidad, ofrece una evaluación robusta que penaliza fuertemente los falsos positivos y falsos negativos causados por el ruido en las muestras, garantizando así la fiabilidad del modelo de reconocimiento en cada una de las clases objetivo
 
 ``` python
 accuracy = accuracy_score(y_test, y_pred)

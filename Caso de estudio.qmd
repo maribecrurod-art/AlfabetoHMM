@@ -14,7 +14,6 @@ format:
           fontsize=\small
         }
 
-bibliography: Referencias.bib
 ---
 
 # Reconocimiento de Caracteres Caso de estudio
@@ -108,7 +107,7 @@ A partir de este conjunto se seleccionaron únicamente las letras mayúsculas, d
 
 ## Definición de la arquitectura del HMM
 
-Se construyó una matriz de transición tipo Bakis (falta citar) flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.
+Se construyó una matriz de transición tipo Bakis @chen2012applying flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.
 
 ``` python
 def construir_matriz_bakis_flexible(n_states):
@@ -175,7 +174,7 @@ El procedimiento incluyó la corrección de orientación propia del conjunto **E
 
 Estas transformaciones buscan reducir la variabilidad irrelevante asociada a la posición y escala de las letras, favoreciendo que el modelo capture características relacionadas con la estructura del carácter y no con aspectos accidentales de adquisición.
 
-![](images/paste-4.png)
+![Se observa la imagen original y los cambios realizados para que la letra pueda ser correctamente procesada por el modelo](images/paste-4.png){#fig-A-procesada}
 
 ## Extracción de características
 
@@ -228,7 +227,8 @@ def imagen_a_secuencia(img, w=5, stride=2):
 
 La extracción se realizó mediante ventanas deslizantes verticales. Para cada ventana se calcularon características geométricas relacionadas con la distribución de "tinta", el centro de gravedad, el número de transiciones entre regiones activas e inactivas y la ubicación relativa de los perfiles superior e inferior del trazo.
 
-![](images/paste-5.png)
+
+![La imagen muestra una representación de la descomposición de la imagen de una letra A en 9 secciones para su procesamiento](images/paste-5.png){#fig-bakis}
 
 Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM, cuyos mecanismos de emisión operan sobre observaciones discretas.
 
@@ -329,7 +329,7 @@ for seq in tqdm(X_test, desc="Evaluando Inferencia"):
 
 La predicción final se obtuvo seleccionando la letra cuyo modelo produjo la mayor puntuación de verosimilitud sobre la secuencia observada.
 
-Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM.
+Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM @nte-propiedad-markov.
 
 ## Evaluación del desempeño
 
@@ -355,9 +355,9 @@ print("="*70 + "\n")
 print(classification_report(y_test, y_pred, target_names=LETRAS_OBJETIVO))
 ```
 
-![](images/paste-1.png)
+![Porcentaje de exactitud individual para cada carácter evaluado por el modelo.](images/paste-1.png){#fig-acc-individual}
 
-![](images/paste-2.png)
+![Métricas de evaluación del modelo por carácter, incluyendo precisión, exhaustividad (recall) y puntuación F1. La exactitud global (accuracy) del sistema es del 76.12% sobre un total de 10382 muestras.](images/paste-2.png){#fig-metricas-hmm}
 
 Además del porcentaje global de aciertos, se estimó la precisión individual para cada letra y se construyó una matriz de confusión.
 
@@ -374,6 +374,6 @@ plt.tight_layout()
 plt.show()
 ```
 
-![](images/paste-3.png)
+![Matriz de confusión resultante de la clasificación de caracteres mediante un modelo de Cadenas de Markov Ocultas (CategoricalHMM) basado en extracción de rasgos estructurales. El rendimiento general alcanza una exactitud del 76.12%.](images/paste-3.png){#fig-matriz-hmm-estructural}
 
 La matriz de confusión permitió identificar cuáles letras presentan mayores dificultades de discriminación, proporcionando información valiosa para analizar las fortalezas y limitaciones del sistema propuesto. En conjunto, estas métricas ofrecen una evaluación integral del desempeño alcanzado por el modelo de reconocimiento desarrollado.

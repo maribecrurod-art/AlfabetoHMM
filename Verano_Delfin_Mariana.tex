@@ -249,6 +249,10 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
+\newcounter{quartocalloutnteno}
+\newcommand{\quartocalloutnte}[1]{\refstepcounter{quartocalloutnteno}\label{#1}}
+\newcounter{quartocalloutimpno}
+\newcommand{\quartocalloutimp}[1]{\refstepcounter{quartocalloutimpno}\label{#1}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -295,7 +299,9 @@ Para esto, se asumirá que el lector tiene conocimientos previos sobre
 teoría de la medida como lo son las \(\sigma\)-álgebras, espacio
 muestral y medida de probabilidad, entre otros.
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Espacio de Probabilidad Filtrado)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-espacio-filtrado}: Definición (Espacio de Probabilidad Filtrado)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-espacio-filtrado} 
 
 Sea \((\Omega, \mathcal{F}, \mathbb{P})\) un espacio de probabilidad,
 donde \(\Omega\) es el espacio muestral, \(\mathcal{F}\) es una
@@ -310,7 +316,9 @@ probabilidad filtrado.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Espacio de Estados Discreto)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-espacio-estados-discreto}: Definición (Espacio de Estados Discreto)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-espacio-estados-discreto} 
 
 Definimos el espacio de estados \(S\) como un conjunto discreto y finito
 (o numerable).
@@ -324,7 +332,9 @@ En el contexto de nuestro proyecto, \(S\) representa el conjunto de
 posibles colores o intensidades de un pixel (por ejemplo, el espacio RGB
 donde \(|S| = 256^3\), o una escala de grises finita).
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso Estocástico a Tiempo Continuo)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-proceso-estocastico}: Definición (Proceso Estocástico a Tiempo Continuo)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-proceso-estocastico} 
 
 Un proceso estocástico en tiempo continuo con espacio de estados
 discreto \(S\) es una familia de variables aleatorias
@@ -349,7 +359,9 @@ instante (o parámetro continuo) \(t\).
 La transición del concepto general de proceso estocástico al de proceso
 de Markov requiere la propiedad de amnesia (pérdida de memoria).
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Propiedad de Markov)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-propiedad-markov}: Definición (Propiedad de Markov)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-propiedad-markov} 
 
 El proceso adaptado \(X = \{X(t)\}_{t \ge 0}\) es una Cadena de Markov a
 Tiempo Continuo si satisface la condición de Markov relativa a la
@@ -387,7 +399,9 @@ para todo \(0 \le s \le t\).
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Probabilidades de Transición y Homogeneidad)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-probabilidades-transicion}: Definición (Probabilidades de Transición y Homogeneidad)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-probabilidades-transicion} 
 
 Definimos la probabilidad de transición del estado \(i\) al estado \(j\)
 en el intervalo \([s,t]\) como
@@ -423,7 +437,9 @@ P(\tau)
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Ecuaciones de Chapman-Kolmogorov)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-important-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-important-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Importante \ref*{imp-chapman-kolmogorov}: Propiedad (Ecuaciones de Chapman-Kolmogorov)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-important-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutimp{imp-chapman-kolmogorov} 
 
 Para cualquier \(s,t \ge 0\), la familia de matrices de transición
 \(\{P(t)\}_{t\ge0}\) forma un semigrupo de operadores estocásticos,
@@ -467,11 +483,13 @@ La evolución continua del color del pixel requiere una descripción
 mediante probabilidades de transición, lo cual nos lleva a la
 representación matricial de la derivada de \(P(t)\).
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Matriz Generadora Infinitesimal)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-matriz-generadora}: Definición (Matriz Generadora Infinitesimal)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-matriz-generadora} 
 
 Asumiendo que \(p_{ij}(t)\) es diferenciable por la derecha en \(t=0\),
-definimos la tasa de transición \(q_{ij}\) del estado \(i\) al estado
-\(j\) (donde \(i \neq j\)) como:
+definimos la probabilidad de transición \(q_{ij}\) del estado \(i\) al
+estado \(j\) (donde \(i \neq j\)) como:
 
 \[
 q_{ij}
@@ -509,7 +527,9 @@ suman cero:
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Ecuaciones Diferenciales de Kolmogorov)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-important-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-important-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Importante \ref*{imp-ecuaciones-dif-kolmogorov}: Propiedad (Ecuaciones Diferenciales de Kolmogorov)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-important-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutimp{imp-ecuaciones-dif-kolmogorov} 
 
 Bajo condiciones de regularidad (que se cumplen trivialmente si el
 espacio de estados del color \(S\) es finito), la matriz de transición
@@ -563,7 +583,9 @@ Modelo Oculto de Márkov (HMM) en el contexto de la inferencia y análisis
 de píxeles en imágenes que contienen letras del alfabeto latino, se
 formaliza la siguiente estructura bivariada:
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso Latente e Inobservable)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-proceso-latente}: Definición (Proceso Latente e Inobservable)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-proceso-latente} 
 
 El proceso de Markov a tiempo continuo
 
@@ -582,7 +604,9 @@ manteniéndose inaccesibles a la medición directa.
 
 La variable \(X(t)\) describe el estado ideal o ``verdadero'' del pixel.
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Proceso de Observación Empírica)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-proceso-observacion}: Definición (Proceso de Observación Empírica)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-proceso-observacion} 
 
 Sea
 
@@ -613,7 +637,9 @@ En este caso \(O\) denota el conjunto finito de colores o intensidades
 registrables por un sensor óptico y \(Y\) es la lectura ruidosa del
 pixel en el tiempo \(t\).
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Matriz de Emisión e Independencia Condicional)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-matriz-emision}: Definición (Matriz de Emisión e Independencia Condicional)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-matriz-emision} 
 
 La dependencia estocástica entre ambos procesos queda unívocamente
 determinada por la condición de independencia local.
@@ -633,7 +659,8 @@ Formalmente, para cualquier \(y\in O\) y \(x\in S\):
 \]
 
 donde \(\mathcal{F}_t^X\) y \(\mathcal{F}_{t^-}^Y\) denotan las
-filtraciones del historial latente y observable, respectivamente.
+filtraciones Definición~\ref{nte-espacio-filtrado} del historial latente
+y observable, respectivamente.
 
 Estas probabilidades definen las entradas de la matriz de emisión
 estocástica
@@ -642,9 +669,7 @@ estocástica
 E=[e_{xy}],
 \]
 
-donde
-
-\[
+donde \[
 e_{xy}
 =
 \mathbb{P}(Y(t)=y \mid X(t)=x).
@@ -673,7 +698,9 @@ en instantes discretos de tiempo (o espacio)
 0 \le t_1 < t_2 < \dots < t_K \le T.
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-filtro-forward}: Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-filtro-forward} 
 
 Definimos la variable de avance \(\alpha_k(i)\) como la probabilidad
 conjunta de observar la secuencia parcial hasta el \(k\)-ésimo instante
@@ -687,10 +714,11 @@ y que el estado oculto en dicho instante sea \(i\in S\):
 Y(t_1)=y_1,\dots,Y(t_k)=y_k,
 X(t_k)=i
 \bigr).
-\]
+\]\\
 
 Esta cantidad se calcula recursivamente mediante la ecuación de
-Chapman-Kolmogorov y la matriz de emisión:
+Chapman-Kolmogorov Propiedad~\ref{imp-chapman-kolmogorov} y la matriz de
+emisión \(E\) Definición~\ref{nte-matriz-emision}:
 
 \[
 \alpha_k(j)
@@ -739,7 +767,9 @@ La verosimilitud total de la secuencia de observaciones es simplemente
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Definición (Decodificación Óptima Global)}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-note-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota \ref*{nte-decodificacion-optima}: Definición (Decodificación Óptima Global)}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-decodificacion-optima} 
 
 Para reconstruir la trayectoria más probable, buscamos la secuencia de
 estados latentes
@@ -764,10 +794,19 @@ Y(t_1)=y_1,\dots,Y(t_K)=y_K
 \Bigr).
 \]
 
+A diferencia de la función \(\max\), que devuelve el \textbf{valor
+numérico} de la probabilidad más alta alcanzada, el operador
+\(\arg\max\) (argumento del máximo) devuelve el \textbf{conjunto de
+entradas} que producen ese valor máximo. En este contexto, no nos
+interesa saber cuál es el porcentaje exacto de la probabilidad máxi\\
+ma, sino descubrir específicamente \textbf{cuál es la secuencia exacta
+de estados latentes} \(\hat{X}\) que hace que esa probabilidad sea
+máxima
+
 La solución sistemática a este problema de programación dinámica
 espacial/temporal se obtiene mediante la adaptación del Algoritmo de
-Viterbi para cadenas a tiempo continuo, evaluando las transiciones
-máximas sobre
+Viterbi Rabiner (1989) para cadenas a tiempo continuo, evaluando las
+transiciones máximas sobre
 
 \[
 P(\Delta t_k).
@@ -1083,12 +1122,14 @@ dos estados ocultos y dos observaciones.}
 Modelo}\label{estimaciuxf3n-de-paruxe1metros-y-calibraciuxf3n-del-modelo}
 
 En la práctica, la matriz generadora infinitesimal \(Q\) (que dicta la
-tasa de degradación del color para el caso de estudio) y las
+probabilidad de degradación del color para el caso de estudio) y las
 probabilidades de emisión empírica rara vez son conocidas a priori y
 deben ser estimadas a partir de un dataset de imágenes (el alfabeto
 latino modificado).
 
-\begin{tcolorbox}[enhanced jigsaw, opacityback=0, toptitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))}, arc=.35mm, opacitybacktitle=0.6, toprule=.15mm, colbacktitle=quarto-callout-important-color!10!white, leftrule=.75mm, colback=white, left=2mm, bottomrule=.15mm, breakable, colframe=quarto-callout-important-color-frame, bottomtitle=1mm, titlerule=0mm, rightrule=.15mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, breakable, colframe=quarto-callout-important-color-frame, leftrule=.75mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Importante \ref*{nte-baum-welch}: Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))}, bottomrule=.15mm, coltitle=black, opacityback=0, colback=white, arc=.35mm, colbacktitle=quarto-callout-important-color!10!white, rightrule=.15mm, left=2mm, toptitle=1mm, titlerule=0mm, bottomtitle=1mm, toprule=.15mm]
+
+\quartocalloutnte{nte-baum-welch} 
 
 La estimación por máxima verosimilitud del conjunto de parámetros del
 modelo
@@ -1102,30 +1143,31 @@ iterativo.
 
 \begin{itemize}
 \item
-  \textbf{Paso E (Expectation):} Se calculan las estadísticas
-  suficientes esperadas del sistema latente (tiempo esperado de
-  permanencia en cada estado de color y número esperado de transiciones)
-  condicionado a las observaciones y a la estimación actual de los
-  parámetros \(\Theta^{(m)}\), utilizando las variables recursivas
-  Forward y Backward.
+  \textbf{Paso} \(E\) (\textbf{Expectation):} Se calculan las
+  estadísticas suficientes esperadas del sistema latente (tiempo
+  esperado de permanencia en cada estado de color y número esperado de
+  transiciones) condicionado a las observaciones y a la estimación
+  actual de los parámetros en el paso \(m\) \(\Theta^{(m)}\), utilizando
+  las variables recursivas Forward y Backward.
 \item
-  \textbf{Paso M (Maximization):} Se actualizan los parámetros
-  \(\Theta^{(m+1)}\) para maximizar la función Q de verosimilitud
-  esperada. En particular, la estimación de las probabilidades de
-  transición empíricas se formula restringiendo las soluciones para
-  garantizar que las filas de \(Q^{(m+1)}\) sigan sumando cero y
-  \(q_{ij}\ge0\) para \(i\neq j\).
+  \textbf{Paso} \(M\) \textbf{(Maximization):} Se actualizan los
+  parámetros \(\Theta^{(m+1)}\) para maximizar la función \(Q\) de
+  verosimilitud esperada. En particular, la estimación de las
+  probabilidades de transición empíricas se formula restringiendo las
+  soluciones para garantizar que las filas de \(Q^{(m+1)}\) sigan
+  sumando cero y \(q_{ij}\ge0\) para \(i\neq j\).
 \end{itemize}
 
 \end{tcolorbox}
 
+\hfill\break
 \hfill\break
 
 \begin{figure}
 
 \centering{
 
-\includegraphics[width=3.125in,height=\textheight,keepaspectratio]{imagenesHMM/ME_HMM.png}
+\includegraphics[width=5.20833in,height=\textheight,keepaspectratio]{imagenesHMM/ME_HMM.png}
 
 }
 
@@ -1292,9 +1334,9 @@ alfabéticos manuscritos.
 \section{Definición de la arquitectura del
 HMM}\label{definiciuxf3n-de-la-arquitectura-del-hmm}
 
-Se construyó una matriz de transición tipo Bakis (falta citar) flexible
-para modelar la evolución progresiva de los trazos durante la generación
-de cada letra.
+Se construyó una matriz de transición tipo Bakis Chen et~al. (2012)
+flexible para modelar la evolución progresiva de los trazos durante la
+generación de cada letra.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1377,7 +1419,19 @@ asociada a la posición y escala de las letras, favoreciendo que el
 modelo capture características relacionadas con la estructura del
 carácter y no con aspectos accidentales de adquisición.
 
+\begin{figure}
+
+\centering{
+
 \pandocbounded{\includegraphics[keepaspectratio]{images/paste-4.png}}
+
+}
+
+\caption{\label{fig-A-procesada}Se observa la imagen original y los
+cambios realizados para que la letra pueda ser correctamente procesada
+por el modelo}
+
+\end{figure}%
 
 \section{Extracción de
 características}\label{extracciuxf3n-de-caracteruxedsticas}
@@ -1438,7 +1492,19 @@ la distribución de ``tinta'', el centro de gravedad, el número de
 transiciones entre regiones activas e inactivas y la ubicación relativa
 de los perfiles superior e inferior del trazo.
 
+\begin{figure}
+
+\centering{
+
 \pandocbounded{\includegraphics[keepaspectratio]{images/paste-5.png}}
+
+}
+
+\caption{\label{fig-bakis}La imagen muestra una representación de la
+descomposición de la imagen de una letra A en 9 secciones para su
+procesamiento}
+
+\end{figure}%
 
 Dichas características fueron cuantificadas y codificadas en un conjunto
 discreto de 256 símbolos observables. Este procedimiento permitió
@@ -1563,7 +1629,7 @@ la mayor puntuación de verosimilitud sobre la secuencia observada.
 
 Este criterio corresponde al principio de máxima verosimilitud y
 constituye una de las estrategias más utilizadas en tareas de
-reconocimiento basadas en HMM.
+reconocimiento basadas en HMM Definición~\ref{nte-propiedad-markov}.
 
 \section{Evaluación del desempeño}\label{evaluaciuxf3n-del-desempeuxf1o}
 
@@ -1592,9 +1658,33 @@ rendimiento del sistema.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+
+\centering{
+
 \pandocbounded{\includegraphics[keepaspectratio]{images/paste-1.png}}
 
+}
+
+\caption{\label{fig-acc-individual}Porcentaje de exactitud individual
+para cada carácter evaluado por el modelo.}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
 \pandocbounded{\includegraphics[keepaspectratio]{images/paste-2.png}}
+
+}
+
+\caption{\label{fig-metricas-hmm}Métricas de evaluación del modelo por
+carácter, incluyendo precisión, exhaustividad (recall) y puntuación F1.
+La exactitud global (accuracy) del sistema es del 76.12\% sobre un total
+de 10382 muestras.}
+
+\end{figure}%
 
 Además del porcentaje global de aciertos, se estimó la precisión
 individual para cada letra y se construyó una matriz de confusión.
@@ -1614,7 +1704,21 @@ individual para cada letra y se construyó una matriz de confusión.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+
+\centering{
+
 \pandocbounded{\includegraphics[keepaspectratio]{images/paste-3.png}}
+
+}
+
+\caption{\label{fig-matriz-hmm-estructural}Matriz de confusión
+resultante de la clasificación de caracteres mediante un modelo de
+Cadenas de Markov Ocultas (CategoricalHMM) basado en extracción de
+rasgos estructurales. El rendimiento general alcanza una exactitud del
+76.12\%.}
+
+\end{figure}%
 
 La matriz de confusión permitió identificar cuáles letras presentan
 mayores dificultades de discriminación, proporcionando información
@@ -1622,8 +1726,71 @@ valiosa para analizar las fortalezas y limitaciones del sistema
 propuesto. En conjunto, estas métricas ofrecen una evaluación integral
 del desempeño alcanzado por el modelo de reconocimiento desarrollado.
 
+\bookmarksetup{startatroot}
+
+\chapter{Conclusiones}\label{conclusiones}
+
+La implementación del modelo CategoricalHMM para el reconocimiento de
+caracteres del alfabeto latino ha demostrado ser una aproximación
+viable, alcanzando una exactitud global (accuracy) del 76.12\% sobre un
+conjunto de prueba de 10,382 muestras. El uso de secuencias estocásticas
+permite modelar la variabilidad en los trazos de los caracteres.
+
+A partir del análisis de las métricas de evaluación (Precisión, Recall y
+F1-Score) y la matriz de confusión, se extraen las siguientes
+conclusiones clave:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Efectividad de los Rasgos Estructurales:} El modelo es
+  altamente eficaz para clasificar caracteres con atributos morfológicos
+  muy definidos y únicos. Esto se evidencia en los altos niveles de
+  exactitud individual obtenidos en letras como la ``T'' (91.00\%), la
+  ``X'' (83.75\%) y la ``L'' (precisión de 0.92).
+\item
+  \textbf{Limitaciones morfológicas:} El principal cuello de botella del
+  sistema radica en la confusión entre caracteres que comparten
+  similitudes estructurales o direccionales. Las caídas de rendimiento
+  más notables ocurrieron en letras como la ``B'', ``C'' y ``N'' (con
+  exactitudes en el rango del 64\% al 66\%). Esto indica que los rasgos
+  estructurales extraídos actualmente no son suficientes para capturar
+  las sutilezas geométricas que diferencian a estas clases.
+\item
+  \textbf{Viabilidad de la Arquitectura:} La adopción de una topología
+  de Bakis (Chen et~al. 2012) resulta adecuada para el problema de
+  reconocimiento fuera de línea (off-line), ya que restringe las
+  transiciones de estado a un flujo unidireccional que se alinea
+  naturalmente con la lectura secuencial de los rasgos extraídos de la
+  imagen.
+\end{itemize}
+
+\textbf{Trabajo futuro} Para mejorar el rendimiento del sistema, las
+líneas de investigación futuras deberían enfocarse en refinar el
+algoritmo de extracción de características. Combinar los rasgos
+estructurales actuales con características estadísticas o direccionales
+(como gradientes) podría reducir significativamente la tasa de falsos
+positivos entre letras similares. Asimismo, la expansión del conjunto de
+datos mediante técnicas de aumento de imágenes con distintos niveles de
+ruido permitiría entrenar matrices de transición y emisión más robustas.
+
+En resumen, aunque el modelo CategoricalHMM implementado muestra un
+rendimiento prometedor, la mejora de la extracción de características es
+crucial para alcanzar niveles de exactitud más altos y reducir la
+confusión entre caracteres morfológicamente similares.
+
+\bookmarksetup{startatroot}
+
+\chapter{Referencias}\label{referencias}
+
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-chen2012applying}
+Chen, Jin, Bing Zhang, Rohit Prasad, Huaigu Cao, y Prem Natarajan. 2012.
+{«Applying Discriminatively Optimized Feature Transform for HMM-based
+Off-line Handwriting Recognition»}. En \emph{2012 International
+Conference on Frontiers in Handwriting Recognition}. IEEE.
+
 \bibitem[\citeproctext]{ref-cohen2017emnist}
 Cohen, Gregory, Saeed Afshar, Jonathan Tapson, y André van Schaik. 2017.
 {«{EMNIST}: An Extension of {MNIST} to Handwritten Letters»}.
@@ -1633,6 +1800,11 @@ Cohen, Gregory, Saeed Afshar, Jonathan Tapson, y André van Schaik. 2017.
 \bibitem[\citeproctext]{ref-Norris1998}
 Norris, J. R. 1998. \emph{Markov Chains}. Cambridge: Cambridge
 University Press.
+
+\bibitem[\citeproctext]{ref-rabiner1989tutorial}
+Rabiner, Lawrence R. 1989. {«A tutorial on hidden Markov models and
+selected applications in speech recognition»}. \emph{Proceedings of the
+IEEE} 77 (2): 257-86. \url{https://doi.org/10.1109/5.18626}.
 
 \bibitem[\citeproctext]{ref-Rudin1987}
 Rudin, Walter. 1987. \emph{Real and Complex Analysis}. 3.ª ed. New York:

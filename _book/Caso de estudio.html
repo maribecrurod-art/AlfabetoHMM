@@ -85,6 +85,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./Conclusiones.html" rel="next">
 <link href="./index.html" rel="prev">
 <link href="./LOGOunach.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
@@ -428,6 +429,18 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Conclusiones.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusiones</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Referencias</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -507,7 +520,7 @@ window.Quarto = {
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix,</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        classification_report </span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La utilización de estas bibliotecas responde a necesidades específicas del sistema. <span class="math inline">\(\texttt{OpenCV}\)</span> permitió realizar operaciones de preprocesamiento sobre las imágenes; <span class="math inline">\(\texttt{torchvision}\)</span> proporcionó acceso al conjunto de datos <strong>EMNIST</strong> <span class="citation" data-cites="cohen2017emnist">(<a href="#ref-cohen2017emnist" role="doc-biblioref">Cohen et&nbsp;al. 2017</a>)</span>; <span class="math inline">\(\texttt{hmmlearn}\)</span> hizo posible la implementación de los modelos ocultos de Markov; mientras que <span class="math inline">\(\texttt{scikit-learn}\)</span> facilitó el cálculo de las métricas de evaluación.</p>
+<p>La utilización de estas bibliotecas responde a necesidades específicas del sistema. <span class="math inline">\(\texttt{OpenCV}\)</span> permitió realizar operaciones de preprocesamiento sobre las imágenes; <span class="math inline">\(\texttt{torchvision}\)</span> proporcionó acceso al conjunto de datos <strong>EMNIST</strong> <span class="citation" data-cites="cohen2017emnist">(<a href="Referencias.html#ref-cohen2017emnist" role="doc-biblioref">Cohen et&nbsp;al. 2017</a>)</span>; <span class="math inline">\(\texttt{hmmlearn}\)</span> hizo posible la implementación de los modelos ocultos de Markov; mientras que <span class="math inline">\(\texttt{scikit-learn}\)</span> facilitó el cálculo de las métricas de evaluación.</p>
 <p>Con el fin de asegurar la reproducibilidad de los resultados, se fijaron semillas aleatorias y se deshabilitaron advertencias no críticas del entorno de ejecución.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>) </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">42</span>) </span>
@@ -548,7 +561,7 @@ window.Quarto = {
 </section>
 <section id="definición-de-la-arquitectura-del-hmm" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="definición-de-la-arquitectura-del-hmm"><span class="header-section-number">3.4</span> Definición de la arquitectura del HMM</h2>
-<p>Se construyó una matriz de transición tipo Bakis (falta citar) flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.</p>
+<p>Se construyó una matriz de transición tipo Bakis <span class="citation" data-cites="chen2012applying">Chen et&nbsp;al. (<a href="Referencias.html#ref-chen2012applying" role="doc-biblioref">2012</a>)</span> flexible para modelar la evolución progresiva de los trazos durante la generación de cada letra.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> construir_matriz_bakis_flexible(n_states):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.zeros((n_states, n_states))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_states):</span>
@@ -605,7 +618,16 @@ window.Quarto = {
 <span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> imagen</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>El procedimiento incluyó la corrección de orientación propia del conjunto <strong>EMNIST</strong>, la eliminación de espacios vacíos mediante recortes automáticos, la incorporación de relleno para conservar la proporción del carácter y el redimensionamiento a un tamaño uniforme.</p>
 <p>Estas transformaciones buscan reducir la variabilidad irrelevante asociada a la posición y escala de las letras, favoreciendo que el modelo capture características relacionadas con la estructura del carácter y no con aspectos accidentales de adquisición.</p>
-<p><img src="images/paste-4.png" class="img-fluid"></p>
+<div id="fig-A-procesada" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-A-procesada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/paste-4.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-A-procesada-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.1: Se observa la imagen original y los cambios realizados para que la letra pueda ser correctamente procesada por el modelo
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="extracción-de-características" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="extracción-de-características"><span class="header-section-number">3.6</span> Extracción de características</h2>
@@ -653,7 +675,16 @@ window.Quarto = {
 <span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(secuencia)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>La extracción se realizó mediante ventanas deslizantes verticales. Para cada ventana se calcularon características geométricas relacionadas con la distribución de “tinta”, el centro de gravedad, el número de transiciones entre regiones activas e inactivas y la ubicación relativa de los perfiles superior e inferior del trazo.</p>
-<p><img src="images/paste-5.png" class="img-fluid"></p>
+<div id="fig-bakis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bakis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/paste-5.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bakis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.2: La imagen muestra una representación de la descomposición de la imagen de una letra A en 9 secciones para su procesamiento
+</figcaption>
+</figure>
+</div>
 <p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
 </section>
 <section id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="level2" data-number="3.7">
@@ -739,7 +770,7 @@ for seq in tqdm(X_test, desc="Evaluando Inferencia"):
     pred = max(scores, key=scores.get)
     y_pred.append(pred)</code></pre>
 <p>La predicción final se obtuvo seleccionando la letra cuyo modelo produjo la mayor puntuación de verosimilitud sobre la secuencia observada.</p>
-<p>Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM.</p>
+<p>Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM <a href="index.html#nte-propiedad-markov" class="quarto-xref">Note&nbsp;<span>2.1</span></a>.</p>
 </section>
 <section id="evaluación-del-desempeño" class="level2" data-number="3.10">
 <h2 data-number="3.10" class="anchored" data-anchor-id="evaluación-del-desempeño"><span class="header-section-number">3.10</span> Evaluación del desempeño</h2>
@@ -761,8 +792,26 @@ for seq in tqdm(X_test, desc="Evaluando Inferencia"):
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">70</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred, target_names<span class="op">=</span>LETRAS_OBJETIVO))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p><img src="images/paste-1.png" class="img-fluid"></p>
-<p><img src="images/paste-2.png" class="img-fluid"></p>
+<div id="fig-acc-individual" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acc-individual-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/paste-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acc-individual-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.3: Porcentaje de exactitud individual para cada carácter evaluado por el modelo.
+</figcaption>
+</figure>
+</div>
+<div id="fig-metricas-hmm" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-metricas-hmm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/paste-2.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-metricas-hmm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.4: Métricas de evaluación del modelo por carácter, incluyendo precisión, exhaustividad (recall) y puntuación F1. La exactitud global (accuracy) del sistema es del 76.12% sobre un total de 10382 muestras.
+</figcaption>
+</figure>
+</div>
 <p>Además del porcentaje global de aciertos, se estimó la precisión individual para cada letra y se construyó una matriz de confusión.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">14</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>, </span>
@@ -774,11 +823,23 @@ for seq in tqdm(X_test, desc="Evaluando Inferencia"):
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Letra Predicha'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p><img src="images/paste-3.png" class="img-fluid"></p>
+<div id="fig-matriz-hmm-estructural" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-matriz-hmm-estructural-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/paste-3.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matriz-hmm-estructural-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.5: Matriz de confusión resultante de la clasificación de caracteres mediante un modelo de Cadenas de Markov Ocultas (CategoricalHMM) basado en extracción de rasgos estructurales. El rendimiento general alcanza una exactitud del 76.12%.
+</figcaption>
+</figure>
+</div>
 <p>La matriz de confusión permitió identificar cuáles letras presentan mayores dificultades de discriminación, proporcionando información valiosa para analizar las fortalezas y limitaciones del sistema propuesto. En conjunto, estas métricas ofrecen una evaluación integral del desempeño alcanzado por el modelo de reconocimiento desarrollado.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-chen2012applying" class="csl-entry" role="listitem">
+Chen, Jin, Bing Zhang, Rohit Prasad, Huaigu Cao, y Prem Natarajan. 2012. <span>«Applying Discriminatively Optimized Feature Transform for HMM-based Off-line Handwriting Recognition»</span>. En <em>2012 International Conference on Frontiers in Handwriting Recognition</em>. IEEE.
+</div>
 <div id="ref-cohen2017emnist" class="csl-entry" role="listitem">
 Cohen, Gregory, Saeed Afshar, Jonathan Tapson, y André van Schaik. 2017. <span>«<span>EMNIST</span>: An Extension of <span>MNIST</span> to Handwritten Letters»</span>. <em>arXiv preprint arXiv:1702.05373</em>. <a href="https://arxiv.org/abs/1702.05373">https://arxiv.org/abs/1702.05373</a>.
 </div>
@@ -1207,6 +1268,9 @@ Cohen, Gregory, Saeed Afshar, Jonathan Tapson, y André van Schaik. 2017. <span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./Conclusiones.html" class="pagination-link" aria-label="Conclusiones">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conclusiones</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

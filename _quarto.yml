@@ -2,6 +2,8 @@ project:
   type: book
   output-dir: _book
 
+bibliography: Referencias.bib
+
 website:
   favicon: imagenesHMM/LogoDelfin.png
   reader-mode: true
@@ -35,6 +37,8 @@ book:
   chapters:
     - index.qmd
     - Caso de estudio.qmd
+    - Conclusiones.qmd
+    - Referencias.qmd
 
 comments:
   hypothesis: true

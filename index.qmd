@@ -1,7 +1,12 @@
 ---
 title: "Reconocimiento de Caracteres"
 format: html
-bibliography: Referencias.bib
+lang: es
+language:
+  crossref-nte-title: "Definición"
+  crossref-nte-prefix: "Definición"
+  crossref-imp-title: "Propiedad"
+  crossref-imp-prefix: "Propiedad"
 ---
 
 # Espacio Probabilístico y Procesos Estocásticos Subyacentes
@@ -10,11 +15,11 @@ Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es ne
 
 Para esto, se asumirá que el lector tiene conocimientos previos sobre teoría de la medida como lo son las $\sigma$-álgebras, espacio muestral y medida de probabilidad, entre otros.
 
-::: {.callout-note title="Definición (Espacio de Probabilidad Filtrado)"}
+::: {#nte-espacio-filtrado .callout-note title="Definición (Espacio de Probabilidad Filtrado)"}
 Sea $(\Omega, \mathcal{F}, \mathbb{P})$ un espacio de probabilidad, donde $\Omega$ es el espacio muestral, $\mathcal{F}$ es una $\sigma$-álgebra sobre $\Omega$, y $\mathbb{P}$ es una medida de probabilidad. Sea $\mathbb{F} = \{\mathcal{F}_t\}_{t \ge 0}$ una filtración, es decir, una familia no decreciente de sub-$\sigma$-álgebras de $\mathcal{F}$ tal que $\mathcal{F}_s \subseteq \mathcal{F}_t \subseteq \mathcal{F}$ para todo $0 \le s < t$. El conjunto $(\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})$ se denomina espacio de probabilidad filtrado.
 :::
 
-::: {.callout-note title="Definición (Espacio de Estados Discreto)"}
+::: {#nte-espacio-estados-discreto .callout-note title="Definición (Espacio de Estados Discreto)"}
 Definimos el espacio de estados $S$ como un conjunto discreto y finito (o numerable).
 
 La topología en $S$ es discreta y su $\sigma$-álgebra asociada es el conjunto potencia $\mathcal{P}(S)$.
@@ -22,7 +27,7 @@ La topología en $S$ es discreta y su $\sigma$-álgebra asociada es el conjunto 
 
 En el contexto de nuestro proyecto, $S$ representa el conjunto de posibles colores o intensidades de un pixel (por ejemplo, el espacio RGB donde $|S| = 256^3$, o una escala de grises finita).
 
-::: {.callout-note title="Definición (Proceso Estocástico a Tiempo Continuo)"}
+::: {#nte-proceso-estocastico .callout-note title="Definición (Proceso Estocástico a Tiempo Continuo)"}
 Un proceso estocástico en tiempo continuo con espacio de estados discreto $S$ es una familia de variables aleatorias
 
 $$
@@ -38,7 +43,7 @@ Interpretamos $X(t)$ como el "color verdadero" del pixel en el instante (o pará
 
 La transición del concepto general de proceso estocástico al de proceso de Markov requiere la propiedad de amnesia (pérdida de memoria).
 
-::: {.callout-note title="Definición (Propiedad de Markov)"}
+::: {#nte-propiedad-markov .callout-note title="Definición (Propiedad de Markov)"}
 El proceso adaptado $X = \{X(t)\}_{t \ge 0}$ es una Cadena de Markov a Tiempo Continuo si satisface la condición de Markov relativa a la filtración $\mathbb{F}$: para cualquier conjunto discreto de tiempos
 
 $$
@@ -72,7 +77,7 @@ $$
 para todo $0 \le s \le t$.
 :::
 
-::: {.callout-note title="Definición (Probabilidades de Transición y Homogeneidad)"}
+::: {#nte-probabilidades-transicion .callout-note title="Definición (Probabilidades de Transición y Homogeneidad)"}
 Definimos la probabilidad de transición del estado $i$ al estado $j$ en el intervalo $[s,t]$ como
 
 $$
@@ -104,7 +109,7 @@ P(\tau)
 $$
 :::
 
-::: {.callout-important title="Propiedad (Ecuaciones de Chapman-Kolmogorov)"}
+::: {#imp-chapman-kolmogorov .callout-important title="Propiedad (Ecuaciones de Chapman-Kolmogorov)"}
 Para cualquier $s,t \ge 0$, la familia de matrices de transición $\{P(t)\}_{t\ge0}$ forma un semigrupo de operadores estocásticos, satisfaciendo
 
 $$
@@ -127,8 +132,8 @@ $$
 
 La evolución continua del color del pixel requiere una descripción mediante probabilidades de transición, lo cual nos lleva a la representación matricial de la derivada de $P(t)$.
 
-::: {.callout-note title="Definición (Matriz Generadora Infinitesimal)"}
-Asumiendo que $p_{ij}(t)$ es diferenciable por la derecha en $t=0$, definimos la tasa de transición $q_{ij}$ del estado $i$ al estado $j$ (donde $i \neq j$) como:
+::: {#nte-matriz-generadora .callout-note title="Definición (Matriz Generadora Infinitesimal)"}
+Asumiendo que $p_{ij}(t)$ es diferenciable por la derecha en $t=0$, definimos la probabilidad de transición $q_{ij}$ del estado $i$ al estado $j$ (donde $i \neq j$) como:
 
 $$
 q_{ij}
@@ -163,7 +168,7 @@ $$
 $$
 :::
 
-::: {.callout-important title="Propiedad (Ecuaciones Diferenciales de Kolmogorov)"}
+::: {#imp-ecuaciones-dif-kolmogorov .callout-important title="Propiedad (Ecuaciones Diferenciales de Kolmogorov)"}
 Bajo condiciones de regularidad (que se cumplen trivialmente si el espacio de estados del color $S$ es finito), la matriz de transición $P(t)$ es la solución única a las ecuaciones diferenciales matriciales de Kolmogorov Hacia Adelante (Forward) y Hacia Atrás (Backward) @Norris1998 :
 
 -   **Forward:**
@@ -194,7 +199,7 @@ $$
 
 La fundamentación teórica precedente modela la dinámica subyacente determinista de la matriz de transición y la evolución estocástica de las trayectorias del sistema. Para extender esta arquitectura a un Modelo Oculto de Márkov (HMM) en el contexto de la inferencia y análisis de píxeles en imágenes que contienen letras del alfabeto latino, se formaliza la siguiente estructura bivariada:
 
-::: {.callout-note title="Definición (Proceso Latente e Inobservable)"}
+::: {#nte-proceso-latente .callout-note title="Definición (Proceso Latente e Inobservable)"}
 El proceso de Markov a tiempo continuo
 
 $$
@@ -206,7 +211,7 @@ sobre el espacio de estados $S$, caracterizado por su matriz generadora infinite
 
 La variable $X(t)$ describe el estado ideal o "verdadero" del pixel.
 
-::: {.callout-note title="Definición (Proceso de Observación Empírica)"}
+::: {#nte-proceso-observacion .callout-note title="Definición (Proceso de Observación Empírica)"}
 Sea
 
 $$
@@ -232,7 +237,7 @@ que representan la lectura empírica o ruidosa en el parámetro $t$.
 
 En este caso $O$ denota el conjunto finito de colores o intensidades registrables por un sensor óptico y $Y$ es la lectura ruidosa del pixel en el tiempo $t$.
 
-::: {.callout-note title="Definición (Matriz de Emisión e Independencia Condicional)"}
+::: {#nte-matriz-emision .callout-note title="Definición (Matriz de Emisión e Independencia Condicional)"}
 La dependencia estocástica entre ambos procesos queda unívocamente determinada por la condición de independencia local.
 
 Para cualquier instante $t\ge0$, la observación $Y(t)$ es condicionalmente independiente de toda la historia previa del sistema dado el estado concurrente $X(t)$.
@@ -247,7 +252,7 @@ $$
 \text{c.s.}
 $$
 
-donde $\mathcal{F}_t^X$ y $\mathcal{F}_{t^-}^Y$ denotan las filtraciones del historial latente y observable, respectivamente.
+donde $\mathcal{F}_t^X$ y $\mathcal{F}_{t^-}^Y$ denotan las filtraciones @nte-espacio-filtrado del historial latente y observable, respectivamente.
 
 Estas probabilidades definen las entradas de la matriz de emisión estocástica
 
@@ -255,9 +260,7 @@ $$
 E=[e_{xy}],
 $$
 
-donde
-
-$$
+donde $$
 e_{xy}
 =
 \mathbb{P}(Y(t)=y \mid X(t)=x).
@@ -280,7 +283,7 @@ $$
 0 \le t_1 < t_2 < \dots < t_K \le T.
 $$
 
-::: {.callout-note title="Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)"}
+::: {#nte-filtro-forward .callout-note title="Definición (Filtro Hacia Adelante (Forward) y Verosimilitud)"}
 Definimos la variable de avance $\alpha_k(i)$ como la probabilidad conjunta de observar la secuencia parcial hasta el $k$-ésimo instante y que el estado oculto en dicho instante sea $i\in S$:
 
 $$
@@ -291,9 +294,9 @@ $$
 Y(t_1)=y_1,\dots,Y(t_k)=y_k,
 X(t_k)=i
 \bigr).
-$$
+$$\
 
-Esta cantidad se calcula recursivamente mediante la ecuación de Chapman-Kolmogorov y la matriz de emisión:
+Esta cantidad se calcula recursivamente mediante la ecuación de Chapman-Kolmogorov @imp-chapman-kolmogorov y la matriz de emisión $E$ @nte-matriz-emision:
 
 $$
 \alpha_k(j)
@@ -341,7 +344,7 @@ $$
 $$
 :::
 
-::: {.callout-note title="Definición (Decodificación Óptima Global)"}
+::: {#nte-decodificacion-optima .callout-note title="Definición (Decodificación Óptima Global)"}
 Para reconstruir la trayectoria más probable, buscamos la secuencia de estados latentes
 
 $$
@@ -364,7 +367,10 @@ Y(t_1)=y_1,\dots,Y(t_K)=y_K
 \Bigr).
 $$
 
-La solución sistemática a este problema de programación dinámica espacial/temporal se obtiene mediante la adaptación del Algoritmo de Viterbi para cadenas a tiempo continuo, evaluando las transiciones máximas sobre
+A diferencia de la función $\max$, que devuelve el **valor numérico** de la probabilidad más alta alcanzada, el operador $\arg\max$ (argumento del máximo) devuelve el **conjunto de entradas** que producen ese valor máximo. En este contexto, no nos interesa saber cuál es el porcentaje exacto de la probabilidad máxi\
+ma, sino descubrir específicamente **cuál es la secuencia exacta de estados latentes** $\hat{X}$ que hace que esa probabilidad sea máxima
+
+La solución sistemática a este problema de programación dinámica espacial/temporal se obtiene mediante la adaptación del Algoritmo de Viterbi @rabiner1989tutorial para cadenas a tiempo continuo, evaluando las transiciones máximas sobre
 
 $$
 P(\Delta t_k).
@@ -642,9 +648,9 @@ A pesar de que el sensor observa un píxel blanco en el primer instante y negro 
 
 # Estimación de Parámetros y Calibración del Modelo
 
-En la práctica, la matriz generadora infinitesimal $Q$ (que dicta la tasa de degradación del color para el caso de estudio) y las probabilidades de emisión empírica rara vez son conocidas a priori y deben ser estimadas a partir de un dataset de imágenes (el alfabeto latino modificado).
+En la práctica, la matriz generadora infinitesimal $Q$ (que dicta la probabilidad de degradación del color para el caso de estudio) y las probabilidades de emisión empírica rara vez son conocidas a priori y deben ser estimadas a partir de un dataset de imágenes (el alfabeto latino modificado).
 
-::: {.callout-important title="Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))"}
+::: {#nte-baum-welch .callout-important title="Propiedad (Algoritmo de Expectation-Maximization (Baum-Welch))"}
 La estimación por máxima verosimilitud del conjunto de parámetros del modelo
 
 $$
@@ -653,11 +659,12 @@ $$
 
 dado un conjunto de secuencias observadas se realiza mediante un proceso iterativo.
 
--   **Paso E (Expectation):** Se calculan las estadísticas suficientes esperadas del sistema latente (tiempo esperado de permanencia en cada estado de color y número esperado de transiciones) condicionado a las observaciones y a la estimación actual de los parámetros $\Theta^{(m)}$, utilizando las variables recursivas Forward y Backward.
+-   **Paso** $E$ (**Expectation):** Se calculan las estadísticas suficientes esperadas del sistema latente (tiempo esperado de permanencia en cada estado de color y número esperado de transiciones) condicionado a las observaciones y a la estimación actual de los parámetros en el paso $m$ $\Theta^{(m)}$, utilizando las variables recursivas Forward y Backward.
 
--   **Paso M (Maximization):** Se actualizan los parámetros $\Theta^{(m+1)}$ para maximizar la función Q de verosimilitud esperada. En particular, la estimación de las probabilidades de transición empíricas se formula restringiendo las soluciones para garantizar que las filas de $Q^{(m+1)}$ sigan sumando cero y $q_{ij}\ge0$ para $i\neq j$.
+-   **Paso** $M$ **(Maximization):** Se actualizan los parámetros $\Theta^{(m+1)}$ para maximizar la función $Q$ de verosimilitud esperada. En particular, la estimación de las probabilidades de transición empíricas se formula restringiendo las soluciones para garantizar que las filas de $Q^{(m+1)}$ sigan sumando cero y $q_{ij}\ge0$ para $i\neq j$.
 :::
 
 \
+\
 
-![Esquema general del algoritmo Expectation–Maximization (Baum–Welch) para un Modelo Oculto de Markov. En el Paso E se estiman las probabilidades posteriores de los estados ocultos y las transiciones esperadas mediante los algoritmos Forward–Backward. En el Paso M se actualizan iterativamente la matriz generadora y la matriz de emisión para maximizar la verosimilitud de las observaciones.](imagenesHMM/ME_HMM.png){#fig-ME fig-align="center" width="300"}
+![Esquema general del algoritmo Expectation–Maximization (Baum–Welch) para un Modelo Oculto de Markov. En el Paso E se estiman las probabilidades posteriores de los estados ocultos y las transiciones esperadas mediante los algoritmos Forward–Backward. En el Paso M se actualizan iterativamente la matriz generadora y la matriz de emisión para maximizar la verosimilitud de las observaciones.](imagenesHMM/ME_HMM.png){#fig-ME fig-align="center" width="500"}

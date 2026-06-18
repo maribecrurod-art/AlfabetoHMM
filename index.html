@@ -393,6 +393,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Caso de estudio: Reconocimiento de Caracteres Manuscritos con HMM</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Referencias</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -446,7 +452,7 @@ window.Quarto = {
 
 <section id="espacio-probabilístico-y-procesos-estocásticos-subyacentes" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Espacio Probabilístico y Procesos Estocásticos Subyacentes</h1><p><img src="imagenesHMM/LogoDelfin.png" title="Aplicación de Modelos Ocultos de Markov (HMM) al reconocimiento del alfabeto latino" class="quarto-cover-image nolightbox img-fluid"></p>
-<p>Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es necesario partir de los axiomas fundamentales de la teoría de la medida, para más detalle consultar el libro de <span class="citation" data-cites="Rudin1987">Rudin (<a href="#ref-Rudin1987" role="doc-biblioref">1987</a>)</span>.</p>
+<p>Para establecer formalmente una Cadena de Markov a Tiempo Continuo (CTMC), es necesario partir de los axiomas fundamentales de la teoría de la medida, para más detalle consultar el libro de <span class="citation" data-cites="Rudin1987">Rudin (<a href="Referencias.html#ref-Rudin1987" role="doc-biblioref">1987</a>)</span>.</p>
 <p>Para esto, se asumirá que el lector tiene conocimientos previos sobre teoría de la medida como lo son las <span class="math inline">\(\sigma\)</span>-álgebras, espacio muestral y medida de probabilidad, entre otros.</p>
 <div id="nte-espacio-filtrado" class="callout callout-style-default callout-note callout-titled" title="Definición (Espacio de Probabilidad Filtrado)">
 <div class="callout-header d-flex align-content-center">
@@ -652,7 +658,7 @@ Propiedad&nbsp;3.1: Propiedad (Ecuaciones Diferenciales de Kolmogorov)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Bajo condiciones de regularidad (que se cumplen trivialmente si el espacio de estados del color <span class="math inline">\(S\)</span> es finito), la matriz de transición <span class="math inline">\(P(t)\)</span> es la solución única a las ecuaciones diferenciales matriciales de Kolmogorov Hacia Adelante (Forward) y Hacia Atrás (Backward) <span class="citation" data-cites="Norris1998">Norris (<a href="#ref-Norris1998" role="doc-biblioref">1998</a>)</span> :</p>
+<p>Bajo condiciones de regularidad (que se cumplen trivialmente si el espacio de estados del color <span class="math inline">\(S\)</span> es finito), la matriz de transición <span class="math inline">\(P(t)\)</span> es la solución única a las ecuaciones diferenciales matriciales de Kolmogorov Hacia Adelante (Forward) y Hacia Atrás (Backward) <span class="citation" data-cites="Norris1998">Norris (<a href="Referencias.html#ref-Norris1998" role="doc-biblioref">1998</a>)</span> :</p>
 <ul>
 <li><strong>Forward:</strong></li>
 </ul>
@@ -859,7 +865,7 @@ Y(t_1)=y_1,\dots,Y(t_K)=y_K
 \]</span></p>
 <p>A diferencia de la función <span class="math inline">\(\max\)</span>, que devuelve el <strong>valor numérico</strong> de la probabilidad más alta alcanzada, el operador <span class="math inline">\(\arg\max\)</span> (argumento del máximo) devuelve el <strong>conjunto de entradas</strong> que producen ese valor máximo. En este contexto, no nos interesa saber cuál es el porcentaje exacto de la probabilidad máxi<br>
 ma, sino descubrir específicamente <strong>cuál es la secuencia exacta de estados latentes</strong> <span class="math inline">\(\hat{X}\)</span> que hace que esa probabilidad sea máxima</p>
-<p>La solución sistemática a este problema de programación dinámica espacial/temporal se obtiene mediante la adaptación del Algoritmo de Viterbi <span class="citation" data-cites="rabiner1989tutorial">Rabiner (<a href="#ref-rabiner1989tutorial" role="doc-biblioref">1989</a>)</span> para cadenas a tiempo continuo, evaluando las transiciones máximas sobre</p>
+<p>La solución sistemática a este problema de programación dinámica espacial/temporal se obtiene mediante la adaptación del Algoritmo de Viterbi <span class="citation" data-cites="rabiner1989tutorial">Rabiner (<a href="Referencias.html#ref-rabiner1989tutorial" role="doc-biblioref">1989</a>)</span> para cadenas a tiempo continuo, evaluando las transiciones máximas sobre</p>
 <p><span class="math display">\[
 P(\Delta t_k).
 \]</span></p>
@@ -1117,11 +1123,12 @@ Definición&nbsp;6.1: Propiedad (Algoritmo de Expectation-Maximization (Baum-Wel
 </div>
 </div>
 <p><br>
+<br>
 </p>
 <div id="fig-ME" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="imagenesHMM/ME_HMM.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="750">
+<img src="imagenesHMM/ME_HMM.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ME-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;6.1: Esquema general del algoritmo Expectation–Maximization (Baum–Welch) para un Modelo Oculto de Markov. En el Paso E se estiman las probabilidades posteriores de los estados ocultos y las transiciones esperadas mediante los algoritmos Forward–Backward. En el Paso M se actualizan iterativamente la matriz generadora y la matriz de emisión para maximizar la verosimilitud de las observaciones.
@@ -1130,7 +1137,7 @@ Figura&nbsp;6.1: Esquema general del algoritmo Expectation–Maximization (Baum�
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-Norris1998" class="csl-entry" role="listitem">
 Norris, J. R. 1998. <em>Markov Chains</em>. Cambridge: Cambridge University Press.
 </div>

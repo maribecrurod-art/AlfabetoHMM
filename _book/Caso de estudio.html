@@ -685,7 +685,7 @@ Figura&nbsp;3.2: La imagen muestra una representación de la descomposición de 
 </figcaption>
 </figure>
 </div>
-<p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM <a href="index.html#nte-hmm-categorico-1" class="quarto-xref">Note&nbsp;<span>2.3</span></a>, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
+<p>Dichas características fueron cuantificadas y codificadas en un conjunto discreto de 256 símbolos observables. Este procedimiento permitió adaptar el problema a la formulación categórica de HMM <a href="index.html#nte-hmm-categorico-1" class="quarto-xref">Definición&nbsp;<span>2.3</span></a>, cuyos mecanismos de emisión operan sobre observaciones discretas.</p>
 </section>
 <section id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="construcción-de-los-conjuntos-de-entrenamiento-y-prueba"><span class="header-section-number">3.7</span> Construcción de los conjuntos de entrenamiento y prueba</h2>
@@ -770,7 +770,7 @@ for seq in tqdm(X_test, desc="Evaluando Inferencia"):
     pred = max(scores, key=scores.get)
     y_pred.append(pred)</code></pre>
 <p>La predicción final se obtuvo seleccionando la letra cuyo modelo produjo la mayor puntuación de verosimilitud sobre la secuencia observada.</p>
-<p>Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM <a href="index.html#nte-propiedad-markov" class="quarto-xref">Note&nbsp;<span>2.1</span></a>.</p>
+<p>Este criterio corresponde al principio de máxima verosimilitud y constituye una de las estrategias más utilizadas en tareas de reconocimiento basadas en HMM <a href="index.html#nte-propiedad-markov" class="quarto-xref">Definición&nbsp;<span>2.1</span></a>.</p>
 </section>
 <section id="sec-evaluacion" class="level2" data-number="3.10">
 <h2 data-number="3.10" class="anchored" data-anchor-id="sec-evaluacion"><span class="header-section-number">3.10</span> Evaluación del desempeño</h2>
